@@ -1,0 +1,76 @@
+
+INSERT INTO img_slider (nombre,categoria,ruta) VALUES ("img_5","enduro","view\img\shop\index2_product5.png")
+INSERT INTO categoria(categoria, ruta, more_visited) VALUES ('growth','view\img\shop\index2_product1.png','0')
+INSERT INTO user (name, email, passwd, type, avatar) VALUES ('hachemico','hachemico@gmail.com','123456','client','')
+
+**********  *********
+<< AJAX PROMISE >>
+
+ajaxPromise(
+    "module/shop/controller/controller_shop.php?op=count_all_pagination",
+    "GET",
+    "JSON"
+  )
+    .then(function (data) {
+      console.log("DEBUG AjaxPromise>>> " + data.length);
+    })
+    .catch(function () {
+      console.log("Error Ajaxpromise");
+    });
+
+
+*********************************
+
+************** AJAX PROMISE ADV. *****************
+var ajax_log = function (url, data) { // Funcion ajax_reg con promise
+
+  // console.log(data)
+
+  return new Promise(function (resolve) {
+      $.ajax({
+          type: "POST",
+          url: url,
+          data: data
+      })
+          .done(function (data_log) {
+              resolve(data_log);
+          })
+  })
+};
+**************************************************
+LLAMADA AJAX PROMISE ADV.
+ajax_log('module/login/controller/controller_login.php?&op=login&', userinfo)
+                .then(function (data) {
+                    // console.log("DEBUG valor data Ajax_LOG >>>"+ data);
+                    
+                    localStorage.setItem('token',data); // guardamos el token generado en localstorage.
+                    setTimeout(' window.location.href = "index.php?page=controller_home&op=list"; ',1000); //Saltamos al home para lanzar la vista.
+                }) //end_ajax_log
+
+*************************************************************
+
+<< LOCALSTORAGE >>
+
+localStorage.setItem('categoria_car',categoria_car); // save data
+
+********************************
+<< "SALTO A CONTROLLER">>
+
+setTimeout('window.location.href ="index.php?page=controller_shop&op=list";',1000);   
+
+**********************************
+Favourites
+
+<i class='fas fa-heart' style='font-size:36px'></i> //para el corazon negro.
+<i class='fas fa-heart' style='font-size:48px;color:red'></i> /// para el corazon rojo "favorito"
+
+**********************************
+
+PENDIENTE >>>
+
+REPARAR EL SEARCH(). el register detecta la classe .form_control y la asocia al form_register saltando de uno al otro.
+                    Cambio de clase a id, y el search ha dejado de funcionar.
+
+
+
+                    
