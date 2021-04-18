@@ -1,5 +1,5 @@
 <?php
-    $path = $_SERVER['DOCUMENT_ROOT'] . '/8_MVC_CRUD';
+    $path = $_SERVER['DOCUMENT_ROOT'] . '/FW_BikeShop';
     include($path . "/module/home/model/DAO_home.php");
     //  echo("carga DAOHOME");
     

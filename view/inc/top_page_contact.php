@@ -34,7 +34,7 @@
 			
 			<!-- Toastr CSS -->
 			<!-- <link href="view/css/toastr.min.css" rel="stylesheet"/> -->
-			<link rel=”stylesheet” type=”text/css” href=”view/css/toastr/toastr.css”>
+			<!-- <link rel=”stylesheet” type=”text/css” href=”view/css/toastr/toastr.css”> -->
 			<!-- Magnific Popup -->
 			<link href="view/css/magnific-popup.css" rel="stylesheet">
 

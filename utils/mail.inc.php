@@ -39,7 +39,7 @@ class mail {
     }// end_setEmail
     
     function sendMailGun($values) {
-        $ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/frameworkCars.v.1.3/model/api-keys/apis.ini');
+        $ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/FW_BikeShop/model/api-keys/apis.ini');
         $config = array();
         //////
         $config['api_key'] = $ini_file['mailGunKey'];

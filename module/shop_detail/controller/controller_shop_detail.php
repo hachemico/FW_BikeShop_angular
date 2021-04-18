@@ -1,5 +1,5 @@
 <?php
-    $path = $_SERVER['DOCUMENT_ROOT'] . '/8_MVC_CRUD';
+    $path = $_SERVER['DOCUMENT_ROOT'] . '/FW_BikeShop';
     include($path . "/module/shop_detail/model/DAO_shop_detail.php");
 
     

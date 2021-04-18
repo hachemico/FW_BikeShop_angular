@@ -20,7 +20,7 @@ class controller_contact {
                             'inputMatter' => $_POST['matter'], 
                             'inputMessage' => $_POST['message']];
     
-                            $ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/framework_bikeShop/model/apis.ini');
+                            $ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/FW_BikeShop/model/apis.ini');
                             $config = array();
                             //////
                             $config['api_key'] = $ini_file['apiKey'];

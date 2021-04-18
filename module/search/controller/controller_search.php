@@ -1,5 +1,5 @@
 <?php
-    $path = $_SERVER['DOCUMENT_ROOT'] . '/8_MVC_CRUD';
+    $path = $_SERVER['DOCUMENT_ROOT'] . '/FW_BikeShop';
     include($path . "/module/search/model/DAO_search.php");
  
         switch($_GET['op']){
