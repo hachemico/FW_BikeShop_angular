@@ -1,8 +1,10 @@
 <?php
 //////
-define ('PROJECT', '/framework_bikeShop/'); // Project Path
-define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT'] . PROJECT); // Site Root
+// define ('PROJECT', '/FW_BikeShop/'); // Project Path
+// define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT'] . PROJECT); // Site Root
 
+define ('PROJECT', '/FW_BikeShop/'); // Project Path
+define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT'] . PROJECT); // Site Root
 define ('SITE_PATH', 'http://' . $_SERVER['HTTP_HOST'] . PROJECT); // Site Path
 define ('CSS_PATH', SITE_PATH . 'view/assets/css/'); // Css Path
 define ('JS_PATH', SITE_PATH . 'view/js/'); // JS Path

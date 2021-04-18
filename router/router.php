@@ -22,8 +22,13 @@ class router {
     function __construct() {
         $this -> uriModule = (ISSET($_GET['module'])) ? $_GET['module'] : 'contact';
         $this -> uriFunction = (ISSET($_GET['function'])) ? $_GET['function'] : 'list';
- 
+
+        // $this -> uriModule = 'contact';
+        // $this -> uriFunction = 'list';
+    }
     function rountingStart() {
+        // echo("SOPOTA");
+    
         try {
             call_user_func(array($this -> loadModule(), $this -> loadFunction()));
         }catch(Exception $e) {
