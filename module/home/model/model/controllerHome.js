@@ -1,58 +1,109 @@
 function carousel(){
-    $.ajax({
-         
-         url: "module/home/controller/controller_home.php?op=carousel",
-         type: "GET",
-         dataType: "json",
-     })
-      .done(function(data) {
-     
-          var cadena="";
-           for(var i=0; i < data.length; i++){
-             cadena=cadena+(
-             '<div class="owl-content">'+
-              '<div class="product-item filter-best">'+
-                   '<div class="product-img">'+
-                       '<img src="'+ data[i].ruta +'" id= "'+data[i].categoria +'"class="carousel-click" alt="" >'+
-                   '</div>'+
-                   '<!-- .product-img end -->'+
-                   '<div class="product-bio">'+
-                        '<h4>'+
-                          '<a href="#">'+data[i].categoria+'</a>'+
-                        '</h4>'+
-                     '<p class="product-price"></p>'+
-                   '</div>'+
-                   '<!-- .product-bio end -->'+
-                '</div>'+
-                  '<!-- .product-item end -->'+
-              '</div>');
-           } //end_for
 
-          $('.owl-carousel').append(cadena);   
-          $(".owl-carousel").owlCarousel({
-            slideSpeed : 500,
-            rewindSpeed : 1000,
-            mouseDrag : true,
-            stopOnHover : true
-          });
-          /* Own navigation */
-          $(".owl-nav-prev").click(function(){
-            $(this).parent().next(".owl-carousel").trigger('owl.prev');
-          });
-          $(".owl-nav-next").click(function(){
-            $(this).parent().next(".owl-carousel").trigger('owl.next');
-          });
-     })
-      .fail(function(data) {
-         console.log ("Debug Fallo Slider"); 
-     });
+  ajaxPromise(
+    "index.php?module=home&function=carousel",
+    "POST",
+    "JSON"
+  )
+.then(function(data) {
+    console.log(data);
+   
+  //   var cadena="";
+  //   for(var i=0; i < data.length; i++){
+  //     cadena=cadena+(
+  //     '<div class="owl-content">'+
+  //      '<div class="product-item filter-best">'+
+  //           '<div class="product-img">'+
+  //               '<img src="'+ data[i].ruta +'" id= "'+data[i].categoria +'"class="carousel-click" alt="" >'+
+  //           '</div>'+
+  //           '<!-- .product-img end -->'+
+  //           '<div class="product-bio">'+
+  //                '<h4>'+
+  //                  '<a href="#">'+data[i].categoria+'</a>'+
+  //                '</h4>'+
+  //             '<p class="product-price"></p>'+
+  //           '</div>'+
+  //           '<!-- .product-bio end -->'+
+  //        '</div>'+
+  //          '<!-- .product-item end -->'+
+  //      '</div>');
+  //   } //end_for
+
+  //  $('.owl-carousel').append(cadena);   
+  //  $(".owl-carousel").owlCarousel({
+  //    slideSpeed : 500,
+  //    rewindSpeed : 1000,
+  //    mouseDrag : true,
+  //    stopOnHover : true
+  //  });
+  //  /* Own navigation */
+  //  $(".owl-nav-prev").click(function(){
+  //    $(this).parent().next(".owl-carousel").trigger('owl.prev');
+  //  });
+  //  $(".owl-nav-next").click(function(){
+  //    $(this).parent().next(".owl-carousel").trigger('owl.next');
+  //  });
+
+
+//  }).catch(function(error) {
+     
+//          console.log(error);
+      
+});
+    // $.ajax({
+         
+    //      url: "module/home/controller/controller_home.class.php?function=carousel",
+    //      type: "GET",
+    //      dataType: "json",
+    //  })
+    //   .done(function(data) {
+     
+    //       var cadena="";
+    //        for(var i=0; i < data.length; i++){
+    //          cadena=cadena+(
+    //          '<div class="owl-content">'+
+    //           '<div class="product-item filter-best">'+
+    //                '<div class="product-img">'+
+    //                    '<img src="'+ data[i].ruta +'" id= "'+data[i].categoria +'"class="carousel-click" alt="" >'+
+    //                '</div>'+
+    //                '<!-- .product-img end -->'+
+    //                '<div class="product-bio">'+
+    //                     '<h4>'+
+    //                       '<a href="#">'+data[i].categoria+'</a>'+
+    //                     '</h4>'+
+    //                  '<p class="product-price"></p>'+
+    //                '</div>'+
+    //                '<!-- .product-bio end -->'+
+    //             '</div>'+
+    //               '<!-- .product-item end -->'+
+    //           '</div>');
+    //        } //end_for
+
+    //       $('.owl-carousel').append(cadena);   
+    //       $(".owl-carousel").owlCarousel({
+    //         slideSpeed : 500,
+    //         rewindSpeed : 1000,
+    //         mouseDrag : true,
+    //         stopOnHover : true
+    //       });
+    //       /* Own navigation */
+    //       $(".owl-nav-prev").click(function(){
+    //         $(this).parent().next(".owl-carousel").trigger('owl.prev');
+    //       });
+    //       $(".owl-nav-next").click(function(){
+    //         $(this).parent().next(".owl-carousel").trigger('owl.next');
+    //       });
+    //  })
+    //   .fail(function(data) {
+    //      console.log ("Debug Fallo Slider"); 
+    //  });
    } // end_function_carousel
  
  function categoria (){
  
      $.ajax({
          
-       url: "module/home/controller/controller_home.php?op=categoria",
+       url: "module/home/controller/controller_home.class.php?funtion=categoria",
        type: "GET",
        dataType: "json",
        
@@ -99,7 +150,7 @@ function carousel(){
     localStorage.setItem('offset_pag',cero); // save data
     localStorage.setItem('filters',cero); // save data
     
-      setTimeout('window.location.href ="index.php?page=controller_shop&op=list";',1000);
+      setTimeout('window.location.href ="index.php?module=controller_shop&funtion=list";',1000);
   }); //end_onclick
 }
 
@@ -116,7 +167,7 @@ function connect_carousel(){
     localStorage.setItem('count_cat',categoria_car); // save data
     localStorage.setItem('offset_pag',cero); // save data
     localStorage.setItem('filters',cero); // save data
-      setTimeout('window.location.href ="index.php?page=controller_shop&op=list";',1000);   
+      setTimeout('window.location.href ="index.php?module=controller_shop&function=list";',1000);   
   }); //end_onclick
  
 }//end_function_carousel
@@ -196,9 +247,9 @@ function scroll(){
 
  $(document).ready(function () {
   
-  carousel();
-  categoria();
-  connect_carousel();
-  connect_categoria();
-  scroll();
+   carousel();
+  // categoria();
+  // connect_carousel();
+  // connect_categoria();
+  // scroll();
  });

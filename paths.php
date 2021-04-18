@@ -20,9 +20,10 @@ define ('UTILS', SITE_ROOT . 'utils/'); // Utils Path
 define ('MODEL_PATH_CONTACT', SITE_ROOT . 'module/contact/model/');
 define ('VIEW_PATH_CONTACT', SITE_ROOT . 'module/contact/view/');
 
-// //Home
-// define ('VIEW_PATH_HOME', SITE_ROOT . 'module/home/view/');
-// define ('MODEL_PATH_HOME', SITE_ROOT . 'module/home/model/model/');
+//Home
+define ('MODEL_PATH_HOME', SITE_ROOT . 'module/home/model/model/');
+define ('VIEW_PATH_HOME', SITE_ROOT . 'module/home/view/');
+
 
 // //Shop
 // define ('VIEW_PATH_SHOP', SITE_ROOT . 'module/shop/view/');

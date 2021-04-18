@@ -2,12 +2,13 @@
 //////
 class common {
     function loadError() {
-        echo("LOAD ERROR!");
-        exit();
-        // require_once (VIEW_PATH_INC . 'topPageHome.php');
-        // require_once (VIEW_PATH_INC . 'menu.html');
-        // require_once (VIEW_PATH_INC . 'error404.html');
+        // echo("LOAD ERROR!");
+        // exit();
+        require_once (VIEW_PATH_INC . 'top_page_home.php');
+        require_once (VIEW_PATH_INC . 'menu.html');
+        require_once (VIEW_PATH_INC . 'error404.html');
         // require_once (VIEW_PATH_INC . 'content.html');
+        require_once (VIEW_PATH_INC . 'footer.html');
     }// end_loadError
     
     function loadView($topPage, $view) {
