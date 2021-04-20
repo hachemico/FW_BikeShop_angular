@@ -5,6 +5,7 @@
 apis.ini
 connect.php
 db.sql
+db.ini
 # User-specific files
 *.rsuser
 *.suo
@@ -334,3 +335,4 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+model/db.ini
