@@ -82,11 +82,11 @@
 
 	    <link href="view/css/style.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="view/inc/translate.js"></script>
-        <script src="module/home/model/controllerHome.js"></script>
-        <script src="module/search/view/controller_search.js"></script>
-		<script src="module/login/view/controller_login.js"></script>
-        <script src="module/login/view/controller_register.js"></script>
+        <script src="module/home/model/model/controllerHome.js"></script>
+        <!-- <script src="module/search/view/controller_search.js"></script> -->
+		<!-- <script src="module/login/view/controller_login.js"></script> -->
+        <!-- <script src="module/login/view/controller_register.js"></script> -->
         <script src="view/js/ajax_promise/ajax_promise.js"></script>
-        <script src="init.js"></script>
+        <!-- <script src="init.js"></script> -->
     </head>
     <body class="style-14 index-2">

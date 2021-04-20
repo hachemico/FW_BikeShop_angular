@@ -16,19 +16,32 @@ class home_dao {
     public function  select_carousel($db) {
 
         $sql = "SELECT * FROM img_slider ORDER BY nombre ASC";
+         $stmt = $db->ejecutar($sql);
+         return $db->listar($stmt);
+    }
+    public function select_categories($db) {
+        $sql = "SELECT * FROM categoria ORDER BY more_visited DESC LIMIT 4 ";
         $stmt = $db->ejecutar($sql);
         return $db->listar($stmt);
     }
 
-    // public function select_carousel() {
-    //     return db::query() -> select(['carPlate' ,'brand', 'model', 'image'], 'allCars') -> order(['cv'], 'DESC') -> limit(5) -> execute() -> queryToArray(true) -> toJSON();
-    // }// end_selectSlide
+    public function select_countCategories($db) {
+        $sql = "SELECT COUNT(*) AS count FROM categoria ";
+        // $sql = "SELECT breed FROM dogs GROUP BY breed ORDER BY count(*) DESC LIMIT $arrArgument,2";
+        $stmt = $db->ejecutar($sql);
+        return $db->listar($stmt);
+    }
 
-    // public function selectCategories($itemsPage, $totalItems) {
-    //     return db::query() -> select(['*'], 'brandCars') -> order(['views'], 'DESC') -> limit($itemsPage, $totalItems) -> execute() -> queryToArray(true) -> toJSON();
-    // }// end_selectCategories
+    public function select_morecat($db,$arrArgument) {
+        // $sql = "SELECT DISTINCT name,chip,breed,sex,stature,picture,date_birth FROM dogs WHERE name LIKE '%$arrArgument%' AND state = 0";
+        $sql = "SELECT * FROM categoria ORDER BY more_visited DESC LIMIT 4 OFFSET $arrArgument ";
+        $stmt = $db->ejecutar($sql);
+        return $db->listar($stmt);
+    }
 
-    // public function incView($brand) {
-    //     return db::query() -> update(['views' => 'views + 1'], 'brandCars') -> where(['brand' => [$brand]]) -> execute();
-    // }// end_incView
-}// end_home_dao
+    // public function update_active_user($db,$arrArgument) {
+    //     $sql = "UPDATE users SET activate = 1 WHERE token = '$arrArgument'";
+    //     return $db->ejecutar($sql);
+    // }
+
+}

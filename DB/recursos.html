@@ -39,15 +39,20 @@ var ajax_log = function (url, data) { // Funcion ajax_reg con promise
 };
 **************************************************
 LLAMADA AJAX PROMISE ADV.
-ajax_log('module/login/controller/controller_login.php?&op=login&', userinfo)
-                .then(function (data) {
-                    // console.log("DEBUG valor data Ajax_LOG >>>"+ data);
-                    
-                    localStorage.setItem('token',data); // guardamos el token generado en localstorage.
-                    setTimeout(' window.location.href = "index.php?page=controller_home&op=list"; ',1000); //Saltamos al home para lanzar la vista.
-                }) //end_ajax_log
 
-*************************************************************
+ajaxPromise(
+  "index.php?module=home&function=categories",
+  "POST",
+  "JSON"
+)
+.then(function(data) {
+
+
+}).catch(function(error) {
+  console.log("Error Ajax Carousel"); 
+});   
+*************************************************************************
+
 
 << LOCALSTORAGE >>
 

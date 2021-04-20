@@ -50,7 +50,11 @@ class router {
                         // echo($path);
                         // exit();
                         $controllerName = 'controller_' . (String) $row -> name;
+                        // echo($controllerName);
+                        // exit();
                         $this -> nameModule = (String) $row -> name;
+                        // echo($this -> nameModule);
+                        // exit();
                         return new $controllerName;
                     }// end_if
                 }// end_if
@@ -61,13 +65,16 @@ class router {
     
     private function loadFunction() {
         $path = MODULES_PATH . $this -> nameModule . '/resources/functions.xml';
+          
         if (file_exists($path)) {
-            // echo("DEBUG dentro del loadFunction>>>");
+            // echo($path);
             // exit();
             $functions = simplexml_load_file($path);
+           
             foreach ($functions as $row) {
                 if (in_array($this -> uriFunction, (Array) $row -> uri)) {
                     return (String) $row -> name;
+
                 }// end_if
             }// end_foreach
         }// end_if

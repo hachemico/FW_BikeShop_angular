@@ -6,6 +6,7 @@ class home_bll {
 
     function __construct() {
         $this -> dao = home_dao::getInstance();
+        $this->db = db::getInstance();
     }// end_construct
 
     public static function getInstance() {
@@ -16,14 +17,16 @@ class home_bll {
     }// end_getInstance
 
     public function carousel_home_BLL() {
-        return $this -> dao -> select_carousel();
-    }// end_getSlide_home_BLL
+        return $this -> dao -> select_carousel($this->db);
+    } // end carousel_home_BLL
 
-    public function getCategories_home_BLL($args) {
-        return $this -> dao -> selectCategories($args[0], $args[1]);
-    }// end_getCategories_home_BLL
-
-    public function IncView_home_BLL($args) {
-        return $this -> dao -> incView($args);
-    }// end_if
-}// end_home_bll
+    public function categories_BLL(){
+        return $this->dao->select_categories($this->db);
+      }
+      public function countCategories_BLL(){
+         return $this->dao->select_countCategories($this->db);
+      }
+      public function moreCategories_BLL($arrArgument){
+        return $this->dao->select_morecat($this->db,$arrArgument);
+      }
+  }

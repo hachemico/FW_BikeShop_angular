@@ -9,8 +9,8 @@
         <uri>carousel</uri>
     </function>
     <function>
-        <name>categoria</name>
-        <uri>categoria</uri>
+        <name>categories</name>
+        <uri>categories</uri>
     </function>
     <function>
         <name>countCategories</name>
