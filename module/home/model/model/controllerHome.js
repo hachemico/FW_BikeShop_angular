@@ -9,8 +9,8 @@ function carousel(){
     "JSON"
   )
 .then(function(data) {
-    // console.log("Debug valor ajax Carousel >>>"+ data[0].ruta);
-     
+    // console.log("Debug valor ajax Carousel >>>"+ d)ata[0].ruta);
+    console.log("Debug valor ajax Carousel >>>"+ data);
     var cadena="";
     for(var i=0; i < data.length; i++){
       cadena=cadena+(
@@ -103,7 +103,7 @@ function carousel(){
     localStorage.setItem('offset_pag',cero); // save data
     localStorage.setItem('filters',cero); // save data
     
-      setTimeout('window.location.href ="index.php?module=controller_shop&funtion=list";',1000);
+    setTimeout('window.location.href ="index.php?module=shop&function=list";',1000);
   }); //end_onclick
 }
 
@@ -120,7 +120,9 @@ function connect_carousel(){
     localStorage.setItem('count_cat',categoria_car); // save data
     localStorage.setItem('offset_pag',cero); // save data
     localStorage.setItem('filters',cero); // save data
-      setTimeout('window.location.href ="index.php?module=controller_shop&function=list";',1000);   
+      // setTimeout('window.location.href ="index.php?module=controller_shop&function=list";',1000);  
+      setTimeout('window.location.href ="index.php?module=shop&function=list";',1000);
+      
   }); //end_onclick
  
 }//end_function_carousel
@@ -276,7 +278,7 @@ function scroll(){
   
    carousel();
    categoria();
-  // connect_carousel();
-  // connect_categoria();
+   connect_carousel();
+   connect_categoria();
    scroll();
  });
