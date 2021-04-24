@@ -28,11 +28,13 @@ class common {
 
     function loadModel($model_path, $model_name, $function, $arrArgument = '',$arrArgument2 = ''){
         $model = $model_path . $model_name . '.class.singleton.php';
-      
+        // echo($model);
+        // exit();
         if (file_exists($model)) {
+                      
             include_once($model);
             $modelClass = $model_name;
-
+                  
             if (!method_exists($modelClass, $function)){
                 throw new Exception();
             }
@@ -51,25 +53,6 @@ class common {
         }
         //  echo json_encode($obj);
     }
-
-
-
-    // function accessModel($model, $function = null, $args = null) {
-    //     $dir = explode('_', $model);
-    //     $path = constant('MODEL_PATH_' . strtoupper($dir[0])) .  $model . '.class.singleton.php';
-    //     if (file_exists($path)) {
-    //         require_once ($path);
-    //         if (method_exists($model, $function)) {
-    //             $obj = $model::getInstance();
-    //             if ($args != null) {
-    //                 return call_user_func(array($obj, $function), $args);
-    //             }// end_if
-    //             return call_user_func(array($obj, $function));
-    //         }// end_if
-    //     }// end_if
-    //     //////
-    //     throw new Exception();
-    // }// end_accessModel
 
     function generate_Token_secure($longitud){
         if ($longitud < 4) {

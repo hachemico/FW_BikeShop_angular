@@ -1,22 +1,25 @@
 function shop_detail(){
-    
+    console.log("Carga shopDetails.js");
     if (document.getElementById('detail_shop')) {
 
        
-        let id= localStorage.getItem('id_detail');
+        let id = {"value_id":localStorage.getItem("id_detail")};
+        // let id = localStorage.getItem("id_detail");
         console.log("DEBUG VALOR ID >>>"+id);
 
         ajaxPromise(
-            "module/shop_detail/controller/controller_shop_detail.php?op=detail&id="+id,
-            "GET",
-            "JSON"
+            "index.php?module=shopDetail&function=detail",
+            "POST",
+            "JSON",
+            id
           )
             .then(function (data) {
-              console.log("DEBUG AjaxPromise>>> " + data);
-              let price_orig=(data.price *1.15);
+              // console.log("DEBUG AjaxPromise>>> " + data);
+              // console.log(data);
+              let price_orig=(data[0].price *1.15);
               
               $('#product_title').append(
-                '<h1 class="product_title" >'+data.brand+' '+data.model+'</h1>'
+                '<h1 class="product_title" >'+data[0].brand+' '+data[0].model+'</h1>'
               )
               $('#detail_shop').append(
                 '<div class="col-md-5 col-sm-6 summary-before ">'+
@@ -27,7 +30,7 @@ function shop_detail(){
                   '<ul class="slides">'+
                       '<li data-thumb="view/img/temp-images/hoodie_7_front-140x140.jpg">'+
                           '<a href="view/img/temp-images/hoodie_7_front.jpg" data-imagelightbox="gallery" class="hoodie_7_front">'+
-                              '<img src="'+data.img+'" class="attachment-shop_single" alt="image">'+
+                              '<img src="'+data[0].img+'" class="attachment-shop_single" alt="image">'+
                           '</a>'+
                       '</li>'+
                       '<!-- <li data-thumb="view/img/temp-images/hoodie_7_back-140x140.jpg">'+
@@ -47,16 +50,16 @@ function shop_detail(){
               
 
               $('#detail_comment').append(
-                '<p>'+data.comment+'</p>'
+                '<p>'+data[0].comment+'</p>'
               )
               $('#detail_price').append(
                 ' <p class="price"><del><span class="amount">'+price_orig+' </span></del>'+
-                 '<ins><span class="amount">'+data.price+'€</span></ins></p>'
+                 '<ins><span class="amount">'+data[0].price+'€</span></ins></p>'
                )
                $('#detail_comment').append(
-                '<span class="sku_wrapper">TALLA: <span class="sku">'+data.size+'</span>   </span>'+
+                '<span class="sku_wrapper">TALLA: <span class="sku">'+data[0].size+'</span>   </span>'+
                 '<a></a></br>'+
-               '<span class="posted_in">Categoria: <a href="#" rel="tag">'+data.category+'</a></span>'
+               '<span class="posted_in">Categoria: <a href="#" rel="tag">'+data[0].category+'</a></span>'
               )
 
             })

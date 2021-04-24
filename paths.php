@@ -15,7 +15,7 @@ define ('MODULES_PATH', SITE_ROOT . 'module/'); // Modules Path
 define ('VIEW_PATH_INC', SITE_ROOT . 'view/inc/'); // View Path Inc
 define ('RESOURCES', SITE_ROOT . 'resources/'); // Resources Path
 define ('UTILS', SITE_ROOT . 'utils/'); // Utils Path
-//////
+
 // Contact
 define ('MODEL_PATH_CONTACT', SITE_ROOT . 'module/contact/model/');
 define ('VIEW_PATH_CONTACT', SITE_ROOT . 'module/contact/view/');
@@ -24,10 +24,13 @@ define ('VIEW_PATH_CONTACT', SITE_ROOT . 'module/contact/view/');
 define ('MODEL_PATH_HOME', SITE_ROOT . 'module/home/model/model/');
 define ('VIEW_PATH_HOME', SITE_ROOT . 'module/home/view/');
 
+//Shop
+define ('MODEL_PATH_SHOP', SITE_ROOT . 'module/shop/model/model/');
+define ('VIEW_PATH_SHOP', SITE_ROOT . 'module/shop/view/');
 
-// //Shop
-// define ('VIEW_PATH_SHOP', SITE_ROOT . 'module/shop/view/');
-// define ('MODEL_PATH_SHOP', SITE_ROOT . 'module/shop/model/model/');
+// //Shop Detail
+define ('MODEL_PATH_SHOPDETAIL', SITE_ROOT . '/module/shopDetail/model/model/');
+define ('VIEW_PATH_SHOPDETAIL', SITE_ROOT . 'module/shopDetail/view/');
 
 // //Search
 // define ('MODEL_PATH_SEARCH', SITE_ROOT . '/module/search/model/model/');

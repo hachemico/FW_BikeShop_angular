@@ -1,64 +1,71 @@
+console.log("Carga controller_shop.js");
+
 function shop(){
   
   if (document.getElementById('shop')) {
 
-      var drop_homecat= localStorage.getItem("categoria_cat");
-      var drop_homecar= localStorage.getItem("categoria_car");
-      var drop_autocom= localStorage.getItem("autocom_search");
+      var drop_homecat= {"value_cat":(localStorage.getItem("categoria_cat"))};
+      var drop_homecar= {"value_car":(localStorage.getItem("categoria_car"))};
+      var drop_autocom= {"value_search":(localStorage.getItem("autocom_search"))};
       var drop_offset_pag= localStorage.getItem("offset_pag");
       var drop_filters= localStorage.getItem("filters");
+    
 
-
-      console.log("Valor DROP_AUTOCOM >>> "+drop_autocom);
+      // console.log("Valor DROP_AUTOCOM >>> "+drop_autocom);
 
       if(drop_homecat!==0 && drop_homecat!==null && drop_homecar==0 && drop_autocom==0){ //Condición FromHome Categorias
 
-        console.log("Debug por DropHomecategoria >>>");
-        ajaxForSearch("module/shop/controller/controller_shop.php?op=home_categoria&categoria_cat=" + drop_homecat);
-
+        // console.log("Debug por DropHomecategoria >>>");
+        ajaxForSearch("index.php?module=shop&function=homeCategories", drop_homecat);
+       
       }else if(drop_homecar!==0 && drop_homecar!==null && drop_autocom==0){ //Condicion FromHome Carousel/Slider
 
-        console.log("Debug por DropHomecarousel >>>");
-        ajaxForSearch("module/shop/controller/controller_shop.php?op=home_carousel&categoria_car=" + drop_homecar);
-      }else if(drop_autocom!==0 && drop_autocom!=null){
+        // console.log("Debug por DropHomecarousel >>>");
+        ajaxForSearch("index.php?module=shop&function=homeCarousel",drop_homecar);
+
+
+      // }else if(drop_autocom!==0 && drop_autocom!=null){
         
-        console.log("Debug por Drop_Autocompleado >>>");
-        ajaxForSearch("module/shop/controller/controller_shop.php?op=search&varsearch=" + drop_autocom);
+      //   // console.log("Debug por Drop_Autocompleado >>>");
+      //   ajaxForSearch("index.php?module=shop&function=search",drop_autocom);
+
      
       }else{  //Condicion Shop List
-        console.log(" Debug Shop  por List >>>");
-        ajaxForSearch("module/shop/controller/controller_shop.php?op=shop");
+        // console.log(" Debug Shop  por List >>>");
+        ajaxForSearch("index.php?module=shop&function=getShop");
 
      }
-      console.log("Debug Categor LocalStorage >>> "+drop_homecat);
+      // console.log("Debug Categor LocalStorage >>> "+drop_homecat);
       console.log("Debug Carousel LocalStorage >>> "+drop_homecar);
-      console.log("Debug Autocom_Search LocalStorage >>> "+drop_autocom);
-      console.log("Debug Offset_pag LocalStorage >>> "+drop_offset_pag);
+      // console.log("Debug Autocom_Search LocalStorage >>> "+drop_autocom);
+      // console.log("Debug Offset_pag LocalStorage >>> "+drop_offset_pag);
  
       // ******* BUTTONS-CLICKS ********* //
 
   $(document).on('click','.product-click',function (){ // CLICK DETAILS
-       var id = this.getAttribute('id');
-      //  ajaxForSearch("module/shop/controller/controller_shop.php?op=single&id="+id);
-      localStorage.setItem('id_detail',id); // save data
-       setTimeout('window.location.href ="index.php?page=controller_shop_detail&op=list";',100);  
+       var id_product = (this.getAttribute('id'));
+    // console.log("valor id a enviar >>> "+id_product);
+      localStorage.setItem('id_detail',id_product); // save data
+      //  setTimeout('window.location.href ="index.php?page=controller_shop_detail&op=list";',100);  
+       setTimeout('window.location.href ="index.php?module=shopDetail&function=list";',100);  
+      
   });
 
-  $(document).on('click','.click-volver',function (){ //Discrimina cuando volvemos del details, a la categoria de la que veniamos o bien realiza un list_shop.   
-        // console.log("Debug Click VOLVER");
+  // $(document).on('click','.click-volver',function (){ //Discrimina cuando volvemos del details, a la categoria de la que veniamos o bien realiza un list_shop.   
+  //       // console.log("Debug Click VOLVER");
 
-        if(drop_homecar!==0 && drop_homecar!== null){ // DROP FromHome Carousel tiene valor.
-               ajaxForSearch("module/shop/controller/controller_shop.php?op=home_carousel&categoria_car=" + drop_homecar);
-        }else if(drop_homecat!==0 && drop_homecat!== null){ // DROP FromHome Categorias tiene valor.
-               ajaxForSearch("module/shop/controller/controller_shop.php?op=home_categoria&categoria_cat=" + drop_homecat);
-        }else if(drop_autocom!==0 && drop_autocom!==null){
-               ajaxForSearch("module/shop/controller/controller_shop.php?op=search&varsearch=" + drop_autocom);
-         }else if(drop_offset_pag!==0 && drop_offset_pag!==null){
-                ajaxForSearch("module/shop/controller/controller_shop.php?op=pagination&offset="+drop_offset_pag);
-        }else{ // Details ordinario.
-               ajaxForSearch("module/shop/controller/controller_shop.php?op=shop");
-         }
-  });
+  //       if(drop_homecar!==0 && drop_homecar!== null){ // DROP FromHome Carousel tiene valor.
+  //              ajaxForSearch("module/shop/controller/controller_shop.php?op=home_carousel&categoria_car=" + drop_homecar);
+  //       }else if(drop_homecat!==0 && drop_homecat!== null){ // DROP FromHome Categorias tiene valor.
+  //              ajaxForSearch("module/shop/controller/controller_shop.php?op=home_categoria&categoria_cat=" + drop_homecat);
+  //       }else if(drop_autocom!==0 && drop_autocom!==null){
+  //              ajaxForSearch("module/shop/controller/controller_shop.php?op=search&varsearch=" + drop_autocom);
+  //        }else if(drop_offset_pag!==0 && drop_offset_pag!==null){
+  //               ajaxForSearch("module/shop/controller/controller_shop.php?op=pagination&offset="+drop_offset_pag);
+  //       }else{ // Details ordinario.
+  //              ajaxForSearch("module/shop/controller/controller_shop.php?op=shop");
+  //        }
+  // });
 
            localStorage.removeItem('categoria_cat');
            localStorage.removeItem('categoria_car');
@@ -69,14 +76,16 @@ function shop(){
 
 } // ************ END FUNCTION SHOP *******************
 
-function ajaxForSearch(durl) {
+function ajaxForSearch(durl,data) {
     var url=durl;
     $.ajax({
-       type: "GET",
+       type: "POST",
        dataType: "json",
        url:durl,
+       data:data
    })
    .done(function(data) {
+      // console.log("DEBUG Salida AJaxForSearch >>>" +data[0].idbike);
       // console.log(data);
       //  console.log("Debug ajaxDone "+data.length);
       
@@ -152,7 +161,7 @@ function ajaxForSearch(durl) {
 
    .fail(function( data ) {
       // console.log("TO FAIL SUPER_AJAX ");
-       console.log(data);
+      //  console.log(data);
    })
   } //end_ajaxforsearch
   
@@ -538,9 +547,9 @@ function filters(){
     shop();  
     ajaxForSearch();
     filters();
-    count_categories();
-    count_products();
-    pagination();
+    // count_categories();
+    // count_products();
+    // pagination();
     api_google_books ()
     fav_button();
   }); //close document_ready

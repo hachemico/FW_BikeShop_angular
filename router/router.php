@@ -77,6 +77,8 @@ class router {
 
                 }// end_if
             }// end_foreach
+            // echo($uriFunction);
+            // exit();
         }// end_if
         throw new Exception('Not Function found.');
     }// end_loadFunction
