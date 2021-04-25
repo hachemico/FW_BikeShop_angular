@@ -20,11 +20,25 @@ class router {
     }// end_getInstance
 
     function __construct() {
-        $this -> uriModule = (ISSET($_GET['module'])) ? $_GET['module'] : 'home';
-        $this -> uriFunction = (ISSET($_GET['function'])) ? $_GET['function'] : 'list';
+        // $this -> uriModule = (ISSET($_GET['module'])) ? $_GET['module'] : 'home';
+        // $this -> uriFunction = (ISSET($_GET['function'])) ? $_GET['function'] : 'list';
+        
+        if(!empty($_GET['module'])){
+            $this -> uriModule = $_GET['module'];
+        }else if(!empty($_POST['module'])){
+            $this -> uriModule = $_POST['module'];
+        }else{
+            $this -> uriModule ='home';
+        }
+        
+        if(!empty($_GET['function'])){
+            $this -> uriFunction = $_GET['function'];
+        }else if(!empty($_POST['function'])){
+            $this -> uriFunction = $_POST['function'];
+        }else{
+            $this -> uriFunction ='list';
+        }
 
-        // $this -> uriModule = 'contact';
-        // $this -> uriFunction = 'sendEmail';
     }
     function rountingStart() {
       
