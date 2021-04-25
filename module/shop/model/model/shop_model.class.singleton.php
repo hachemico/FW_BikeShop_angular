@@ -16,17 +16,24 @@ class shop_model {
 
     public function getShop($arrArgument){
         return $this->bll->getShop_BLL($arrArgument);
-        // echo json_encode("Hola");
     }
     public function homeCategories($arrArgument){
         return $this->bll->homeCategories_BLL($arrArgument);
-        // echo json_encode("Hola");
     }
     public function homeCarousel($arrArgument){
         return $this->bll->homeCarousel_BLL($arrArgument);
-        // echo json_encode("Hola Model");
+
     }
-    // public function moreCategories($arrArgument){
-    //      return $this->bll->moreCategories_BLL($arrArgument);
-    // }
+    public function countCat($arrArgument){
+         return $this->bll->countCat_BLL($arrArgument);
+    }
+    public function countProd($arrArgument){
+        return $this->bll->countProd_BLL($arrArgument);
+   }
+   public function countPagination(){
+        return $this->bll->countPagination_BLL();
+   }
+   public function pagination($arrArgument){
+    return $this->bll->pagination_BLL($arrArgument);
+}
 }

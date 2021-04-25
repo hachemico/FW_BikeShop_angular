@@ -23,7 +23,6 @@ function shop(){
         // console.log("Debug por DropHomecarousel >>>");
         ajaxForSearch("index.php?module=shop&function=homeCarousel",drop_homecar);
 
-
       // }else if(drop_autocom!==0 && drop_autocom!=null){
         
       //   // console.log("Debug por Drop_Autocompleado >>>");
@@ -164,7 +163,6 @@ function ajaxForSearch(durl,data) {
       //  console.log(data);
    })
   } //end_ajaxforsearch
-  
  
 function filters(){
     
@@ -350,15 +348,16 @@ function filters(){
             console.log("VALOR CHECKS_MAIN_2 >>>" + checks_main2);
            
             if(ctrl_size==1){        
-                ajaxForSearch("module/shop/controller/controller_shop.php?op=filter&checks="+checks_main2);
+                // ajaxForSearch("module/shop/controller/controller_shop.php?op=filter&checks="+checks_main2);
+                ajaxForSearch("index.php?module=shop&function=filter",checks_main2);
                 localStorage.setItem('filters',checks_main2); // save data
                 checks_main2="";
             }else if(ctrl_cat==1 && ctrl_size==0){
-                ajaxForSearch("module/shop/controller/controller_shop.php?op=filter&checks="+checks_main);
+                ajaxForSearch("index.php?module=shop&function=filter",checks_main);
                 localStorage.setItem('filters',checks_main2); // save data
                 checks_main="";
             }else{
-                ajaxForSearch("module/shop/controller/controller_shop.php?op=shop"); 
+                ajaxForSearch("index.php?module=shopDetail&function=shop"); 
             }//en_if
         }); //end_click_filters
 
@@ -382,84 +381,138 @@ function filters(){
                 document.getElementById('check_size3').checked = false;
                 document.getElementById('check_size4').checked = false;
 
-        ajaxForSearch("module/shop/controller/controller_shop.php?op=shop");
+        ajaxForSearch("index.php?module=shopDetail&function=shop");
       });
   } // *********** END FUNCTION FILTERS ***********
 
   function count_categories(){  //Incrementa el valor MORE_VISITED correspondiente a las categorias.
-      var drop_count_cat= localStorage.getItem("count_cat");
+    if(localStorage.getItem("count_cat")!= null){
+    var drop_countCat={"value_countCat": (localStorage.getItem("count_cat"))};
+      ajaxPromise(
+        "index.php?module=shop&function=countCat",
+        "POST",
+        "JSON",
+        drop_countCat
+      )
+      .then(function(count_cat) {
+        // console.log("DEBUG salida count_Cat>>> "+count_cat);
+        localStorage.removeItem('count_cat');
       
-      $.ajax({
-        url: "module/shop/controller/controller_shop.php?op=count_cat&category=" +drop_count_cat,
-        type: "GET",
-        dataType: "json",
-      })
-        .done(function( count_cat) {
-          localStorage.removeItem('count_cat');
-          // console.log("DEBUG: "+ count_cat)
-        });              
-  }
+      }).catch(function(error) {
+        console.log("Error Ajax Count_cat");
+        // localStorage.removeItem('count_cat'); 
+      }); //end_AjaxPromise  
+    }//end_if
+  }//end count_categories function
 
   function count_products(){  //Incrementa el valor MORE_VISITED correspondiente a los productos.
-      $(document).on('click','.product-click',function (){
-          var id = this.getAttribute('id');
-   
-          $.ajax({
-            url: "module/shop/controller/controller_shop.php?op=count_prod&id="+id,
-            type: "GET",
-            dataType: "json",
-          })
-            .done(function( count_prod) {
-               console.log("DEBUG: "+ count_prod)
-            });          
-      });
-  }
+      $(document).on('click','.product-click',function (){ 
+          var id ={"value_id": (this.getAttribute('id'))};
+        //  console.log(id)
+        
+        ajaxPromise(
+          "index.php?module=shop&function=countProd",
+          "POST",
+          "JSON",
+          id
+        )
+        .then(function(count_prod) {
+          // console.log("DEBUG salida count_prod>>> "+count_prod);
+        
+        }).catch(function(error) {
+          console.log("Error Ajax Count_prod"); 
+        }); //end_AjaxPromise    
+      
+      });//end_click      
+  } //end_ count_products function
 
   function pagination(){
- 
+
     ajaxPromise(
-      "module/shop/controller/controller_shop.php?op=count_all_pagination",
-      "GET",
+      "index.php?module=shop&function=countPagination",
+      "POST",
       "JSON"
     )
-      .then(function (data) { //obtenemos la cantidad de productos a paginar.
-        // console.log("DEBUG Pagination data.lenght >>> " + data.length);
-        var page = 1;
-        var offset = 0, totalPages = 0;
-        var prevPage = false, nextPage = false;
-
-        for (let i = 0; i < data.length; i++) { //calcula el num de paginas necesarias.
-          if ((i % 6) == 0) {
-              totalPages = totalPages + 1;
-          }// end_if
-        }// end_for
-
-        if (totalPages > 1) {
-            prevPage = 'Prev';
-            nextPage = 'Next';
+    .then(function(data) {
+      // console.log("DEBUG salida count_Pagination>>> "+data);
+      
+      var page = 1;
+      var offset = 0, totalPages = 0;
+      var prevPage = false, nextPage = false;
+  
+      for (let i = 0; i < data.length; i++) { //calcula el num de paginas necesarias.
+        if ((i % 6) == 0) {
+            totalPages = totalPages + 1;
         }// end_if
+      }// end_for
+  
+      if (totalPages > 1) {
+          prevPage = 'Prev';
+          nextPage = 'Next';
+      }// end_if
+  
+      $("#pagination").bootpag({
+        total: totalPages,
+        page: page,
+        maxVisible: totalPages,
+        next: nextPage,
+        prev: prevPage
+  
+     }).on("page", function (e, num) {
+         
+          offset = 6 * (num - 1); //calcula valor del offset para la query.
+          let obj_offset = {"offset":(6 * (num - 1))};
+         
+          localStorage.setItem('offset_pag',offset); // save data
 
-        $("#pagination").bootpag({
-          total: totalPages,
-          page: page,
-          maxVisible: totalPages,
-          next: nextPage,
-          prev: prevPage
+            ajaxPromise(
+                "index.php?module=shop&function=pagination",
+                "POST",
+                "JSON",
+                obj_offset
+              )
+              .then(function(data) {
+                // console.log("DEBUG salida pagination>>> "+data);
+                    $('#shop-detail').empty();
+                    $('#shop-all').empty();
+                    var cadena="";
+                    for(var i=0; i < data.length; i++){
+            
+                        cadena=cadena+(
+                          '<div class="col-xs-12 col-sm-6 col-md-4 product-item filter-best">'+
+                              '<div class="product-img">'+
+                                  '<img src="'+ data[i].img +'" class="product-click" id= "'+data[i].idbike +'" alt="" >'+
+                              '</div>'+
+                              '<!-- .product-img end -->'+
+                              '<div class="product-bio">'+
+                                '<h4>'+
+                                  '<a href="#">'+data[i].category+'</a>'+
+                                '</h4>'+
+                                '<p class="product-price">'+data[i].brand+' '+data[i].model+' </p>'+
+                              '</div>'+
+                              '<!-- .product-bio end -->'+
+                        
+                        '<!-- .product-item end -->'+
+                        '<div class="product-bio">'+
+							              '<p><span style="font-size:20px">'+data[i].price+'€</span><a style="font-size:18px" id="fav_button" class="btn fav_button" name="'+data[i].idbike+'"><i class="fa fa-heart"></i></a></p>'+
+						            '</div>'+
+						            '<!-- .product-bio end -->'+
+                        
+                        '</div>'
+                        );
+                      }
+                      $('#shop-all').append(cadena)
 
-       }).on("page", function (e, num) {
-            // console.log("DEBUG valor NUM >>> "+num);
-            // console.log("Dentro del on page >>> ");
-            offset = 6 * (num - 1); //calcula valor del offset para la query.
-            // console.log("DEBUG valor a enviar>>> "+ offset);
-            localStorage.setItem('offset_pag',offset); // save data
-            ajaxForSearch("module/shop/controller/controller_shop.php?op=pagination&offset="+offset);
-          }); //End_on_Page
-      })
-      .catch(function () {
-        // console.log("DEBUG error AjaxProm Pagination1 >>>");
-      });
+              }).catch(function(error) {
+                console.log("Error Ajax pagination>>>"); 
+              }); //end_AjaxPromise  
+        }); //End_on_Page
 
-} //    ****************    END_ PAGINATION     **************
+    }).catch(function(error) {
+      console.log("Error Ajax Count_AllPagination>>>"); 
+    }); //end_AjaxPromise    
+  
+  } //    ****************    END_ PAGINATION     **************
 
    function fav_button(){
     $(document).on('click','.fav_button',function (){ // CLICK DETAILS
@@ -547,9 +600,9 @@ function filters(){
     shop();  
     ajaxForSearch();
     filters();
-    // count_categories();
-    // count_products();
-    // pagination();
+    count_categories();
+    count_products();
+    pagination();
     api_google_books ()
-    fav_button();
+    // fav_button();
   }); //close document_ready
