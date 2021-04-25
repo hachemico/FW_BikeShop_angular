@@ -71,7 +71,7 @@ function shop_detail(){
         $(document).on('click','.click-volver',function (){ //Volver al shop   
              console.log("Debug Click VOLVER");
              
-             setTimeout('window.location.href ="index.php?page=controller_shop&op=list";',100);   
+             setTimeout('window.location.href ="index.php?module=shop&function=list";',100);   
         });
         $(document).on('click','#fav2_button_details',function (){ //Volver al shop   
           console.log("Debug Click fav2_button_details >>>");
