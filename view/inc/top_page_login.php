@@ -81,7 +81,7 @@
 		<!-- Scripts Plantilla END -->
 
 	    <link href="view/css/style.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="view/inc/translate.js"></script>
+		<script type="text/javascript" src="<?php echo VIEW_PATH_INC ?>translate.js"></script>
         <script src="view/js/ajax_promise/ajax_promise.js"></script>
         <script src="module/home/model/controller_home.js"></script>
         <script src="module/search/view/controller_search.js"></script>

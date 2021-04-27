@@ -72,7 +72,7 @@
 
 	    <link href="view/css/style.css" rel="stylesheet" type="text/css" />
 
-		<script type="text/javascript" src="view/inc/translate.js"></script>
+		<script type="text/javascript" src="<?php echo VIEW_PATH_INC ?>translate.js"></script>
 
 	    <script src="module/bike/model/validate_bike.js"></script>
 		<script src="module/bike/model/validate_update.js"></script>
