@@ -79,7 +79,8 @@ class router {
     
     private function loadFunction() {
         $path = MODULES_PATH . $this -> nameModule . '/resources/functions.xml';
-          
+        //   echo($path);
+        //     exit();
         if (file_exists($path)) {
             // echo($path);
             // exit();
@@ -87,6 +88,8 @@ class router {
            
             foreach ($functions as $row) {
                 if (in_array($this -> uriFunction, (Array) $row -> uri)) {
+                    //  echo((String) $row -> name);
+                    //  exit();
                     return (String) $row -> name;
 
                 }// end_if

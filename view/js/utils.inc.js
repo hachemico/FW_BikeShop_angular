@@ -1,3 +1,5 @@
+
+console.log("Carga utils.inc.js");
 function ajaxPromise(sUrl, sType, sTData, sData = undefined) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -13,28 +15,21 @@ function ajaxPromise(sUrl, sType, sTData, sData = undefined) {
     });
 }// end_ajaxPromise
 
-function friendlyURL(url) {
-    return new Promise(function(resolve, reject) {
-        //////
-        $.ajax({
-            url: 'http://' + window.location.hostname + '/frameworkBike/paths.php?op=get',
-            type: 'POST',
-            dataType: 'JSON'
-        }).done(function(data) {
-            let link = "";
-            if (data === true) {
-                url = url.replace("?", "");
-                url = url.split("&");
-                for (let i = 0; i < url.length; i++) {
-                    let aux = url[i].split("=");
-                    link +=  "/" + aux[1];
-                }// end_for
-            }else {
-                link = '/' + url;
-            }// end_else
-            resolve ("http://" + window.location.hostname + "/frameworkBike" + link);
-        }).fail(function(error) {
-            reject (error);
-        });
-    }); 
-}// end_friendlyURL
+function amigable(url) {
+    // console.log("dentro de amigable");
+    var link="";
+    url = url.replace("?", "");
+    url = url.split("&");
+    cont = 0;
+    for (var i=0;i<url.length;i++) {
+    	cont++;
+        var aux = url[i].split("=");
+        if (cont == 2) {
+        	link +=  "/"+aux[1]+"/";	
+        }else{
+        	link +=  "/"+aux[1];
+        }
+    }
+    console.log("Amigable >>"+ link);
+    return "http://localhost/FW_BikeShop" + link;
+}               

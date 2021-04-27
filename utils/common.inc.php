@@ -5,22 +5,26 @@ class common {
         // echo("LOAD ERROR!");
         // exit();
         require_once (VIEW_PATH_INC . 'top_page_home.php');
-        require_once (VIEW_PATH_INC . 'menu.html');
+        require_once (VIEW_PATH_INC . 'header.html');
+        require_once (VIEW_PATH_INC . 'menu.php');
         require_once (VIEW_PATH_INC . 'error404.html');
         // require_once (VIEW_PATH_INC . 'content.html');
         require_once (VIEW_PATH_INC . 'footer.html');
+        require_once (VIEW_PATH_INC . 'bottom_page.php');
     }// end_loadError
     
     function loadView($topPage, $view) {
         $topPage = VIEW_PATH_INC . $topPage;
-
+        // echo("$topPage");
+        // exit();
          if ((file_exists($topPage)) && (file_exists($view))) {
-               
+            
             require_once ($topPage);
             require_once (VIEW_PATH_INC . 'header.html');
-            require_once (VIEW_PATH_INC . 'menu.html');
+            require_once (VIEW_PATH_INC . 'menu.php');
             require_once ($view);
             require_once (VIEW_PATH_INC . 'footer.html');
+            require_once (VIEW_PATH_INC . 'bottom_page.php');
         }else {
             self::loadError();
         }// end_else
@@ -54,16 +58,17 @@ class common {
         //  echo json_encode($obj);
     }
 
-    function generate_Token_secure($longitud){
-        if ($longitud < 4) {
-            $longitud = 4;
-        }
-        return bin2hex(openssl_random_pseudo_bytes(($longitud - ($longitud % 2)) / 2));
-    }// end_generate_Token_securre
-
-    function friendlyURL($url) {
+    // function generate_Token_secure($longitud){
+    //     if ($longitud < 4) {
+    //         $longitud = 4;
+    //     }
+    //     return bin2hex(openssl_random_pseudo_bytes(($longitud - ($longitud % 2)) / 2));
+    // }// end_generate_Token_securre
+    
+    function amigable($url, $return = false) {
+        $amigableson = URL_AMIGABLES;
         $link = "";
-        if (URL_FRIENDLY) {
+        if ($amigableson) {
             $url = explode("&", str_replace("?", "", $url));
             foreach ($url as $key => $value) {
                 $aux = explode("=", $value);
@@ -71,7 +76,10 @@ class common {
             }
         } else {
             $link = "index.php?" . $url;
-        }// end_else
-        return SITE_PATH . $link;
-    }// end_friendlyURL
+        }
+        if ($return) {
+            return SITE_PATH . $link;
+        }
+        echo SITE_PATH . $link;
+    }
 }// end_common

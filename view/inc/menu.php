@@ -7,8 +7,8 @@
             <div class="navy">
                 <ul>
                     <!-- Main menu -->
-                    <li><a href="index.php?module=home&function=list" data-tr="Inicio">Inicio</a></li>
-                                 <!-- index.php?module=contact&function=sendEmail -->
+                   
+                    <li><a href="index.php?module=home&function=list"data-tr="Inicio">Inicio</a></li>
 
                     <li><a href="index.php?module=bike&function=list"data-tr="Bicicletas">Bicicletas</a></li>
 
