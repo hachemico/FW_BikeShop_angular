@@ -38,9 +38,14 @@ define ('JS_PATH_HOME', SITE_PATH . 'module/home/model/model/');
 define ('MODEL_PATH_SHOP', SITE_ROOT . 'module/shop/model/model/');
 define ('VIEW_PATH_SHOP', SITE_ROOT . 'module/shop/view/');
 
+define ('JS_PATH_SHOP', SITE_PATH . 'module/shop/model/');
+
+
 // //Shop Detail
 define ('MODEL_PATH_SHOPDETAIL', SITE_ROOT . '/module/shopDetail/model/model/');
 define ('VIEW_PATH_SHOPDETAIL', SITE_ROOT . 'module/shopDetail/view/');
+
+define ('JS_PATH_SHOPDETAIL', SITE_PATH . 'module/shopDetail/view/');
 
 // //Search
 // define ('MODEL_PATH_SEARCH', SITE_ROOT . '/module/search/model/model/');

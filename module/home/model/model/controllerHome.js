@@ -107,7 +107,9 @@ function carousel(){
     localStorage.setItem('count_cat',categoria_cat); // save data
     localStorage.setItem('offset_pag',cero); // save data
     localStorage.setItem('filters',cero); // save data
-    window.location.href = amigable("?module=home&function=list");
+
+    window.location.href = amigable("?module=shop&function=list");
+
   }); //end_onclick
 }
 
@@ -124,9 +126,9 @@ function connect_carousel(){
     localStorage.setItem('count_cat',categoria_car); // save data
     localStorage.setItem('offset_pag',cero); // save data
     localStorage.setItem('filters',cero); // save data
-      // setTimeout('window.location.href ="index.php?module=controller_shop&function=list";',1000);  
-    window.location.href = amigable("?module=home&function=list");
-
+  
+    window.location.href = amigable("?module=shop&function=list");
+    
       
   }); //end_onclick
  

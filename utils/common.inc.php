@@ -16,7 +16,10 @@ class common {
     function loadView($topPage, $view) {
         $topPage = VIEW_PATH_INC . $topPage;
         // echo("$topPage");
+        // echo("$view");
         // exit();
+        
+        
          if ((file_exists($topPage)) && (file_exists($view))) {
             
             require_once ($topPage);
@@ -66,6 +69,7 @@ class common {
     // }// end_generate_Token_securre
     
     function amigable($url, $return = false) {
+        
         $amigableson = URL_AMIGABLES;
         $link = "";
         if ($amigableson) {

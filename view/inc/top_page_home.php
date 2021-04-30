@@ -48,7 +48,7 @@
 	        <link rel="stylesheet" href="<?php echo VIEW_PATH ?>style.css">
 	        <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>revolutionslider_settings.css" media="screen" />
 	        <link rel="stylesheet" href="<?php echo CSS_PATH ?>responsive.css">
-	        <script src="<?php echo VENDOR_PATH ?>/modernizr-2.6.2.min.js"></script>
+	        <script src="<?php echo VENDOR_PATH ?>modernizr-2.6.2.min.js"></script>
             
              <!-- All script -->
             <script src="<?php echo VENDOR_PATH ?>jquery-1.10.2.min.js"></script>
@@ -88,6 +88,6 @@
         <!-- <script src="module/login/view/controller_register.js"></script> -->
         <script src="<?php echo JS_PATH ?>ajax_promise/ajax_promise.js"></script>
         <script src="<?php echo JS_PATH ?>utils.inc.js"></script>
-        <!-- <script src="init.js"></script> -->
+        <script src="<?php echo SITE_PATH ?>init.js"></script>
     </head>
     <body class="style-14 index-2">

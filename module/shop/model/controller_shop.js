@@ -6,77 +6,58 @@ function shop(){
 
       var drop_homecat= {"value_cat":(localStorage.getItem("categoria_cat"))};
       var drop_homecar= {"value_car":(localStorage.getItem("categoria_car"))};
-      var drop_autocom= {"value_search":(localStorage.getItem("autocom_search"))};
+      // var drop_autocom= {"value_search":(localStorage.getItem("autocom_search"))};
+      var drop_autocom= {"value_search":'0'};
       var drop_offset_pag= localStorage.getItem("offset_pag");
       var drop_filters= localStorage.getItem("filters");
-    
 
-      // console.log("Valor DROP_AUTOCOM >>> "+drop_autocom);
-
-      if(drop_homecat!==0 && drop_homecat!==null && drop_homecar==0 && drop_autocom==0){ //Condición FromHome Categorias
+      if(drop_homecat['value_cat']!==0 && drop_homecat['value_cat']!==null && drop_homecar['value_car']==0 && drop_autocom['value_search']==0){ //Condición FromHome Categorias
 
         // console.log("Debug por DropHomecategoria >>>");
-        ajaxForSearch("index.php?module=shop&function=homeCategories", drop_homecat);
+        ajaxForSearch(amigable("?module=shop&function=homeCategories"), drop_homecat);
        
-      }else if(drop_homecar!==0 && drop_homecar!==null && drop_autocom==0){ //Condicion FromHome Carousel/Slider
+      }else if(drop_homecar['value_car']!==0 && drop_homecar['value_car']!==null && drop_autocom['value_search']==0){ //Condicion FromHome Carousel/Slider
 
         // console.log("Debug por DropHomecarousel >>>");
-        ajaxForSearch("index.php?module=shop&function=homeCarousel",drop_homecar);
+        ajaxForSearch(amigable("?module=shop&function=homeCarousel"),drop_homecar);
 
       // }else if(drop_autocom!==0 && drop_autocom!=null){
-        
       //   // console.log("Debug por Drop_Autocompleado >>>");
       //   ajaxForSearch("index.php?module=shop&function=search",drop_autocom);
 
-     
       }else{  //Condicion Shop List
         // console.log(" Debug Shop  por List >>>");
-        ajaxForSearch("index.php?module=shop&function=getShop");
+        ajaxForSearch(amigable("?module=shop&function=getShop"));
 
      }
       // console.log("Debug Categor LocalStorage >>> "+drop_homecat);
-      console.log("Debug Carousel LocalStorage >>> "+drop_homecar);
+      // console.log("Debug Carousel LocalStorage >>> "+drop_homecar);
       // console.log("Debug Autocom_Search LocalStorage >>> "+drop_autocom);
       // console.log("Debug Offset_pag LocalStorage >>> "+drop_offset_pag);
  
       // ******* BUTTONS-CLICKS ********* //
 
   $(document).on('click','.product-click',function (){ // CLICK DETAILS
-       var id_product = (this.getAttribute('id'));
-    // console.log("valor id a enviar >>> "+id_product);
-      localStorage.setItem('id_detail',id_product); // save data
-      //  setTimeout('window.location.href ="index.php?page=controller_shop_detail&op=list";',100);  
-       setTimeout('window.location.href ="index.php?module=shopDetail&function=list";',100);  
+      
+    var id_product = (this.getAttribute('id'));
+    localStorage.setItem('id_detail',id_product); // save data
+     
+       window.location.href = amigable("index.php?module=shopDetail&function=list");  
       
   });
 
-  // $(document).on('click','.click-volver',function (){ //Discrimina cuando volvemos del details, a la categoria de la que veniamos o bien realiza un list_shop.   
-  //       // console.log("Debug Click VOLVER");
-
-  //       if(drop_homecar!==0 && drop_homecar!== null){ // DROP FromHome Carousel tiene valor.
-  //              ajaxForSearch("module/shop/controller/controller_shop.php?op=home_carousel&categoria_car=" + drop_homecar);
-  //       }else if(drop_homecat!==0 && drop_homecat!== null){ // DROP FromHome Categorias tiene valor.
-  //              ajaxForSearch("module/shop/controller/controller_shop.php?op=home_categoria&categoria_cat=" + drop_homecat);
-  //       }else if(drop_autocom!==0 && drop_autocom!==null){
-  //              ajaxForSearch("module/shop/controller/controller_shop.php?op=search&varsearch=" + drop_autocom);
-  //        }else if(drop_offset_pag!==0 && drop_offset_pag!==null){
-  //               ajaxForSearch("module/shop/controller/controller_shop.php?op=pagination&offset="+drop_offset_pag);
-  //       }else{ // Details ordinario.
-  //              ajaxForSearch("module/shop/controller/controller_shop.php?op=shop");
-  //        }
-  // });
-
-           localStorage.removeItem('categoria_cat');
-           localStorage.removeItem('categoria_car');
-           localStorage.removeItem('autocom_search');
-           localStorage.removeItem('offset_pag');
+    localStorage.removeItem('categoria_cat');
+    localStorage.removeItem('categoria_car');
+    localStorage.removeItem('autocom_search');
+    localStorage.removeItem('offset_pag');
 
 }//   ***** end_if_get_element_shop *****
 
 } // ************ END FUNCTION SHOP *******************
 
+
 function ajaxForSearch(durl,data) {
-    var url=durl;
+    // var url=durl;
     $.ajax({
        type: "POST",
        dataType: "json",
@@ -84,9 +65,9 @@ function ajaxForSearch(durl,data) {
        data:data
    })
    .done(function(data) {
-      // console.log("DEBUG Salida AJaxForSearch >>>" +data[0].idbike);
+      // // console.log("DEBUG Salida AJaxForSearch >>>" +data[0].idbike);
       // console.log(data);
-      //  console.log("Debug ajaxDone "+data.length);
+      // //  console.log("Debug ajaxDone "+data.length);
       
        if(!data){
             // console.log("data_lenght =0");
@@ -105,7 +86,7 @@ function ajaxForSearch(durl,data) {
                         cadena=cadena+(
                           '<div class="col-xs-12 col-sm-6 col-md-4 product-item filter-best">'+
                               '<div class="product-img">'+
-                                  '<img src="'+ data[i].img +'" class="product-click" id= "'+data[i].idbike +'" alt="" >'+
+                                  '<img src="http://localhost/FW_BikeShop/'+ data[i].img +'" class="product-click" id= "'+data[i].idbike +'" alt="" >'+
                               '</div>'+
                               '<!-- .product-img end -->'+
                               '<div class="product-bio">'+
@@ -136,7 +117,7 @@ function ajaxForSearch(durl,data) {
                 $('#shop-detail').append(
                   '<div class="col-xs-12 col-sm-6 col-md-4 product-item filter-best">'+
                               '<div class="product-img">'+
-                                  '<img src="'+ data.img +'" class="product-click" id= "'+data.idbike +'" alt="" >'+
+                                  '<img src="http://localhost/FW_BikeShop/'+ data.img +'" class="product-click" id= "'+data.idbike +'" alt="" >'+
                               '</div>'+
                               '<!-- .product-img end -->'+
                               '<div class="product-bio">'+
@@ -389,7 +370,7 @@ function filters(){
     if(localStorage.getItem("count_cat")!= null){
     var drop_countCat={"value_countCat": (localStorage.getItem("count_cat"))};
       ajaxPromise(
-        "index.php?module=shop&function=countCat",
+        amigable("index.php?module=shop&function=countCat"),
         "POST",
         "JSON",
         drop_countCat
@@ -411,7 +392,7 @@ function filters(){
         //  console.log(id)
         
         ajaxPromise(
-          "index.php?module=shop&function=countProd",
+          amigable("index.php?module=shop&function=countProd"),
           "POST",
           "JSON",
           id
@@ -429,7 +410,7 @@ function filters(){
   function pagination(){
 
     ajaxPromise(
-      "index.php?module=shop&function=countPagination",
+      amigable("index.php?module=shop&function=countPagination"),
       "POST",
       "JSON"
     )
@@ -466,7 +447,7 @@ function filters(){
           localStorage.setItem('offset_pag',offset); // save data
 
             ajaxPromise(
-                "index.php?module=shop&function=pagination",
+                amigable("index.php?module=shop&function=pagination"),
                 "POST",
                 "JSON",
                 obj_offset
@@ -481,7 +462,7 @@ function filters(){
                         cadena=cadena+(
                           '<div class="col-xs-12 col-sm-6 col-md-4 product-item filter-best">'+
                               '<div class="product-img">'+
-                                  '<img src="'+ data[i].img +'" class="product-click" id= "'+data[i].idbike +'" alt="" >'+
+                                  '<img src="http://localhost/FW_BikeShop/'+ data[i].img +'" class="product-click" id= "'+data[i].idbike +'" alt="" >'+
                               '</div>'+
                               '<!-- .product-img end -->'+
                               '<div class="product-bio">'+
@@ -596,6 +577,7 @@ function filters(){
   
   } //END FUNCTION API GOOGLE BOOKS
 
+  
   $(document).ready(function () {
     shop();  
     ajaxForSearch();

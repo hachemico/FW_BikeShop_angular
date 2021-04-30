@@ -1,4 +1,4 @@
-// function ajaxPromise(sUrl, sType, sTData, sData = undefined) {
+// function ajaxPromForSearch(sUrl, sType, sTData, sData = undefined) {
 //     return new Promise((resolve, reject) => {
 //       $.ajax({
 //         url: sUrl,

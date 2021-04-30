@@ -1,10 +1,12 @@
+console.log("carga Translate.js");
+
 function cambiarIdioma(lang) {
     // Habilita las 2 siguientes para guardar la preferencia.
     language = lang || localStorage.getItem('app-lang') || 'es';
     var Element= document.querySelectorAll('[data-tr]');
 
       $.ajax({
-          url: 'view/inc/language/'+language+'.json',
+          url: 'http://localhost/FW_BikeShop/view/inc/language/'+language+'.json',
           type: 'POST',
           dataType: 'JSON',
           success: function (data) {

@@ -16,9 +16,10 @@ function ajaxPromise(sUrl, sType, sTData, sData = undefined) {
 }// end_ajaxPromise
 
 function amigable(url) {
-    // console.log("dentro de amigable");
+   
     var link="";
     url = url.replace("?", "");
+    // console.log("dentro de amigable"+ url);
     url = url.split("&");
     cont = 0;
     for (var i=0;i<url.length;i++) {

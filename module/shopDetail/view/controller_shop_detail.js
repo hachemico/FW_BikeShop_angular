@@ -8,7 +8,7 @@ function shop_detail(){
         console.log("DEBUG VALOR ID >>>"+id);
 
         ajaxPromise(
-            "index.php?module=shopDetail&function=detail",
+            amigable("?module=shopDetail&function=detail"),
             "POST",
             "JSON",
             id
@@ -30,7 +30,7 @@ function shop_detail(){
                   '<ul class="slides">'+
                       '<li data-thumb="view/img/temp-images/hoodie_7_front-140x140.jpg">'+
                           '<a href="view/img/temp-images/hoodie_7_front.jpg" data-imagelightbox="gallery" class="hoodie_7_front">'+
-                              '<img src="'+data[0].img+'" class="attachment-shop_single" alt="image">'+
+                              '<img src="http://localhost/FW_BikeShop/'+data[0].img+'" class="attachment-shop_single" alt="image">'+
                           '</a>'+
                       '</li>'+
                       '<!-- <li data-thumb="view/img/temp-images/hoodie_7_back-140x140.jpg">'+
@@ -71,7 +71,7 @@ function shop_detail(){
         $(document).on('click','.click-volver',function (){ //Volver al shop   
              console.log("Debug Click VOLVER");
              
-             setTimeout('window.location.href ="index.php?module=shop&function=list";',100);   
+             window.location.href =amigable("?module=shop&function=list");  
         });
         $(document).on('click','#fav2_button_details',function (){ //Volver al shop   
           console.log("Debug Click fav2_button_details >>>");
