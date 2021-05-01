@@ -62,6 +62,13 @@ class shop_dao {
         return $db->listar($stmt);
         // echo json_encode("Dentro de shop_dao");
     }
+    public function select_filter($db,$arrArgument) {
+        $sql = "SELECT * FROM bike WHERE $arrArgument ";
+        $stmt = $db->ejecutar($sql);
+        return $db->listar($stmt);
+        // echo json_encode($sql);
+    }
+
     // public function update_active_user($db,$arrArgument) {
     //     $sql = "UPDATE users SET activate = 1 WHERE token = '$arrArgument'";
     //     return $db->ejecutar($sql);

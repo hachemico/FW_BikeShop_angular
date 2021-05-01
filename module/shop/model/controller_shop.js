@@ -8,8 +8,8 @@ function shop(){
       var drop_homecar= {"value_car":(localStorage.getItem("categoria_car"))};
       // var drop_autocom= {"value_search":(localStorage.getItem("autocom_search"))};
       var drop_autocom= {"value_search":'0'};
-      var drop_offset_pag= localStorage.getItem("offset_pag");
-      var drop_filters= localStorage.getItem("filters");
+      // var drop_offset_pag= localStorage.getItem("offset_pag");
+      // var drop_filters= localStorage.getItem("filters");
 
       if(drop_homecat['value_cat']!==0 && drop_homecat['value_cat']!==null && drop_homecar['value_car']==0 && drop_autocom['value_search']==0){ //Condición FromHome Categorias
 
@@ -66,7 +66,7 @@ function ajaxForSearch(durl,data) {
    })
    .done(function(data) {
       // // console.log("DEBUG Salida AJaxForSearch >>>" +data[0].idbike);
-      // console.log(data);
+      console.log(data);
       // //  console.log("Debug ajaxDone "+data.length);
       
        if(!data){
@@ -108,9 +108,9 @@ function ajaxForSearch(durl,data) {
                       }
                       $('#shop-all').append(cadena)
 
-       }else{ // ***** DETAILS *** MUESTRA 1 ARTICULO
+       }else if(data.length===1){ // ***** DETAILS *** MUESTRA 1 ARTICULO
                 
-                console.log("DEBUG DETAILS");
+                // console.log("DEBUG 1 ELEMENTO");
                 $('#shop-all').empty();
                 $('#shop-detail').empty();
                 $('#pagination').empty();
@@ -136,6 +136,16 @@ function ajaxForSearch(durl,data) {
                         '<a style="font-size:20px" id="fav_button" class="btn fav_button"><i class="fa fa-heart"></i></a>'+
                         '</div>'
               ) // end_append  
+          }else{
+            $('#shop-all').empty();
+            $('#shop-detail').empty();
+            $('#pagination').empty();
+            $('#shop-detail').append(
+
+              '<p> "NO SE HA ENCONTRADO NINGUN RESULTADO CON ESTA BUSQUEDA" </p>'
+
+              ) // end_append  
+
           } //end_else   
    }) // end done
 
@@ -317,28 +327,33 @@ function filters(){
 
 
             for(let i=0;i<controllers_cat.length;i++){
-
-               checks_main =checks_main+checks_cat[i];
+            
+              //  checks_main ={"value_filter":checks_main+checks_cat[i]};
+              checks_main =checks_main+checks_cat[i];
             }
+
+            let aux_main={"value_filter":checks_main}
             console.log("VALOR CHECKS_MAIN >>>" + checks_main);
 
             for(let i=0;i<controllers_cat.length;i++){
 
+              // checks_main2 ={"value_filter":checks_main2+checks_size[i]};
               checks_main2 =checks_main2+checks_size[i];
             }
+            let aux_main2={"value_filter":checks_main2}
             console.log("VALOR CHECKS_MAIN_2 >>>" + checks_main2);
            
             if(ctrl_size==1){        
                 // ajaxForSearch("module/shop/controller/controller_shop.php?op=filter&checks="+checks_main2);
-                ajaxForSearch("index.php?module=shop&function=filter",checks_main2);
-                localStorage.setItem('filters',checks_main2); // save data
+                ajaxForSearch(amigable("?module=shop&function=filter"),aux_main2);
+                localStorage.setItem('filters',checks_main2['value_filter']); // save data
                 checks_main2="";
             }else if(ctrl_cat==1 && ctrl_size==0){
-                ajaxForSearch("index.php?module=shop&function=filter",checks_main);
-                localStorage.setItem('filters',checks_main2); // save data
+                ajaxForSearch(amigable("?module=shop&function=filter"),aux_main);
+                localStorage.setItem('filters',checks_main['value_filter']); // save data
                 checks_main="";
             }else{
-                ajaxForSearch("index.php?module=shopDetail&function=shop"); 
+                ajaxForSearch(amigable("?module=shop&function=getShop")); 
             }//en_if
         }); //end_click_filters
 
@@ -362,7 +377,7 @@ function filters(){
                 document.getElementById('check_size3').checked = false;
                 document.getElementById('check_size4').checked = false;
 
-        ajaxForSearch("index.php?module=shopDetail&function=shop");
+        ajaxForSearch(amigable("?module=shop&function=getShop"));
       });
   } // *********** END FUNCTION FILTERS ***********
 

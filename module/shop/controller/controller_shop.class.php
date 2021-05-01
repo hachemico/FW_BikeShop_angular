@@ -42,14 +42,8 @@ class controller_shop{
 	}//end pagination function
 
 	function filter(){
-		
-		//FALTA ACTUALIZAR LOS FILTROS FW_FILTERS
-
-		// echo json_encode( common::loadModel(MODEL_PATH_SHOP,"shop_model", "pagination",$_POST['offset']));
-		// echo ( common::loadModel(MODEL_PATH_SHOP,"shop_model", "pagination",$_POST['offset']));
-		 echo json_encode("Dentro del shop_Controller");
-		//   echo json_encode($_POST['offset']);
-	}//end_countCat function
+		echo json_encode( common::loadModel(MODEL_PATH_SHOP,"shop_model", "filter",$_POST['value_filter']));
+	}//end_filter function
 
 }//end_controller_shop_class          
 ?>

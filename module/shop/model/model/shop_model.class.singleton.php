@@ -35,5 +35,9 @@ class shop_model {
    }
    public function pagination($arrArgument){
     return $this->bll->pagination_BLL($arrArgument);
-}
+   }
+   public function filter($arrArgument){
+    return $this->bll->filter_BLL($arrArgument);
+    // echo json_encode(" Hola Bll shop");
+   }
 }
