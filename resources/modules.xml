@@ -12,10 +12,10 @@
         <name>shopDetail</name>
         <uri>shopDetail</uri>
     </module>
-    <!-- <module>
+    <module>
         <name>search</name>
         <uri>search</uri>
-    </module> -->
+    </module>
     <module>
         <name>contact</name>
         <uri>contact</uri>

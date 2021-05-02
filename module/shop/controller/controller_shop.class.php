@@ -38,12 +38,17 @@ class controller_shop{
 
 	function pagination(){
 		echo json_encode( common::loadModel(MODEL_PATH_SHOP,"shop_model", "pagination",$_POST['offset']));
-		
 	}//end pagination function
 
 	function filter(){
 		echo json_encode( common::loadModel(MODEL_PATH_SHOP,"shop_model", "filter",$_POST['value_filter']));
 	}//end_filter function
 
+	function search(){
+		echo json_encode( common::loadModel(MODEL_PATH_SHOP,"shop_model", "search",$_POST['value_search']));
+		// echo ( common::loadModel(MODEL_PATH_SHOP,"shop_model", "search",$_POST['value_search']));
+        //  echo json_encode("Dentro del search_controller");
+        //   echo json_encode($_POST['value_search']);
+	} //end_getshop_function
 }//end_controller_shop_class          
 ?>

@@ -48,7 +48,8 @@ define ('VIEW_PATH_SHOPDETAIL', SITE_ROOT . 'module/shopDetail/view/');
 define ('JS_PATH_SHOPDETAIL', SITE_PATH . 'module/shopDetail/view/');
 
 // //Search
-// define ('MODEL_PATH_SEARCH', SITE_ROOT . '/module/search/model/model/');
+define ('MODEL_PATH_SEARCH', SITE_ROOT . '/module/search/model/model/');
+define ('JS_PATH_SEARCH', SITE_PATH . 'module/search/view/');
 
 // //Login
 // define('VIEW_PATH_LOGIN', SITE_ROOT . 'module/login/view/');

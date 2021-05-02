@@ -33,8 +33,16 @@ class shop_bll {
     public function countPagination_BLL(){
        return $this->dao->select_countPagination($this->db);
     }
-    public function filter_BLL($arrArgument){
+    public function pagination_BLL($arrArgument){
+        return $this->dao->select_pagination($this->db,$arrArgument);
+    //  echo json_encode("Hola BLL");   
+     }
+     public function filter_BLL($arrArgument){
         return $this->dao->select_filter($this->db,$arrArgument);
+    //  echo json_encode("Hola BLL");   
+     }
+     public function search_BLL($arrArgument){
+        return $this->dao->select_search($this->db,$arrArgument);
     //  echo json_encode("Hola BLL");   
      }
   }

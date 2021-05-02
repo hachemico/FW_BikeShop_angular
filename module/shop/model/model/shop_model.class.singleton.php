@@ -40,4 +40,8 @@ class shop_model {
     return $this->bll->filter_BLL($arrArgument);
     // echo json_encode(" Hola Bll shop");
    }
+   public function search($arrArgument){
+    return $this->bll->search_BLL($arrArgument);
+    // echo json_encode(" Hola Bll shop");
+   }
 }

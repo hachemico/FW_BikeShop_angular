@@ -6,8 +6,8 @@ function shop(){
 
       var drop_homecat= {"value_cat":(localStorage.getItem("categoria_cat"))};
       var drop_homecar= {"value_car":(localStorage.getItem("categoria_car"))};
-      // var drop_autocom= {"value_search":(localStorage.getItem("autocom_search"))};
-      var drop_autocom= {"value_search":'0'};
+      var drop_autocom= {"value_search":(localStorage.getItem("autocom_search"))};
+      // var drop_autocom= {"value_search":'0'};
       // var drop_offset_pag= localStorage.getItem("offset_pag");
       // var drop_filters= localStorage.getItem("filters");
 
@@ -21,9 +21,9 @@ function shop(){
         // console.log("Debug por DropHomecarousel >>>");
         ajaxForSearch(amigable("?module=shop&function=homeCarousel"),drop_homecar);
 
-      // }else if(drop_autocom!==0 && drop_autocom!=null){
-      //   // console.log("Debug por Drop_Autocompleado >>>");
-      //   ajaxForSearch("index.php?module=shop&function=search",drop_autocom);
+      }else if(drop_autocom!==0 && drop_autocom!=null){
+        // console.log("Debug por Drop_Autocompleado >>>");
+        ajaxForSearch(amigable("?module=shop&function=search"),drop_autocom);
 
       }else{  //Condicion Shop List
         // console.log(" Debug Shop  por List >>>");
@@ -42,7 +42,7 @@ function shop(){
     var id_product = (this.getAttribute('id'));
     localStorage.setItem('id_detail',id_product); // save data
      
-       window.location.href = amigable("index.php?module=shopDetail&function=list");  
+       window.location.href = amigable("?module=shopDetail&function=list");  
       
   });
 
@@ -346,11 +346,11 @@ function filters(){
             if(ctrl_size==1){        
                 // ajaxForSearch("module/shop/controller/controller_shop.php?op=filter&checks="+checks_main2);
                 ajaxForSearch(amigable("?module=shop&function=filter"),aux_main2);
-                localStorage.setItem('filters',checks_main2['value_filter']); // save data
+                localStorage.setItem('filters',aux_main2['value_filter']); // save data
                 checks_main2="";
             }else if(ctrl_cat==1 && ctrl_size==0){
                 ajaxForSearch(amigable("?module=shop&function=filter"),aux_main);
-                localStorage.setItem('filters',checks_main['value_filter']); // save data
+                localStorage.setItem('filters',aux_main['value_filter']); // save data
                 checks_main="";
             }else{
                 ajaxForSearch(amigable("?module=shop&function=getShop")); 
@@ -385,7 +385,7 @@ function filters(){
     if(localStorage.getItem("count_cat")!= null){
     var drop_countCat={"value_countCat": (localStorage.getItem("count_cat"))};
       ajaxPromise(
-        amigable("index.php?module=shop&function=countCat"),
+        amigable("?module=shop&function=countCat"),
         "POST",
         "JSON",
         drop_countCat
@@ -407,7 +407,7 @@ function filters(){
         //  console.log(id)
         
         ajaxPromise(
-          amigable("index.php?module=shop&function=countProd"),
+          amigable("?module=shop&function=countProd"),
           "POST",
           "JSON",
           id
@@ -425,7 +425,7 @@ function filters(){
   function pagination(){
 
     ajaxPromise(
-      amigable("index.php?module=shop&function=countPagination"),
+      amigable("?module=shop&function=countPagination"),
       "POST",
       "JSON"
     )
@@ -462,7 +462,7 @@ function filters(){
           localStorage.setItem('offset_pag',offset); // save data
 
             ajaxPromise(
-                amigable("index.php?module=shop&function=pagination"),
+                amigable("?module=shop&function=pagination"),
                 "POST",
                 "JSON",
                 obj_offset

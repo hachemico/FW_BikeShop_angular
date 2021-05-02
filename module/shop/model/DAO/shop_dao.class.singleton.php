@@ -68,6 +68,13 @@ class shop_dao {
         return $db->listar($stmt);
         // echo json_encode($sql);
     }
+    public function select_search($db,$arrArgument) {
+        $sql = "SELECT * FROM bike WHERE brand LIKE '".$arrArgument."%'";
+        $stmt = $db->ejecutar($sql);
+        return $db->listar($stmt);
+        // echo json_encode($sql);
+        //    echo json_encode("Hola DAO");
+    }
 
     // public function update_active_user($db,$arrArgument) {
     //     $sql = "UPDATE users SET activate = 1 WHERE token = '$arrArgument'";
