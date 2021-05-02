@@ -83,7 +83,7 @@
 	    <link href="<?php echo CSS_PATH ?>style.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="<?php echo VIEW_INC_PATH ?>translate.js"></script>
         <script src="<?php echo JS_PATH_HOME ?>controllerHome.js"></script>
-        <!-- <script src="module/search/view/controller_search.js"></script> -->
+        <script src="<?php echo JS_PATH_SEARCH ?>controller_search.js"></script>
 		<!-- <script src="module/login/view/controller_login.js"></script> -->
         <!-- <script src="module/login/view/controller_register.js"></script> -->
         <script src="<?php echo JS_PATH ?>ajax_promise/ajax_promise.js"></script>
