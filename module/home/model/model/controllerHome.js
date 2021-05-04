@@ -19,7 +19,7 @@ function carousel(){
       '<div class="owl-content">'+
        '<div class="product-item filter-best">'+
             '<div class="product-img">'+
-                '<img src="'+ data[i].ruta +'" id= "'+data[i].categoria +'"class="carousel-click" alt="" >'+
+                '<img src="http://localhost/FW_BikeShop/'+ data[i].ruta +'" id= "'+data[i].categoria +'"class="carousel-click" alt="" >'+
             '</div>'+
             '<!-- .product-img end -->'+
             '<div class="product-bio">'+
@@ -74,7 +74,7 @@ function carousel(){
           '<!-- Product Item #1 -->'+
           '<div class="col-xs-12 col-sm-6 col-md-3 product-item filter-best">'+
             '<div class="product-img">'+
-            '<img src="'+ data_cat[i].ruta +'" id= "'+data_cat[i].categoria +'" class="category-click" alt="" >'+
+            '<img src="http://localhost/FW_BikeShop/'+ data_cat[i].ruta +'" id= "'+data_cat[i].categoria +'" class="category-click" alt="" >'+
             '</div>'+
             '<!-- .product-img end -->'+
             '<div class="product-bio">'+

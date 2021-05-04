@@ -66,39 +66,40 @@
 	
 				break;	
 			
-			case 'menu':
-				// $token = 0;
-				// $token = $_POST['token'];
-				
-				$aux_payload=decode_token($_POST['token']);
-				
-				 
-				 $aux4=explode('}',$aux3[1]);
-				 $email=$aux4[0];
-
-				try {
-					$daologin = new DAO_login();
-					$rdo = $daologin->select_user_menu($email);
+				case 'menu':
+					// $token = 0;
+					// $token = $_POST['token'];
 					
-				} catch (Exception $e) {
-					echo json_encode("error_login");
-					exit();
-				}
-				
-				if(!$rdo){
-					echo json_encode("error");
-				}
-				else{
-				  $dinfo = array();
-				  foreach ($rdo as $row) {
-				  array_push($dinfo, $row);
-				  }
-				    echo json_encode($dinfo);
-				} 
-
-
-				// echo json_encode($rdo);
-			break;
+					$aux_payload=decode_token($_POST['token']);
+					
+					 $aux2=explode(',',$aux_payload);
+					 $aux3=explode(':',$aux2[2]);
+					 $aux4=explode('}',$aux3[1]);
+					 $email=$aux4[0];
+	
+					try {
+						$daologin = new DAO_login();
+						$rdo = $daologin->select_user_menu($email);
+						
+					} catch (Exception $e) {
+						echo json_encode("error_login");
+						exit();
+					}
+					
+					if(!$rdo){
+						echo json_encode("error");
+					}
+					else{
+					  $dinfo = array();
+					  foreach ($rdo as $row) {
+					  array_push($dinfo, $row);
+					  }
+						echo json_encode($dinfo);
+					} 
+	
+	
+					// echo json_encode($rdo);
+				break;
 		
 		default:
 			include("view/inc/error404.php");

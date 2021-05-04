@@ -5,60 +5,28 @@ function login(){
             if(valide_login() != 0){
                 var userinfo = $("#form_login").serialize();
                 // console.log("DEBUG valor userinfo >>>"+ userinfo[0].value);
-                ajax_log('module/login/controller/controller_login.php?&op=login&', userinfo)
+                ajax_log(amigable('?module=login&funtion=login'), userinfo)
                 // ajax_log('module/login/controller/controller_login.php?&op=login&', userinfo)
                 .then(function (data) {
-                    // console.log("DEBUG valor data Ajax_LOG >>>"+ data);
+                    console.log("DEBUG valor data Ajax_LOGIN >>>"+ data);
+                   
+                    if(data == 0){
+                        // console.log("NAAAAAA");
+                        $("#show_log_dialog").html('<span style="color: red ;"> La contraseña es Incorrecta </span>');
+                    }else{
+                        $("#show_log_dialog").empty();
+                        // console.log("PAPAPAPA");
+                        console.log("valor de data>>"+data)
+                        localStorage.setItem('token',data); // guardamos el token generado en localstorage.
+                    window.location.href = amigable("?module=home&funtion=list"); //Saltamos al home para lanzar la vista.
+
+                    }
                     
-                    localStorage.setItem('token',data); // guardamos el token generado en localstorage.
-                    setTimeout(' window.location.href = "index.php?page=controller_home&op=list"; ',1000); //Saltamos al home para lanzar la vista.
                 }) //end_ajax_log
                
-                // $.ajax({
-                //     type : 'POST',
-                //     url  : 'module/login/controller/controller_login.php?&op=login&' + data,
-                //     data : data,
-                //     beforeSend: function(){	
-                //         $("#error_login").fadeOut();
-                //     },
-                //     success: function(response){			
-                //            console.log(response)		
-                //         if(response=="ok"){
-                //             localStorage.setItem("user", data.name);
-                //             localStorage.setItem("type", data.type);
-                //             localStorage.setItem("avatar", data.avatar);
-                //             localStorage.setItem("email", data.email);
-                //             setTimeout(' window.location.href = "index.php?page=controller_home&op=list"; ',1000);
-                //         }else if (response=="okay") {
-                //             InsertCompra(); //en cart.js
-                //         }else{
-                //             $("#error_login").fadeIn(1000, function(){						
-                //                 $("#error_login").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
-                //             });
-                //         }
-                //     }
-                // });
             }
     
 } // end function login
-
-
-// var ajax_log = function (url, data) { // Funcion ajax_reg con promise
-
-//     // console.log(data)
-
-//     return new Promise(function (resolve) {
-//         $.ajax({
-//             type: "POST",
-//             url: url,
-//             data: data
-//         })
-//             .done(function (data_log) {
-//                 resolve(data_log);
-//             })
-//     })
-// };
-
 
 // function login_button(){ //trasladado al init.js para que detecte el evento.
     

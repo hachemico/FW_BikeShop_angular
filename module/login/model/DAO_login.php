@@ -66,8 +66,8 @@
 				 	// echo=("DEBUG coinciden true");
                     $rdo= encode_token($user_email);
 				}else {
-					echo "No coinciden los datos";
-                    $rdo=("");
+					// echo "No coinciden los datos";
+                    $rdo=("false");
 					exit();
 				}
 			}	

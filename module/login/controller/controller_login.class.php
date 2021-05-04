@@ -60,10 +60,25 @@ class controller_login{
         // echo($_GET['param']);
     }
     function login(){
-	
+        echo json_encode( common::loadModel(MODEL_PATH_LOGIN,"login_model", "login",$_POST['user_log_email'],$_POST['user_log_passwd']));
+        // echo json_encode("Hola login controller_login");
     }
     function menu(){
-	echo json_encode("Hola menucontroller_login");
+
+        $axis=json_decode($_POST['token']);
+        $aux_payload = middleware_auth::decode_token($axis);
+        
+        $aux2=explode(',',$aux_payload);
+		$aux3=explode(':',$aux2[2]);
+		$aux4=explode('}',$aux3[1]);
+		$aux5=$aux4[0];
+        $aux6=explode("'",$aux5);
+        $email=$aux6[1];
+        echo json_encode ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "userMenu",$email));
+        // // echo ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "login",$email));
+        // echo json_encode("Menu controller");
+        // echo json_encode($email);
+        
     }
 
 }//end controller_login class

@@ -27,4 +27,13 @@ class login_model {
         return $this->bll->activateUser_login_BLL($arrArgument);
         //  echo json_encode("Hola login_model");
     }
+
+    public function login($arrArgument,$arrArgument2){
+        return $this->bll->login_BLL($arrArgument,$arrArgument2);
+        //  echo json_encode("Hola login_model");
+    }
+    public function userMenu($arrArgument){
+        return $this->bll->userMenu_BLL($arrArgument);
+        //  echo json_encode("Hola login_model");
+    }
 }//end_login_model class

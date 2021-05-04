@@ -45,9 +45,41 @@ class login_dao {
             $stmt2 = $db->ejecutar($sql);
             return 'ok';
         }
-        // return $db->listar($stmt);
-        // echo json_encode($stmt);
         
     }
-    
+    public function select_user($db,$arrArgument,$arrArgument2) {
+        $sql = "SELECT * FROM user WHERE email='$arrArgument'";
+        $stmt = $db->ejecutar($sql);
+        // $dinfo= $db->listar($stmt);
+
+        $dinfo = array();
+         foreach ($stmt as $row) {
+         array_push($dinfo, $row);
+         }
+
+        if(!$dinfo){
+            echo "El usuario no existe";
+            exit();
+
+        }else{
+           
+            if(password_verify($arrArgument2,$dinfo['0']['passwd'])) {
+                 // echo=("DEBUG coinciden true");
+                $rdo= middleware_auth::encode_token($arrArgument);
+                return $rdo;
+            }else {
+                // echo "No coinciden los datos";
+                return 0;
+                // exit();
+            }
+        }	
+        // echo json_encode($db->listar($stmt));
+    }
+
+    public function select_userMenu($db,$arrArgument) {
+        $sql = "SELECT name, type, email, avatar FROM user WHERE email='$arrArgument'";
+        $stmt = $db->ejecutar($sql);
+        return $db->listar($stmt);
+        // echo json_encode($sql);
+    }
 }

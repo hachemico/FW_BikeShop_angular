@@ -28,5 +28,12 @@ class login_bll {
         return $this->dao->select_activateUser($this->db,$arrArgument);
         // echo json_encode("Hola login_bll");
     }
-  
+    public function login_BLL($arrArgument,$arrArgument2){
+        return $this->dao->select_user($this->db,$arrArgument,$arrArgument2);
+        // echo json_encode("Hola login_bll");
+    }
+    public function userMenu_BLL($arrArgument){
+        return $this->dao->select_userMenu($this->db,$arrArgument);
+        // echo json_encode("Hola login_bll");
+    }
 }//end_home_bll class

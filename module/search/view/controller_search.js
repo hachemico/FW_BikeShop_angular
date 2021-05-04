@@ -1,7 +1,11 @@
-console.log("Carga controller_search.js");
+// console.log("Carga controller_search.js");
 
 function search(){
-    console.log("DEntro del search");
+
+    $("#autocom").click(function (e) { // detectamos click para enviar el formulario
+        console.log("DEBUG autocom click >>>");
+       
+    // console.log("DEntro del search");
         $(".form-control").on("keyup", function () {
             console.log("DEntro del keyup");
             var auto = $(this).val();///valor de lo que estamos escribiendo 
@@ -49,8 +53,10 @@ function search(){
                     localStorage.setItem('autocom_search',auto);
                     window.location.href =amigable("?module=shop&function=list");   
                 });
-        });
-    }//end_key_up
+        });//end_key_up
+    }); //end_click
+}//end search_function
+
     
     $(document).ready(function () {
     search();

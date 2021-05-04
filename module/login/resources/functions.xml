@@ -33,6 +33,10 @@
         <uri>active_user</uri>
     </function>
     <function>
+        <name>login</name>
+        <uri>login</uri>
+    </function>
+    <function>
         <name>menu</name>
         <uri>menu</uri>
     </function>
