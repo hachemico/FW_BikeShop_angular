@@ -1,5 +1,5 @@
 
-console.log("Carga utils.inc.js");
+// console.log("Carga utils.inc.js");
 function ajaxPromise(sUrl, sType, sTData, sData = undefined) {
     return new Promise((resolve, reject) => {
         $.ajax({

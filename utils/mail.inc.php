@@ -1,56 +1,95 @@
 <?php
 //////
 class mail {
-    function setEmail($email) {
-        $content = "";
-        //////
-        switch ($email['type']) {
-            case 'contact';
-                $email['fromEmail'] = 'support@bikeshop.com';
-                $email['inputMatter'] = 'Your request has been sended.';
-                $content .= "<h2>Thank $email[inputName] you for sending us an email</h2><br>";
-                $content .= "<p>You will recive an email soon answering your request.</p><br>";
+    function enviar_email($arr) {
+        $html = '';
+        $subject = '';
+        $body = '';
+        $ruta = '';
+        $return = '';
+        $from='';
+        $address='';
+        
+        switch ($arr['type']) {
+            case 'alta':
+                $subject = 'Tu Alta en BikeShop';
+                $ruta = "<a href='".SITE_PATH."index.php?module=login&function=active_user&param="  .$arr['token'] . "'>aqu&iacute;</a>";
+                // $ruta = "<a href='" . amigable("?module=home&function=active_user&param=" . $arr['token'], true) . "'>aqu&iacute;</a>";
+                $body = 'Gracias por unirte a nuestra aplicaci&oacute;n<br> Para finalizar el registro, pulsa ' . $ruta;
+                $from = 'support@bikeshop.com';
                 break;
-                //////
-            case 'admin';
-                $email['toEmail'] = 'hachemico@gmail.com';
-                break;
-                //////
-            case 'recover';
-                $email['fromEmail'] = 'support@bikeshop.com';
-                $email['inputMatter'] = 'Recover Password.';
-                $content .= "<h2>Thanks for contacting us.</h2>";
-                $content .= "<a href = '" . common::friendlyURL('?page=login&op=recover&param=' . $email['token']) ."'>Click here for recover your password.</a>";
-                break;
-                //////
-            case 'validate';
-                $email['fromEmail'] = 'support@bikeshop.com';
-                $email['inputMatter'] = 'Email verification.';
-                $content .= '<h2>Email verification.</h2>';
-                $content .= '<a href = "' . common::friendlyURL('?page=login&op=verify&param=' . $email['token']) . '">Click here for verify your email.</a>';
-                break;
-                //////
-        }// end_switch
-        //////
-        $content .= "<br><a href = '" . common::friendlyURL('?page=home') . "'>Get Your Car</a>";
-        $email['inputMessage'] .= $content;
-        //////
-        return self::sendMailGun($email);
-    }// end_setEmail
     
-    function sendMailGun($values) {
-        $ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/FW_BikeShop/model/api-keys/apis.ini');
+            case 'changepass':
+                $subject = 'Tu Nuevo Password en Ohana dogs<br>';
+                // $ruta = '<a href="' . amigable("?module=login&function=changepass&aux=" . $arr['token'], true) . '">aqu&iacute;</a>';
+                $body = 'Para recordar tu password pulsa ' . $ruta;
+                break;
+                
+            case 'contact':
+                $subject = 'Tu Petici&oacute;n a Ohana_dogs ha sido enviada<br>';
+                $ruta = '<a href=' . 'http://localhost/1_Fw_PHP_OO_MVC_jQuery_AngularJS/Framework/9_adoptions_dogs/'. '>aqu&iacute;</a>';
+                $body = 'Para visitar nuestra web, pulsa ' . $ruta;
+                break;
+    
+            // case 'admin':
+            //     $subject = $arr['inputSubject'];
+            //     $body = 'inputName: ' . $arr['inputName']. '<br>' .
+            //     'inputEmail: ' . $arr['inputEmail']. '<br>' .
+            //     'inputSubject: ' . $arr['inputSubject']. '<br>' .
+            //     'inputMessage: ' . $arr['inputMessage'];
+            //     break;
+        }
+        
+        $html .= "<html>";
+        $html .= "<body>";
+            $html .= "Asunto:";
+            $html .= "<br><br>";
+	       $html .= "<h4>". $subject ."</h4>";
+           $html .= "<br><br>";
+           $html .= "Mensaje:";
+           $html .= "<br><br>";
+        //    $html .= $arr['inputMessage'];
+           $html .= "<br><br>";
+	       $html .= $body;
+	       $html .= "<br><br>";
+	       $html .= "<p>Sent by BikeShop</p>";
+		$html .= "</body>";
+		$html .= "</html>";
+       
+        if ($arr['type'] === 'admin'){
+            $address = 'hachemico@gmail.com';
+            }else{
+            $address = $arr['inputEmail'];
+            }
+
+            $toSend=array();
+            array_push($toSend,$from,$address,$subject,$html);
+        // try{
+            // $result = sendMailgun($toSend); 
+            $result = self :: sendMailgun($toSend);    
+        // } catch (Exception $e) {
+		// 	$return = 0;
+		// }
+        // return 'Hola';
+        echo json_encode($result);
+        // return $result;
+      
+    }
+    
+    function sendMailgun($arrArgument) {
+        
+        $ini_file = parse_ini_file(SITE_ROOT . 'model/apis.ini');
         $config = array();
-        //////
-        $config['api_key'] = $ini_file['mailGunKey'];
-        $config['api_url'] = $ini_file['mailGunURL'];
+        ////
+        $config['api_key'] = $ini_file['apiKey'];
+        $config['api_url'] = $ini_file['url'];
         $message = array();
-        $message['from'] = $values['fromEmail'];
-        $message['to'] = $values['toEmail'];
-        $message['h:Reply-To'] = $values['inputEmail'];
-        $message['subject'] = $values['inputMatter'];
-        $message['html'] = $values['inputMessage'];
-        //////
+        $message['from'] = $arrArgument[0];
+        $message['to'] = $arrArgument[1];
+        $message['h:Reply-To'] = 'hachemico@gmail.com';
+        $message['subject'] = $arrArgument[2];
+        $message['html'] = $arrArgument[3];
+        // //////
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $config['api_url']);
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -63,7 +102,10 @@ class mail {
         curl_setopt($ch, CURLOPT_POSTFIELDS,$message);
         $result = curl_exec($ch);
         curl_close($ch);
-        //////
+        //
         return $result;
+        // return $arrArgument[1];
     }// end_sendMailGun
+
+    
 }// end_mal

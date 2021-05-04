@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>listLogin</name>
+        <uri>listLogin</uri>
+    </function>
+    <function>
+        <name>listRegister</name>
+        <uri>listRegister</uri>
+    </function>
+    <function>
+        <name>valideUser</name>
+        <uri>valideUser</uri>
+    </function>
+    <function>
+        <name>register</name>
+        <uri>register</uri>
+    </function>
+     <function>
+        <name>generateEmailToken</name>
+        <uri>generateEmailToken</uri>
+    </function>
+     <function>
+        <name>activateUser</name>
+        <uri>activateUser</uri>
+    </function>
+    <function>
+        <name>sendEmail</name>
+        <uri>sendEmail</uri>
+    </function>
+     <function>
+        <name>active_user</name>
+        <uri>active_user</uri>
+    </function>
+    <function>
+        <name>menu</name>
+        <uri>menu</uri>
+    </function>
+</functions>

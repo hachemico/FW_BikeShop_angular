@@ -4,7 +4,7 @@ require ('paths.php');
 
 include(UTILS . "common.inc.php");
 include(UTILS . "mail.inc.php");
-
+include(UTILS . "utils.inc.php");
 
 //////
 spl_autoload_register(null, false);

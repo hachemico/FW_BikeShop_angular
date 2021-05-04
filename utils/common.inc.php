@@ -68,22 +68,4 @@ class common {
     //     return bin2hex(openssl_random_pseudo_bytes(($longitud - ($longitud % 2)) / 2));
     // }// end_generate_Token_securre
     
-    function amigable($url, $return = false) {
-        
-        $amigableson = URL_AMIGABLES;
-        $link = "";
-        if ($amigableson) {
-            $url = explode("&", str_replace("?", "", $url));
-            foreach ($url as $key => $value) {
-                $aux = explode("=", $value);
-                $link .=  $aux[1]."/";
-            }
-        } else {
-            $link = "index.php?" . $url;
-        }
-        if ($return) {
-            return SITE_PATH . $link;
-        }
-        echo SITE_PATH . $link;
-    }
 }// end_common

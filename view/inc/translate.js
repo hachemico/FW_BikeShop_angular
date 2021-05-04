@@ -1,4 +1,4 @@
-console.log("carga Translate.js");
+// console.log("carga Translate.js");
 
 function cambiarIdioma(lang) {
     // Habilita las 2 siguientes para guardar la preferencia.

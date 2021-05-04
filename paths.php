@@ -52,8 +52,10 @@ define ('MODEL_PATH_SEARCH', SITE_ROOT . '/module/search/model/model/');
 define ('JS_PATH_SEARCH', SITE_PATH . 'module/search/view/');
 
 // //Login
-// define('VIEW_PATH_LOGIN', SITE_ROOT . 'module/login/view/');
-// define ('MODEL_PATH_LOGIN', SITE_ROOT . '/module/login/model/model/');
+define('VIEW_PATH_LOGIN', SITE_ROOT . 'module/login/view/');
+define ('MODEL_PATH_LOGIN', SITE_ROOT . '/module/login/model/model/');
+
+define ('JS_PATH_LOGIN', SITE_PATH . 'module/login/model/');
 
 // //Cart
 // define('VIEW_PATH_CART', SITE_ROOT . 'module/cart/view/');
@@ -64,7 +66,7 @@ define ('JS_PATH_SEARCH', SITE_PATH . 'module/search/view/');
 // define ('MODEL_PATH_PROFILE', SITE_ROOT . '/module/profile/model/model/');
 
 //Friendly
-define('URL_FRIENDLY', TRUE);
+define('URL_AMIGABLES', TRUE);
 
 // if ($_GET['op'] == 'get') {
 //     echo json_encode(URL_FRIENDLY);

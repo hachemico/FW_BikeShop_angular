@@ -72,8 +72,7 @@
 				
 				$aux_payload=decode_token($_POST['token']);
 				
-				 $aux2=explode(',',$aux_payload);
-				 $aux3=explode(':',$aux2[2]);
+				 
 				 $aux4=explode('}',$aux3[1]);
 				 $email=$aux4[0];
 

@@ -12,7 +12,7 @@ function carousel(){
   )
 .then(function(data) {
     // console.log("Debug valor ajax Carousel >>>"+ d)ata[0].ruta);
-    console.log("Debug valor ajax Carousel >>>"+ data);
+    // console.log("Debug valor ajax Carousel >>>"+ data);
     var cadena="";
     for(var i=0; i < data.length; i++){
       cadena=cadena+(

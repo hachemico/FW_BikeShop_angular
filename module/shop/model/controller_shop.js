@@ -1,4 +1,4 @@
-console.log("Carga controller_shop.js");
+// console.log("Carga controller_shop.js");
 
 function shop(){
   
