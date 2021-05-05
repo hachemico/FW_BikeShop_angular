@@ -8,6 +8,10 @@
         <name>listRegister</name>
         <uri>listRegister</uri>
     </function>
+     <function>
+        <name>listRecover</name>
+        <uri>listRecover</uri>
+    </function>
     <function>
         <name>valideUser</name>
         <uri>valideUser</uri>
@@ -39,5 +43,29 @@
     <function>
         <name>menu</name>
         <uri>menu</uri>
+    </function>
+     <function>
+        <name>insertRecoverToken</name>
+        <uri>insertRecoverToken</uri>
+    </function>
+     <function>
+        <name>recoverPass</name>
+        <uri>recoverPass</uri>
+    </function>
+    <function>
+        <name>recoverMail</name>
+        <uri>recoverMail</uri>
+    </function>
+    <function>
+        <name>compareToken</name>
+        <uri>compareToken</uri>
+    </function>
+    <function>
+        <name>updateRecover</name>
+        <uri>updateRecover</uri>
+    </function>
+        <function>
+        <name>updatePass</name>
+        <uri>updatePass</uri>
     </function>
 </functions>

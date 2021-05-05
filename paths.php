@@ -26,6 +26,8 @@ define ('UTILS', SITE_ROOT . 'utils/'); // Utils Path
 define ('MODEL_PATH_CONTACT', SITE_ROOT . 'module/contact/model/');
 define ('VIEW_PATH_CONTACT', SITE_ROOT . 'module/contact/view/');
 
+define ('JS_PATH_CONTACT', SITE_PATH . 'module/contact/model/');
+
 //Home                        
 define ('MODEL_PATH_HOME', SITE_ROOT . 'module/home/model/model/');
 define ('VIEW_PATH_HOME', SITE_ROOT . 'module/home/view/');

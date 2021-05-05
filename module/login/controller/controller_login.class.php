@@ -3,21 +3,22 @@ class controller_login{
     
     function listRegister(){
 		common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_register.html");
-	// echo("Dentro del listRegister");
-    // exit();
     }
 
     function listLogin(){
 		common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_login.html");
 	}
+    
+    function listRecover(){
+		common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_recover.html");
+	}
+
+    function listConfirmRecover(){
+		common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_confirmRecover.html");
+	}
 
     function valideUser(){
-
 		  echo ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "valideUser",$_POST['user_email']));
-        // echo ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "valideUser",$_POST['user_email']));
-      
-        // echo json_encode("hola controller_login.class");
-        // echo json_encode($_POST['user_email']);
     }
 
     function register(){
@@ -28,12 +29,9 @@ class controller_login{
         $aux_token=generate_Token_secure(20);
         $info_user=array();
         array_push($info_user,$aux_user,$aux_email,$aux_passwd,$aux_token);
+
         $rdo =( common::loadModel(MODEL_PATH_LOGIN,"login_model","register",$info_user));  
-        
         echo json_encode($info_user[3]);
-         
-        // echo json_encode("hola controller_login.class");
-        // echo json_encode($info_user[2]);
     }
     
     function sendEmail(){
@@ -49,22 +47,19 @@ class controller_login{
             'inputEmail'=> $aux_email,
         ];
         echo mail::enviar_email($arrArgument);
+    }
 
-    }
     function active_user(){
-        // echo json_encode("hola active_user");
-        
-        // echo json_encode("sale");
         $token= ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "activateUser",$_GET['param']));
-        self::listLogin();
-        // echo($_GET['param']);
+        self::listLogin(); 
     }
+
     function login(){
         echo json_encode( common::loadModel(MODEL_PATH_LOGIN,"login_model", "login",$_POST['user_log_email'],$_POST['user_log_passwd']));
         // echo json_encode("Hola login controller_login");
     }
-    function menu(){
 
+    function menu(){
         $axis=json_decode($_POST['token']);
         $aux_payload = middleware_auth::decode_token($axis);
         
@@ -75,10 +70,70 @@ class controller_login{
         $aux6=explode("'",$aux5);
         $email=$aux6[1];
         echo json_encode ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "userMenu",$email));
-        // // echo ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "login",$email));
-        // echo json_encode("Menu controller");
-        // echo json_encode($email);
-        
+    }
+
+    function recoverPass(){
+        $recovEmail=$_POST['user_email'];
+        $rdo= common::loadModel(MODEL_PATH_LOGIN,"login_model", "userRecovery",$recovEmail);
+        // echo json_encode($rdo);
+        if($rdo == 0){ //no existe el usuario.
+            echo json_encode('errorNotExist');
+        }else if ($rdo == 1){ // existe el usuario
+            // echo json_encode('OK');
+    
+            $recovToken=generate_Token_secure(20);
+            $infoRecover=array();
+
+            array_push($infoRecover,$recovEmail,$recovToken);
+            
+            $rdo2 = common::loadModel(MODEL_PATH_LOGIN,"login_model", "insertRecoverToken",$infoRecover);
+            
+            if($rdo2 == 0){ //si falla insert/token
+                echo json_encode('errorInsertToken');
+            }else if($rdo2 == 1){//todo ok
+                
+                $type='recover';
+
+                $arrArgument=[
+                    'type'=> $type,
+                    'token'=>$recovToken,
+                    'inputName'=> $recovEmail,
+                    'inputEmail'=> $recovEmail,
+                ];
+                $rdoMail = mail::enviar_email($arrArgument);
+                echo json_encode('OK');
+            }//end else rdo2.
+        }//end_else rdo.
+    }
+    function recoverMail(){
+        $User= ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "compareToken",$_GET['param']));
+        $token = middleware_auth::encode_token($User[0]['email']);
+        echo ("<script> localStorage.setItem('tokenRecover', '$token');	</script>");
+        self :: listConfirmRecover(); 
+    }
+
+    function updateRecover(){
+      
+        $newpass =$_POST['pass'];
+        $payload = middleware_auth::decode_token($_POST['token']);
+        $aux=explode(',',$payload);
+		$aux2=explode(':',$aux[2]);
+		$aux3=explode('}',$aux2[1]);
+        $aux4=explode("'",$aux3[0]);
+        $email=$aux4[1];
+
+       $rdo=( common::loadModel(MODEL_PATH_LOGIN,"login_model", "updatePass",$email,$newpass));
+       if($rdo == 0){ //si falla insert/token
+        echo json_encode('errorUpdatePass');
+       }else if($rdo == 1){
+        echo json_encode('OK');
+       }//end_if/else
+
+    }
+    
+    function updatePass(){
+        //FALTA
+
     }
 
 }//end controller_login class

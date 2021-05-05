@@ -36,4 +36,20 @@ class login_model {
         return $this->bll->userMenu_BLL($arrArgument);
         //  echo json_encode("Hola login_model");
     }
+    public function userRecovery($arrArgument){
+        return $this->bll->userRecovery_BLL($arrArgument);
+        //  echo json_encode("Hola login_model");
+    }
+    public function insertRecoverToken($arrArgument){
+        return $this->bll->insertRecoverToken_BLL($arrArgument);
+        //  echo json_encode("Hola login_model");
+    }
+    public function compareToken($arrArgument){
+        return $this->bll->compareToken_BLL($arrArgument);
+        //  echo json_encode("Hola login_model");
+    }
+    public function updatePass($arrArgument,$arrArgument2){
+        return $this->bll->updatePass_BLL($arrArgument,$arrArgument2);
+        //  echo json_encode("Hola login_model");
+    }
 }//end_login_model class

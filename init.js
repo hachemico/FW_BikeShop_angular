@@ -1,4 +1,4 @@
-// console.log("Carga init.JS >>>");
+console.log("Carga init.JS >>>");
 
 function load_usermenu(){
  
@@ -44,6 +44,7 @@ function load_usermenu(){
                     $('#user_log').append(
                             '<h4><i class="fa fa-cogs"></i> Menu Admin '+ userdata[0].name +' </h4>'+
                             '<img src="'+userdata[0].avatar+'"></img>'+
+                            '<button id="update_button" class="btn btn-white btn-xs"><i class="fa fa-refresh"></i> </i> <span> UpdatePassword </span></button>'+
                             '<button id="logout_button" class="btn btn-white btn-xs"><i class="fa fa-sign-out"></i> </i> <span> LogOut </span></button>'
                     ); 
                     $('#navy_menu').remove()
@@ -80,6 +81,7 @@ function load_usermenu(){
                             
                                     '<label >'+userdata[0].name+'</label>'+'</br>'+
                                     '<label >'+userdata[0].email+'</label>'+'</br>'+
+                                    '<button id="update_button" class="btn btn-white btn-xs"><i class="fa fa-refresh"></i> </i> <span> UpdatePassword </span></button>'+
                                     '<button id="logout_button" class="btn btn-white btn-xs"><i class="fa fa-sign-out"></i> </i> <span> LogOut </span></button>'
                     ); 
                     $('#logout_button').click(function(){
@@ -126,12 +128,21 @@ function register_button(){
 
 function log_out(){
     // console.log("carga log_out >>>");
-    $('#logout_button').click(function(){
+    $("#logout_button").click(function(){
         localStorage.removeItem('token');
         window.location.href =amigable("?module=home&funtion=list"); //Saltamos al home para lanzar la vista.
-    })
+    });
 
 }
+
+function update_button(){
+    // console.log("carga update button >>>");
+    $("#update_button").click(function(){
+        console.log("DEBUG updateButon GO GO >>>");
+        /// FALTA AÑADIR EL CODIGO, NO DETECTA EL CLICK
+    });
+}
+
 var ajax_log = function (url, data) { // Funcion ajax_reg con promise
 
     // console.log(data)
@@ -149,9 +160,11 @@ var ajax_log = function (url, data) { // Funcion ajax_reg con promise
 };
 
 $(document).ready(function () {
-    // log_out();
+    log_out();
     load_usermenu();
+    update_button();
     login_button();
     register_button();
+    
 
 });

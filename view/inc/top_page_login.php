@@ -90,7 +90,8 @@
         <script src="<?php echo JS_PATH_LOGIN ?>controller_register.js"></script>
         <script src="<?php echo JS_PATH_LOGIN ?>validate_login.js"></script>
         <script src="<?php echo JS_PATH_LOGIN ?>validate_register.js"></script>
-        
+        <script src="<?php echo JS_PATH_LOGIN ?>validate_recover.js"></script>
+        <script src="<?php echo JS_PATH_LOGIN ?>validate_updateRecover.js"></script>
         <script src="<?php echo JS_PATH ?>ajax_promise/ajax_promise.js"></script>
         <script src="<?php echo JS_PATH ?>utils.inc.js"></script>
         <script src="<?php echo SITE_PATH ?>init.js"></script>

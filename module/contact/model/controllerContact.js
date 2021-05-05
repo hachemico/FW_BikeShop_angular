@@ -47,69 +47,27 @@ function sendEmail(content) {
   
     ajaxPromise(
         // "../../index.php?module=contact&function=sendEmail",
-        "index.php?module=contact&function=sendEmail",
+        amigable("?module=contact&function=sendEmail"),
         "POST",
         "JSON",
         content
       )
     .then(function(data) {
         console.log(data);
-        // ajaxPromise(data, 'POST', 'JSON', content)
-        // .then(function(data) {
-        //     console.log(data);
+      
+        $("#info_send").html('<span style="color: green ;"> Mensaje enviado, Grácias. </span>');
+            //  toastr.success('Email sended');
         
-             toastr.success('Email sended');
-        //     $('#send-email-form').trigger('reset');
      }).catch(function(error) {
-            toastr.error('Something happend when trying to send.' ,'Error');
-        //     console.log(error);
+            // toastr.error('Something happend when trying to send.' ,'Error');
+            console.log("ErrorsendMail> "+error);
+            $("#info_send").html('<span style="color: red ;"> Error en el envio </span>');
         //  });
     });
 }// end_sendEmail
 
-// function addAPI() {
-//     //////
-//     var script = document.createElement('script');
-//     script.async = true;
-//     script.defer = true;
-//     script.src = 'https://maps.googleapis.com/maps/api/js?key=' + googleApi + '&callback=loadMap';
-//     $('head').append(script);
-// }// end_addAPI
-
-// function loadMap() {
-//     var location = {lat: 38.809893, lng: -0.604617}; 
-//     var map = new google.maps.Map(document.getElementById('map'), {
-//         zoom: 15,
-//         center: location
-//     }); // end_map
-//     ////
-//     var contentString = '<div id="content">'+
-//         '<div id="siteNotice">'+
-//         '</div>'+
-//         '<h4>Ontinyent</h4>'+
-//         '<div id="bodyContent">'+
-//         '<p><b>Get your Car</b></p>'+
-//         '<a href="index.php?page=controllerHomePage&op=list">Home</a>'+
-//         '</div>'+
-//         '</div>';
-//         //////
-//     var popWindow = new google.maps.InfoWindow({
-//         content: contentString
-//     });
-//     var marker = new google.maps.Marker({
-//         position: location,
-//         map: map,
-//         title: 'Get your Car'
-//     });
-//     //////
-//     marker.addListener('click', function() {
-//         popWindow.open(map, marker);
-//     });
-// }// end_loadMap
-// //////
-
 $(document).ready(function() {
-    // addAPI();
+   
     addContactEvents();
     localStorage.setItem('currentPage', 'contact');
 });

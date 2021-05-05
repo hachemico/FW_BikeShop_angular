@@ -19,10 +19,12 @@ class mail {
                 $from = 'support@bikeshop.com';
                 break;
     
-            case 'changepass':
-                $subject = 'Tu Nuevo Password en Ohana dogs<br>';
+            case 'recover':
+                $subject = 'Tu Nuevo Password en BikeShop<br>';
                 // $ruta = '<a href="' . amigable("?module=login&function=changepass&aux=" . $arr['token'], true) . '">aqu&iacute;</a>';
+                $ruta = "<a href='".SITE_PATH."index.php?module=login&function=recoverMail&param="  .$arr['token'] . "'>aqu&iacute;</a>";
                 $body = 'Para recordar tu password pulsa ' . $ruta;
+                $from = 'support@bikeshop.com';
                 break;
                 
             case 'contact':
