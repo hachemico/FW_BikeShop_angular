@@ -28,6 +28,12 @@ class login_bll {
         return $this->dao->select_activateUser($this->db,$arrArgument);
         
     }
+
+//LOGIN FUNCTIONS >>>
+    public function loginActivate_BLL($arrArgument){
+        return $this->dao->select_loginActivate($this->db,$arrArgument);
+        
+    }
     public function login_BLL($arrArgument,$arrArgument2){
         return $this->dao->select_user($this->db,$arrArgument,$arrArgument2);
         
@@ -36,6 +42,7 @@ class login_bll {
         return $this->dao->select_userMenu($this->db,$arrArgument);
        
     }
+//RECOVER PASS FUNCTIONS
     public function userRecovery_BLL($arrArgument){
         return $this->dao->select_userRecovery($this->db,$arrArgument);
      
@@ -51,5 +58,14 @@ class login_bll {
     public function updatePass_BLL($arrArgument,$arrArgument2){
         return $this->dao->select_updatePass($this->db,$arrArgument,$arrArgument2);
        
+    }
+    //SOCIAL LOGIN
+    public function socialUser_BLL($arrArgument){
+        return $this->dao->select_socialUser($this->db,$arrArgument);
+        // echo json_encode("Hola BLL");
+    }
+    public function insertSocialGoogle_BLL($arrArgument){
+        return $this->dao->select_socialGoogle($this->db,$arrArgument);
+        // echo json_encode("Hola BLL");
     }
 }//end_home_bll class

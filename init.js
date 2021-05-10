@@ -30,78 +30,78 @@ function load_usermenu(){
             // ajax_log('module/login/controller/controller_login.php?&op=menu&',{"token":token})
             ajax_log(amigable("?module=login&function=menu"),{"token":down_token})
             .then(function (data) {
+                // var userdata= JSON.parse(data);
                 console.log("valor data>>"+data);
-                var userdata= JSON.parse(data);
-                console.log(userdata[0].name);
+                // console.log(userdata[0].name);
 
-                if(userdata[0].type === 'admin'){ //muestra el menu para el admin.
-                    $('#user_log').empty();
-                    $('#user_avatar').append(
+                // if(userdata[0].type === 'admin'){ //muestra el menu para el admin.
+                //     $('#user_log').empty();
+                //     $('#user_avatar').append(
                         
-                            '<img src="'+userdata[0].avatar+'"></img>'
+                //             '<img src="'+userdata[0].avatar+'"></img>'
                         
-                    );    
-                    $('#user_log').append(
-                            '<h4><i class="fa fa-cogs"></i> Menu Admin '+ userdata[0].name +' </h4>'+
-                            '<img src="'+userdata[0].avatar+'"></img>'+
-                            '<button id="update_button" class="btn btn-white btn-xs"><i class="fa fa-refresh"></i> </i> <span> UpdatePassword </span></button>'+
-                            '<button id="logout_button" class="btn btn-white btn-xs"><i class="fa fa-sign-out"></i> </i> <span> LogOut </span></button>'
-                    ); 
-                    $('#navy_menu').remove()
-                    $('#navy_menu').append(
+                //     );    
+                //     $('#user_log').append(
+                //             '<h4><i class="fa fa-cogs"></i> Menu Admin '+ userdata[0].name +' </h4>'+
+                //             '<img src="'+userdata[0].avatar+'"></img>'+
+                //             '<button id="update_button" class="btn btn-white btn-xs"><i class="fa fa-refresh"></i> </i> <span> UpdatePassword </span></button>'+
+                //             '<button id="logout_button" class="btn btn-white btn-xs"><i class="fa fa-sign-out"></i> </i> <span> LogOut </span></button>'
+                //     ); 
+                //     $('#navy_menu').remove()
+                //     $('#navy_menu').append(
 
-                    '<ul>'+
-                        '<li><a href='+amigable("?module=home&function=list")+'data-tr="Inicio">Inicio</a></li>'+
+                //     '<ul>'+
+                //         '<li><a href='+amigable("?module=home&function=list")+'data-tr="Inicio">Inicio</a></li>'+
 
-                        '<li><a href='+amigable("?module=bike&function=list")+'data-tr="Bicicletas">Bicicletas</a></li>'+
+                //         '<li><a href='+amigable("?module=bike&function=list")+'data-tr="Bicicletas">Bicicletas</a></li>'+
 
-                        '<li><a href='+amigable("?module=shop&function=list")+'data-tr="Tienda">Shop</a></li>'+
+                //         '<li><a href='+amigable("?module=shop&function=list")+'data-tr="Tienda">Shop</a></li>'+
 
-                        '<li><a href='+amigable("?module=aboutus&function=list")+'data-tr="Conocenos">Conocenos</a></li>'+
+                //         '<li><a href='+amigable("?module=aboutus&function=list")+'data-tr="Conocenos">Conocenos</a></li>'+
                         
-                        '<li><a href='+amigable("?module=contact&function=list")+'data-tr="Contacto">Contacto</a></li>'+
-                    '</ul>'
+                //         '<li><a href='+amigable("?module=contact&function=list")+'data-tr="Contacto">Contacto</a></li>'+
+                //     '</ul>'
 
-                     ); 
+                //      ); 
 
-                    $('#logout_button').click(function(){
-                        localStorage.removeItem('token');
-                         window.location.href = amigable("?module=home&funtion=list"); //Saltamos al home para lanzar la vista.
-                    })
+                //     $('#logout_button').click(function(){
+                //         localStorage.removeItem('token');
+                //          window.location.href = amigable("?module=home&funtion=list"); //Saltamos al home para lanzar la vista.
+                //     })
 
 
-                }else if(userdata[0].type === 'client'){ //muestra el menu para el usuario loggeado.
-                    $('#user_log').empty(); 
-                    $('#user_avatar').append(
-                        '<img src="'+userdata[0].avatar+'"></img>'
-                    );     
-                    $('#user_log').append(
-                            '<h4><i class="fa fa-user"></i> Menu Usuario</h4>'+
-                            '<img src="'+userdata[0].avatar+'"></img>'+
+                // }else if(userdata[0].type === 'client'){ //muestra el menu para el usuario loggeado.
+                //     $('#user_log').empty(); 
+                //     $('#user_avatar').append(
+                //         '<img src="'+userdata[0].avatar+'"></img>'
+                //     );     
+                //     $('#user_log').append(
+                //             '<h4><i class="fa fa-user"></i> Menu Usuario</h4>'+
+                //             '<img src="'+userdata[0].avatar+'"></img>'+
                             
-                                    '<label >'+userdata[0].name+'</label>'+'</br>'+
-                                    '<label >'+userdata[0].email+'</label>'+'</br>'+
-                                    '<button id="update_button" class="btn btn-white btn-xs"><i class="fa fa-refresh"></i> </i> <span> UpdatePassword </span></button>'+
-                                    '<button id="logout_button" class="btn btn-white btn-xs"><i class="fa fa-sign-out"></i> </i> <span> LogOut </span></button>'
-                    ); 
-                    $('#logout_button').click(function(){
-                        localStorage.removeItem('token');
-                        window.location.href = amigable("?module=home&funtion=list"); //Saltamos al home para lanzar la vista.
-                    })
-                    $('#navy_menu').append(
+                //                     '<label >'+userdata[0].name+'</label>'+'</br>'+
+                //                     '<label >'+userdata[0].email+'</label>'+'</br>'+
+                //                     '<button id="update_button" class="btn btn-white btn-xs"><i class="fa fa-refresh"></i> </i> <span> UpdatePassword </span></button>'+
+                //                     '<button id="logout_button" class="btn btn-white btn-xs"><i class="fa fa-sign-out"></i> </i> <span> LogOut </span></button>'
+                //     ); 
+                //     $('#logout_button').click(function(){
+                //         localStorage.removeItem('token');
+                //         window.location.href = amigable("?module=home&funtion=list"); //Saltamos al home para lanzar la vista.
+                //     })
+                //     $('#navy_menu').append(
 
-                        '<ul>'+
-                            '<li><a href='+amigable("?module=home&function=list")+'data-tr="Inicio">Inicio</a></li>'+
+                //         '<ul>'+
+                //             '<li><a href='+amigable("?module=home&function=list")+'data-tr="Inicio">Inicio</a></li>'+
     
-                            '<li><a href='+amigable("?module=shop&function=list")+'data-tr="Tienda">Shop</a></li>'+
+                //             '<li><a href='+amigable("?module=shop&function=list")+'data-tr="Tienda">Shop</a></li>'+
     
-                            '<li><a href='+amigable("?module=aboutus&function=list")+'data-tr="Conocenos">Conocenos</a></li>'+
+                //             '<li><a href='+amigable("?module=aboutus&function=list")+'data-tr="Conocenos">Conocenos</a></li>'+
                             
-                            '<li><a href='+amigable("?module=contact&function=list")+'data-tr="Contacto">Contacto</a></li>'+
-                        '</ul>'
+                //             '<li><a href='+amigable("?module=contact&function=list")+'data-tr="Contacto">Contacto</a></li>'+
+                //         '</ul>'
     
-                    ); 
-                }
+                //     ); 
+                // }
         
             }) //end_ajax_log
     }else{

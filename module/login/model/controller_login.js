@@ -7,19 +7,26 @@ function login(){
                 
                 ajax_log(amigable('?module=login&funtion=login'), userinfo)
                 .then(function (data) {
-                  
-                    if(data == 0){
-                      
+
+                  let dataParse=JSON.parse(data);
+                   
+                  if(dataParse === '0'){
                         $("#show_log_dialog").html('<span style="color: red ;"> La contraseña es Incorrecta </span>');
-                    }else{
-                        
+                    
+                    }else if(dataParse === 'NOactivate'){
+                        $("#show_log_dialog").html('<span style="color: red ;"> Usuario inválido. Consulte su correo para activar su sesión. </span>');
+                   
+                    }else if(dataParse === 'NOexist'){
+                        $("#show_log_dialog").html('<span style="color: red ;"> Usuario no registrado. </span>');
+                   
+                    }else{ 
                         $("#show_log_dialog").empty();
                         localStorage.setItem('token',data); // guardamos el token generado en localstorage.
                         window.location.href = amigable("?module=home&funtion=list"); //Saltamos al home para lanzar la vista.
-                   
                         }//end_if/else 
                 }) //end_ajax_log
             }//end_if_valideLogin
+
 } // end function login
 
 function recoverPass(){
@@ -31,46 +38,49 @@ function recoverPass(){
                 
                 ajax_log(amigable('?module=login&funtion=recoverPass'), userinfo)
                 .then(function (data) {
-                    console.log(data);
+                   
                     let dataParse=JSON.parse(data);
-                    console.log("valor de dataparse>"+dataParse);
-                    if(dataParse ==='OK'){
+                    console.log(data);
+
+                     if(dataParse === 'errorNotExist'){
+                        console.log("notExist");
+                        $("#show_recover_dialog").html('<span style="color: red ;"> El usuario no existe. "Registrese" para Continuar. </span>');
+                         
+                    }else if(dataParse === 'errorInsertToken'){   
+                        console.log("errorInsertToken"); 
+                        $("#show_recover_dialog").html('<span style="color: red ;"> Se ha producido un error. Intentelo más tarde. </span>');
+                       
+                    }else{
+
+                        console.log("OK");
                         $("#show_recover_dialog").empty();
                         $("#show_recover_dialog").html('<span style="color: green ;"> Proceso realizado satisfactoriamente. </span>');
                         window.location.href = amigable("?module=home&funtion=list"); //Saltamos al home para lanzar la vista.
-                    
-                    }else if(dataParse === 'errorNotExist'){
-                      
-                        $("#show_recover_dialog").html('<span style="color: red ;"> El usuario no existe. "Registrese" para Continuar. </span>');
-                         
-                    }else if(dataParse === 'errorInsertToken'){    
-                        $("#show_recover_dialog").html('<span style="color: red ;"> Se ha producido un error. Intentelo más tarde. </span>');
-                       
+                        
                     }//end_if/else.
                     
                 }) //end_ajax_log
-            }
-
-}
+            }//end if_valide
+}//end recover_pass
 
 
 function updateRecover(){
 
     if(valide_updateRecover() != 0){
         
-        let passwd= $("#user_confRec_passwd2").val()
+        let passwd= $("#user_confRec_passwd2").val();
         let tokenRecover= localStorage.getItem('tokenRecover');
-        let arrArgument={"pass":passwd,"token":tokenRecover}
+        let arrArgument={"pass":passwd,"token":tokenRecover};
      
         ajax_log(amigable('?module=login&funtion=updateRecover'), arrArgument)
         .then(function (data) {
-            console.log(data);
+           
             let dataParse=JSON.parse(data);
-        
-            if(dataParse === 'errorUpdatePass'){
+            console.log("UPDATE RECOVER>>"+data);
+            if(dataParse == 'errorUpdatePass'){
                 $("#show_confRec_dialog").html('<span style="color: red ;"> Error en el proceso. Intente de nuevo. </span>');
        
-            }else if(dataParse === 'OK'){    
+            }else if(dataParse == 'OK'){    
                 $("#show_confRec_dialog").empty();
                 $("#show_confRec_dialog").html('<span style="color: green ;"> Proceso realizado satisfactoriamente. </span>');
                 localStorage.removeItem('tokenRecover');
@@ -80,6 +90,37 @@ function updateRecover(){
     }
 
 }
+
+
+// function socialLogin_google(){
+//     console.log("socialGoogle");
+
+// }//end socialLogin_Google
+
+// function socialLogin_github(){
+//     console.log("socialGithub");
+
+// }//end social_login Github
+
+// function button_socialGoogle(){
+//     $("#buttonGoogle").click(function (e) {
+        
+//         // console.log("DEBUG on buttonGoogle click >>>");
+//         socialLogin_google();
+//     });
+
+// }//end buttonGoogle
+
+// function button_socialGithub(){
+//     $("#buttonGithub").click(function (e) {
+        
+//         console.log("DEBUG on buttonGithub click >>>");
+//         // socialLogin_github();
+       
+//     });
+
+// }//end buttonGithub
+
 // function login_button(){ //trasladado al init.js para que detecte el evento.
     
 //     $("#login-button").click(function(){
@@ -118,7 +159,7 @@ function redir_register(){
     });
 }
 
-function recoverPass_click(){
+function recoverPass_click(){ //salta a la vista para introduci el correo a recuperar
    
     $("#recover_access").click(function (e) {
         console.log("DEBUG on SUBMIT recoverPass click >>>");
@@ -126,7 +167,7 @@ function recoverPass_click(){
     });
 }
 
-function recoverButton(){
+function recoverButton(){ // introducimos el correo a recuperar.
    
     $("#recover_input").click(function (e) {
         console.log("DEBUG on SUBMIT recoverButton click >>>");
@@ -135,7 +176,7 @@ function recoverButton(){
     });
 }
 
-function recoverPass_submit(){
+function recoverPass_submit(){ // introducimos los valores para update.
 
     $("#confRec_input").click(function (e) {
         console.log("DEBUG on SUBMIT login >>>");
@@ -153,4 +194,6 @@ $(document).ready(function () {
     recoverPass_click();
     recoverButton();
     recoverPass_submit();
+    // button_socialGithub();
+    // button_socialGoogle();
     });

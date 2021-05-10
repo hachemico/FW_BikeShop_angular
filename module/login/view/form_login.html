@@ -17,15 +17,25 @@
 						<span style="color: red ;" id="e_log_email"></span>
 						<input type="password" class="form-control" id="user_log_passwd" name="user_log_passwd" placeholder="Contraseña" />
 						<span style="color: red ;" id="e_log_passwd"></span>
-						<a id="recover_access"><small>Recuperar contraseña?</small></a>
-					</br>
+						
 							<div id="show_log_dialog"></div>
-					</br>
+				
+					<br>
 						<input  type="button" name="login_input" id="login_input" class="btn btn-success btn-block" value="Acceder"></input>
-
+					<br>
+					<a id="recover_access"><small><strong>Recuperar contraseña?</strong></small></a>
+						
 					</form>
+					<div id="social_singIn" style="align-items: center;">
+							
+						<span><p>Acceder mediante:</p></span>
+						<button id="buttonGoogle" class="btn btn-black btn-block btn-sm"><i class="fa fa-google"></i></i> <span>Google</span></button>
+						<button id="buttonGithub" class="btn btn-black btn-block btn-sm"><i class="fa fa-github"></i></i> <span>Github</span></button>
+						<button id="logoutButton" class="btn btn-black btn-block btn-sm"><i ></i></i> <span>Logout</span></button>
+					</div>
 				</br>
 					<strong>No eres miembro? <button id="redir_register" class="register_button_from_login">Registrarse</button></strong>
+					<hr>
 				</div><!-- col-sm-5 -->
 				
 			</div><!-- row -->

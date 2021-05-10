@@ -11,6 +11,8 @@
 			<!-- Fav icon -->
 	        <link rel="shortcut icon" href="<?php echo IMG_PATH ?>favicon.ico">
         <!-- Librerias Plantilla End -->
+
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" />
 
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
@@ -19,7 +21,12 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
 
-
+        <!-- <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script> -->
+            <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+              <!-- <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script> -->
+        <!-- Add Firebase products that you want to use -->
+        <!-- <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script> -->
+        <!-- <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script> -->
 		    <!-- Librerias Plantilla Start -->
 			<!-- Font -->
             <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,900,700,700italic,300' rel='stylesheet' type='text/css'>
@@ -48,6 +55,8 @@
 	        <link rel="stylesheet" href="<?php echo VIEW_PATH ?>style.css">
 	        <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>revolutionslider_settings.css" media="screen" />
 	        <link rel="stylesheet" href="<?php echo CSS_PATH ?>responsive.css">
+
+            
 	        <script src="<?php echo VENDOR_PATH ?>modernizr-2.6.2.min.js"></script>
             
              <!-- All script -->
@@ -82,6 +91,10 @@
 
 	    <link href="<?php echo CSS_PATH ?>style.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="<?php echo VIEW_INC_PATH ?>translate.js"></script>
+        <script type = "text/javascript" src = "<?php echo SITE_PATH ?>model/apis.js"></script>
+        
+  
+        
         
        
         <script src="<?php echo JS_PATH_SEARCH ?>controller_search.js"></script>
@@ -89,9 +102,7 @@
 		<script src="<?php echo JS_PATH_LOGIN ?>controller_login.js"></script>
         <script src="<?php echo JS_PATH_LOGIN ?>controller_register.js"></script>
         <script src="<?php echo JS_PATH_LOGIN ?>validate_login.js"></script>
-        <script src="<?php echo JS_PATH_LOGIN ?>validate_register.js"></script>
-        <script src="<?php echo JS_PATH_LOGIN ?>validate_recover.js"></script>
-        <script src="<?php echo JS_PATH_LOGIN ?>validate_updateRecover.js"></script>
+        <script src="<?php echo JS_PATH_LOGIN ?>firebase.js"></script>
         <script src="<?php echo JS_PATH ?>ajax_promise/ajax_promise.js"></script>
         <script src="<?php echo JS_PATH ?>utils.inc.js"></script>
         <script src="<?php echo SITE_PATH ?>init.js"></script>

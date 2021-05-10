@@ -15,6 +15,7 @@ function register(){
                             ajax_reg(amigable("?module=login&function=register"), userinfo)
                             .then(function (token_email) {
                                 console.log("DEBUG valor data_reg: >>> "+token_email);
+
                                 let aux_token_email = token_email.replace(/"/g, "");
                                 userinfo=userinfo+'&token_email='+aux_token_email;
                                 userinfo=userinfo.replace(/ /g, "")

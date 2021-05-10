@@ -2,7 +2,7 @@
 // $path = $_SERVER['DOCUMENT_ROOT'] . '/FW_BikeShop';
 // include($path . "/module/classes/JWT.php");
 class middleware_auth{
-    function encode_token($user_email){
+    function encode_token($user_id){
         ////////////////////////////////////////////////
             //https://github.com/miguelangel-nubla/JWT-PHP//
             ////////////////////////////////////////////////
@@ -20,7 +20,7 @@ class middleware_auth{
             $payload = "{
                 'iat':'$iat', 
                 'exp':'$exp',
-                'name':'$user_email'
+                'id':'$user_id'
             }";
         
             $JWT = new JWT;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <functions>
+
     <function>
         <name>listLogin</name>
         <uri>listLogin</uri>
@@ -35,6 +36,10 @@
      <function>
         <name>active_user</name>
         <uri>active_user</uri>
+    </function>   
+    <function>
+        <name>loginActivate</name>
+        <uri>loginActivate</uri>
     </function>
     <function>
         <name>login</name>
@@ -64,8 +69,22 @@
         <name>updateRecover</name>
         <uri>updateRecover</uri>
     </function>
-        <function>
+    <function>
         <name>updatePass</name>
         <uri>updatePass</uri>
     </function>
+<!-- SOCIAL LOGIN -->
+    <function>
+        <name>socialLoginGoogle</name>
+        <uri>socialLoginGoogle</uri>
+    </function>
+    <function>
+        <name>socialUser</name>
+        <uri>socialUser</uri>
+    </function>
+    <function>
+        <name>insertSocialGoogle</name>
+        <uri>insertSocialGoogle</uri>
+    </function>
+<!-- END SOCIAL LOGIN -->
 </functions>
