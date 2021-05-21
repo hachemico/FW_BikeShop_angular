@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app = "bikeShop" lang="zxx">
+	<head>
+		<title>BikeShop</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />   
+
+        <link rel="shortcut icon" href="frontend/view/img/favicon.ico">
+       
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+        
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.min.js"></script>
+
+        <link rel = "stylesheet" href = "frontend/view/css/slicknav.css">
+
+        <script src = "frontend/view/app.js"></script>
+        <script src = "frontend/view/apiconnector.js"></script>
+
+        		    <!-- Librerias Plantilla Start -->
+			<!-- Font -->
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,900,700,700italic,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700%7CDancing+Script%7CMontserrat:400,700%7CMerriweather:400,300italic%7CLato:400,700,900' rel='stylesheet' type='text/css' />
+        <link href='http://fonts.googleapis.com/css?family=Cantata+One' rel='stylesheet' type='text/css' />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,600' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,300,500,700' rel='stylesheet' type='text/css'> 
+        
+        
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="frontend/view/css/bootstrap.min.css">
+        <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+
+        <!-- top page plantillas -->
+        <link rel="stylesheet" href="frontend/view/css/font-awesome.min.css">
+        <link rel="stylesheet" href="frontend/view/css/normalize.css">
+        <link rel="stylesheet" href="frontend/view/css/skin-lblue.css">
+
+        <link rel="stylesheet" href="frontend/view/css/ecommerce.css">
+        
+
+        <link rel="stylesheet" href="frontend/view/css/main.css">
+        <link rel="stylesheet" href="frontend/view/style.css">
+        <link rel="stylesheet" href="frontend/view/css/style.css">
+        
+        <link rel="stylesheet" href="frontend/view/css/responsive.css">
+        <script src="frontend/view/js/vendor/modernizr-2.6.2.min.js"></script>
+
+
+        
+        <!-- new collection section script -->
+        <script src="frontend/view/js/swiper/idangerous.swiper.min.js"></script>
+     
+       
+	    <link href="frontend/view/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="frontend/view/inc/translate.js"></script>
+        
+        <script src="frontend/module/home/controller/controller_home.js"></script>
+        <script src="frontend/module/shop/controller/controller_shop.js"></script>
+        <script src="frontend/module/shopDetail/controller/controller_shopDetail.js"></script>
+        <!-- C:\xampp\htdocs\FW_BikeShop_angular\frontend\module\home\controller\controller_home.js -->
+    </head>
+        <body>     
+            <div ng-include = '"frontend/view/inc/header.html"'></div>
+            <div ng-include = '"frontend/view/inc/menu.view.html"'></div>
+            <div ng-view></div>
+            <!-- <div ng-view autoscroll = "true"></div> -->
+            <div ng-include = '"frontend/view/inc/footer.view.html"'></div>
+            <div ng-include = '"frontend/view/inc/bottom_page.view.html"'></div>
+        </body>
+    </html>
+
+    

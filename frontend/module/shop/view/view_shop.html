@@ -1,0 +1,187 @@
+<!-- start main content -->
+<main class="main-container">
+    <div id="contenido"></div>
+    <section class="men_area pt-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-9">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="kat-shoe-bg imgframe6">
+                                <!-- <img src="http://localhost/FW_BikeShop/shop/listview/img/large-banner-4.png" alt="" /> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div id="contenido"></div>
+<!-- ============================================= -->
+
+                    <div id="shop" class="row">
+                            <div id="shop-all" class="row"></div>
+                            <div id="shop-detail" class="row"></div>
+
+                            <div class="container-shop row" style="margin-top: 5px;">
+                                <div ng-repeat="data in showShop" class="col-md-4 single-service-2 show-details-btn">
+                                    <div class="inner" >
+                                        <img src = "frontend/{{data.img}}" ng-click = "showDetails(data.idbike)" style = "max-width: 100%; height: 100px;">
+                                        <h4 style="padding-top: 10px ">{{data.brand}} {{data.model}}</h4>
+                                        <h4 >{{data.price}}€</h4>
+                    
+                                        <br>
+                                        <div id="container-btns">
+                                            <fav-button  style = "width: 100%; height: 100%"></fav-button>
+                                            <cart-button style = "width: 100%; height: 100%"></cart-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div id="container-pagination" style="display: flex; align-items: center; justify-content: center">
+                        <div id="pagination-shop">
+                            <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" items-per-page = "itemsPerPage" class="pagination-sm"></ul>
+                        </div>
+                    </div>
+                    <div class="pagination" id="pagination"></div>    <!-- DIV PAGINATION -->
+                    <div class="api_books"></div>
+                    <hr color="black" size=3>
+                <table>
+                    <h3>LIBROS RECOMENDADOS</h3>
+                    
+                    <tr>
+                        <div id = "viewerCanvas"  class="viewerCanvas"></div> <!-- DIV API(GOOGLEBOOKS) -->
+                    </tr>
+                </table>
+              
+ <!-- ============================================= -->
+    </div>
+    
+    <aside class="col-md-3 sidebar">
+
+        <div class="widget category-widget">
+           
+           <!-- HTML PRUEBA FILTROS -->
+            <!-- <div id="main-shop" style="margin-bottom: 350px;">
+                <div class="filter-content">
+                </div>
+                <div class="container-filter" style="margin-top: 20px;">
+                    <button class="default-button" id="modal-map-btn" style="margin-left: 15%; margin-bottom: 10px">Open
+                        Map</button>
+            
+            
+                    <div ng-repeat="(key, filter) in filters">
+            
+                        <h4 class="filter-title">{{key | uppercase}}</h4>
+                        <div ng-repeat="value in filter" class="filter-col" style = "display: flex">
+                            {{value}}
+            
+            
+                            <div id = "container-filter-btns" style="margin-left: auto; margin-right: 10px; display: flex">
+                                <div id = "add-filter-btn" ng-show = "!currentFilters[value + '-' + key]" ng-click = "filterCars('{{value}}', '{{key}}')" style = "width: 20px;">
+            
+            
+                                    <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="plus-square"
+                                        class="svg-inline--fa fa-plus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            
+                                        
+                                        <path fill="#4d484e"
+                                            d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12zm96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            	<div id = "remove-filter-btn" ng-show = "currentFilters[value + '-' + key]" ng-click = "removeFilter('{{value}}', '{{key}}')" style = "width: 20px;">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="minus-square"
+                                        class="svg-inline--fa fa-minus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path fill="#fc7820"
+                                            d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12H108zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+<!-- HTML PRUEBA FILTROS -->
+
+            <h2>BUSQUEDA AVANZADA</h2>
+
+            <ul id="category-widget">
+                    
+                    <ul>                                                
+                        <li>CATEGORIA</li>
+                        <li><label class="checkbox">
+                            <input name="filter[]" type="checkbox" ng-click="clickXc('xc')" ng-checked="radio" id="check_cat1" class=""/>Xc</label>
+                        </li>
+                        <li><label class="checkbox">
+                            <input name="filter[]" type="checkbox" ng-click="clickTrail('trail')" id="check_cat2" class=""/>Trail</label>
+                        </li>
+                        <li><label class="checkbox">
+                            <input name="filter[]" type="checkbox" ng-click="clickEnduro('enduro')"  id="check_cat3" class=""/>Enduro</label>
+                        </li>
+                        <li><label class="checkbox">
+                            <input name="filter[]" type="checkbox" ng-click="clickEmtb('emtb')" id="check_cat4" class=""/>Emtb</label>
+                        </li>
+                        <li><label class="checkbox">
+                            <input name="filter[]" type="checkbox" ng-click="clickRoad('road')" id="check_cat5" class=""/>Road</label>
+                        </li>
+                    </ul>
+                
+            </ul>
+        </div>
+        <!-- /.category widget -->
+        <div class="widget category-widget">
+
+            <ul id="category-widget">
+              
+                    <ul>
+                        <li>TALLA</li>
+                        <li><label class="checkbox">
+                            <input name="filter[]" type="checkbox"  ng-model="check_size1" id="check_size1" class=""/>S</label>
+                        </li>
+                        <li><label class="checkbox">
+                            <input name="filter[]" type="checkbox"  ng-model="check_size2" id="check_size2" class=""/>M</label>
+                        </li>
+                        <li><label class="checkbox">
+                            <input name="filter[]" type="checkbox"  ng-model="check_size3"id="check_size3" class=""/>L</label>
+                        </li>
+                        <li><label class="checkbox">
+                            <input name="filter[]" type="checkbox"  ng-model="check_size4" id="check_size4" class=""/>XL</label>
+                        </li>
+                    </ul>
+            </ul>
+        </div>
+        <!-- /.category widget -->
+
+        <div class="widget">
+
+            <div class="filter-price">
+
+                <!-- <div id="price-range"></div> -->
+
+                <!-- <div id="filter-range-details" class="row">
+                    <div class="col-xs-6">
+                            <div class="filter-price-label">DESDE:</div>
+                                <input type="text" id="price-range-low" class="form-control">
+                    </div>
+
+                    <div class="col-xs-6">
+                        <div class="filter-price-label">HASTA:</div>
+                            <input type="text" id="price-range-high" class="form-control">
+                    </div>
+                </div> -->
+
+                <div class="filter-price-action">
+                    <a id="filters-button" ng-click="filterBike()" class="btn btn-custom-6 min-width-xss">APLICAR FILTROS</a>
+                    <a id="reset-button" ng-click="clearAllFilters()"class="btn btn-custom-6 min-width-xs">LIMPIAR</a>
+                </div>
+             </div>
+        </div>
+        <!-- /.widget -->
+    </aside>
+    <!-- /.col-md-3 -->
+</div>
+</div>
+</section>
+
+<div class="clearfix"></div>
+</main>
+<!-- end main content -->

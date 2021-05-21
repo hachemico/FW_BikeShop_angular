@@ -1,0 +1,56 @@
+<!-- start main content -->
+<main class="main-container">
+	<div id="inicio"></div>
+<!-- <div id="carousel-i
+	<!-- recommend  items Starts -->
+	<section id="recent-product">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="recent-items">
+						<!-- Block heading two -->
+						<div class="block-heading-two">
+							<h3><span>Recomendados</span></h3>
+						</div>
+				
+						<!-- Change values of data-items, data-auto-play, data-pagination & data-single-item based on your needs -->
+						<div uib-carousel active = "active" interval = "myInterval" no-wrap = "noWrapSlides"  class = "separe-menu">
+							<a uib-slide ng-repeat = "slide in showSlider" index = "$index" class = "single-slide" style = "overflow: hidden; height: 500px; max-height: 500px;">
+								<img ng-src = "frontend/{{slide.ruta}}" class="product-img"  style = "display: block; width: 100%; height: auto; position: absolute; top: 0; bottom: 0; margin: auto">
+								<div class = "carousel-caption product-bio" >
+									<h1>{{slide.categoria}}</h1>
+								</div>
+							</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- recommend items Ends -->
+	
+	<section id="shop" class="shop-4 pt-0">
+		<div class="container">
+            <!-- ============================================= -->
+			<div class="block-heading-two">
+				<h3><span>Productos</span></h3>
+			</div>
+			<div id = "containerCategories" class = "row">
+				<div ng-repeat = "data in showCategories"  class = "col-md-4 single-service-2">
+					<div class = "inner" id = "{{data.categoria}}" ng-click = "redirectShopBrand(data.categoria)">
+						<img src = "frontend/{{data.ruta}}" style = "max-width: 100%; height: 100px;">
+					
+						<h4 style = "padding-top: 10px; padding-left: 15px ">{{data.categoria}}</h4>
+						</img>
+					</div>
+				</div>
+			</div>
+			<!-- .row end -->
+		</div>
+		<!-- .container end -->
+	</section>
+
+<!-- end main content -->
+
+</main>

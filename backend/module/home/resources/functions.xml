@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>carousel</name>
+        <uri>carousel</uri>
+    </function>
+    <function>
+        <name>categories</name>
+        <uri>categories</uri>
+    </function>
+    <function>
+        <name>countCategories</name>
+        <uri>countCategories</uri>
+    </function>
+    <function>
+        <name>moreCategories</name>
+        <uri>moreCategories</uri>
+    </function>
+</functions>
