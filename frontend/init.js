@@ -1,26 +1,26 @@
 console.log("Carga init.JS >>>");
 
-function load_usermenu(){
- 
-    $('#user_avatar').empty();
-    $('#user_log').append( //por defecto muestra el menu para el visitante. REGISTER/LOGIN
-        '<h4><i class="fa fa-user"></i> Menu Usuario</h4>'+
-        '<button class="btn btn-white btn-sm" id="register-button">Register</button> &nbsp; <button class="btn btn-color btn-sm" id="login-button">Log In</>'
-    ); 
+// function load_usermenu(){
+    // user_log.innerHTML = "HOLA PEPE";
+    // $('#user_avatar').empty();
+    // $('#user_log').append( //por defecto muestra el menu para el visitante. REGISTER/LOGIN
+    //     '<h4><i class="fa fa-user"></i> Menu Usuario</h4>'+
+    //     '<button class="btn btn-white btn-sm" id="register-button">Register</button> &nbsp; <button class="btn btn-color btn-sm" id="login-button">Log In</>'
+    // ); 
     
-    $('#navy_menu').append(
+    // $('#navy_menu').append(
 
-        '<ul>'+
-            '<li><a href='+amigable("?module=home&function=list")+'data-tr="Inicio">Inicio</a></li>'+
+    //     '<ul>'+
+    //         '<li><a href='+amigable("?module=home&function=list")+'data-tr="Inicio">Inicio</a></li>'+
 
-            '<li><a href='+amigable("?module=shop&function=list")+'data-tr="Tienda">Shop</a></li>'+
+    //         '<li><a href='+amigable("?module=shop&function=list")+'data-tr="Tienda">Shop</a></li>'+
 
-            '<li><a href='+amigable("?module=aboutus&function=list")+'data-tr="Conocenos">Conocenos</a></li>'+
+    //         '<li><a href='+amigable("?module=aboutus&function=list")+'data-tr="Conocenos">Conocenos</a></li>'+
             
-            '<li><a href='+amigable("?module=contact&function=list")+'data-tr="Contacto">Contacto</a></li>'+
-        '</ul>'
+    //         '<li><a href='+amigable("?module=contact&function=list")+'data-tr="Contacto">Contacto</a></li>'+
+    //     '</ul>'
 
-    ); 
+    // ); 
 
     if(localStorage.getItem('token')!= null){
         var down_token = localStorage.getItem('token');
@@ -107,7 +107,7 @@ function load_usermenu(){
     }else{
         down_token=0;
     }
-}
+// }
 
 function login_button(){
     
@@ -159,12 +159,12 @@ var ajax_log = function (url, data) { // Funcion ajax_reg con promise
     })
 };
 
-$(document).ready(function () {
-    log_out();
-    load_usermenu();
-    update_button();
-    login_button();
-    register_button();
+// $(document).ready(function () {
+//     log_out();
+//     load_usermenu();
+//     update_button();
+//     login_button();
+//     register_button();
     
 
-});
+// });

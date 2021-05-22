@@ -3,13 +3,13 @@ class controller_login{
 
  // REGISTER FUNCTIONS 
    
-    function listRegister(){
-		common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_register.html");
-    }
+    // function listRegister(){
+	// 	common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_register.html");
+    // }
 
-    function listLogin(){
-		common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_login.html");
-	}
+    // function listLogin(){
+	// 	common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_login.html");
+	// }
     
     function listRecover(){
 		common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_recover.html");
@@ -25,27 +25,16 @@ class controller_login{
     }
 
     function register(){
-        $aux_user=$_POST['user_user'];
-        $aux_passwd=$_POST['user_passwd'];
-        $aux_email=$_POST['user_email'];
+        $aux_user=$_POST['username'];
+        $aux_passwd=$_POST['password'];
+        $aux_email=$_POST['email'];
 
         $aux_token=generate_Token_secure(20);
         $info_user=array();
         array_push($info_user,$aux_user,$aux_email,$aux_passwd,$aux_token);
 
         $rdo =( common::loadModel(MODEL_PATH_LOGIN,"login_model","register",$info_user));  
-        if($rdo == '1'){
-            echo json_encode($info_user[3]); //devuelve el tokenEmail.
-        }else{
-            echo json_encode('ERROR');
-        } 
-    }
-    
-//REGISTER RECOVER
-    function sendEmail(){
-        $aux_user=$_POST['user_user'];
-        $aux_email=$_POST['user_email'];
-        $aux_token=$_POST['token_email'];
+
         $type='alta';
 
         $arrArgument=[
@@ -55,7 +44,9 @@ class controller_login{
             'inputEmail'=> $aux_email,
         ];
         echo mail::enviar_email($arrArgument);
+        // echo json_encode($aux_token);
     }
+    
 //LOGIN ACTIVATE MAIL //Se encuentra a la espera del click en el email.
     function active_user(){
         $token= ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "activateUser",$_GET['param']));

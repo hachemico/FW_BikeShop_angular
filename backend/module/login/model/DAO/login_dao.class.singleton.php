@@ -18,10 +18,10 @@ class login_dao {
         $sql = "SELECT * FROM user WHERE id='LOCAL=$arrArgument'";
         $stmt = $db->ejecutar($sql);
         
-        if ($stmt->num_rows === 0) {
-           echo json_encode(0);
+        if ($stmt->num_rows === 0) { 
+           echo json_encode(0); // No existe usuario registrado
         } else {
-           echo json_encode(1);  
+           echo json_encode(1);  // Existe usuario con esa ID
         }
     }
     public function select_insertUser($db,$arrArgument) {
@@ -33,7 +33,7 @@ class login_dao {
 
         $sql ="INSERT INTO user(id,name, email, passwd, type, avatar, activate, token_email) VALUES ('LOCAL=$arrArgument[1]','$arrArgument[0]','$arrArgument[1]','$hashed_pass','$type', '$avatar','false','$arrArgument[3]')";
         $stmt = $db->ejecutar($sql);
-        return 1;
+        // return 1;
         
     }
 //LOGIN ACTIVATEMAIL

@@ -1,6 +1,6 @@
 console.log("carga app.js");
 
-var bikeShop = angular.module('bikeShop', ['ngRoute', 'ui.bootstrap'] );
+var bikeShop = angular.module('bikeShop', ['ngRoute', 'ui.bootstrap','ngSanitize','toastr'] );
 //////
 bikeShop.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
@@ -50,7 +50,32 @@ bikeShop.config(['$routeProvider', '$locationProvider',
                         templateUrl: "frontend/module/shopDetail/view/view_shopDetail.html", 
                         controller: "controller_shopDetail",
                         resolve: {
-                            
+                        }// end_resolve
+                    }).when("/login", {
+                    
+                        templateUrl: "frontend/module/login/view/view_login.html", 
+                        controller: "controller_login",
+                        resolve: {
+    
+                            // featuredCars: function (services) {
+                            // showShop: function (services) {
+                            //     return  services.get('shop','getShop');
+                            // }
+                            // // featuredCars: async function (services) {
+                            // //     return await services.get('home','carousel');
+                            // // },
+                            // showSlider: function (services) {
+                            //     return services.get('shop','carousel');
+                            // }
+    
+    
+                        }// end_resolve
+                    }).when("/register", {
+                    
+                        templateUrl: "frontend/module/login/view/view_register.html", 
+                        controller: "controller_register",
+                        resolve: {
+    
                             // featuredCars: function (services) {
                             // showShop: function (services) {
                             //     return  services.get('shop','getShop');
