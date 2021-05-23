@@ -1,0 +1,49 @@
+<!-- start main content -->
+<main class="container">
+
+	<section>
+
+		<div class="signinpanel">
+
+			<div class="row">
+
+				<div class="col-md-5 col-md-offset-1">
+
+					<form id="form_login" name="form_login" method="post">
+						<h4 class="nomargin">Entrar</h4>
+						<p class="mt5 mb20">Login para acceder a tu cuenta.</p>
+
+						<input type="text" class="form-control" id="user_log_email" name="user_log_email" ng-pattern = "regEmail" ng-model ="user_log_email" placeholder="Correo electrónico"/>
+						<span style="color: red ;" id="e_log_email">{{e_log_email}}</span>
+						<input type="password" class="form-control" id="user_log_passwd" name="user_log_passwd" ng-pattern = "regPassword" ng-model ="user_log_passwd" placeholder="Contraseña" />
+						<span style="color: red ;" id="e_log_passwd">{{e_log_passwd}}</span>
+						
+							<div id="show_log_dialog">{{show_log_dialog}}</div>
+				
+					<br>
+						<input  type="button" name="login_input" id="login_input" ng-click="login()" class="btn btn-success btn-block" value="Acceder"></input>
+				
+					<!-- <a id="recover_access" ng-click="recover()" ><small><strong>Recuperar contraseña?</strong></small></a> -->
+					<div style="text-align-last: center;"><a href="#/recover" class="btn btn-white btn-xs" ><i class="fa fa-key" ></i>Recuperar Contraseña.</a></div>
+					</form>
+					<div id="social_singIn" style="align-items: center;">
+							
+						<span><p>Acceder mediante:</p></span>
+						<button id="buttonGoogle" class="btn btn-black btn-block btn-sm" ng-click="socialGoogle()"><i class="fa fa-google"></i></i> <span>Google</span></button>
+						<button id="buttonGithub" class="btn btn-black btn-block btn-sm" ng-click="socialGithub()"><i class="fa fa-github"></i></i> <span>Github</span></button>
+						<button id="logoutButton" class="btn btn-black btn-block btn-sm" ng-click="logOut()"><i ></i></i> <span>Logout</span></button>
+					</div>
+				</br>
+					 <!-- <button id="redirRegister" class="register_button_from_login" href="#/register">Registrarse</button> -->
+                     <div><strong>No eres miembro?</strong></div>
+                     <div style="text-align-last: center;"><a href="#/register" class="btn btn-white btn-sm" ><i class="fa fa-user" ></i>Registarse</a></div>
+					<hr>
+				</div><!-- col-sm-5 -->
+				
+			</div><!-- row -->
+
+		</div><!-- signin -->
+
+	</section>
+</main>
+<!-- end  main content -->

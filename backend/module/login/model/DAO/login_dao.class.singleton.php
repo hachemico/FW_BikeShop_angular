@@ -62,8 +62,9 @@ class login_dao {
         }
        
     }
-
+                                    //email          //pass
     public function select_user($db,$arrArgument,$arrArgument2) {
+        
         $sql = "SELECT * FROM user WHERE id ='LOCAL=$arrArgument'";
         $stmt = $db->ejecutar($sql);
 
@@ -75,13 +76,16 @@ class login_dao {
         if(!$dinfo){
            return 'NOexist';
         }else{
-           
+            $aux_id = "LOCAL=$arrArgument";
+                //dinfo = [0]=id, [1]=name, [2]=email [3]=passwd 
+                //        [4]=type [5]=avatar [6]=activate [7]=token_email
             if(password_verify($arrArgument2,$dinfo['0']['passwd'])) {
-                $rdo= middleware_auth::encode_token($arrArgument);
+                $rdo= middleware_auth::encode_token($aux_id);
                 return $rdo;
             }else {
                 return 0; 
             }
+            // return $aux_id;
         }	
     }
 

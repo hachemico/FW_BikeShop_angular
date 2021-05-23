@@ -46,7 +46,7 @@ class controller_login{
         echo mail::enviar_email($arrArgument);
         // echo json_encode($aux_token);
     }
-    
+
 //LOGIN ACTIVATE MAIL //Se encuentra a la espera del click en el email.
     function active_user(){
         $token= ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "activateUser",$_GET['param']));
@@ -54,12 +54,11 @@ class controller_login{
     }
 
 
-
 //LOGIN FUNCTIONS
 
     function login(){
-        $email=$_POST['user_log_email'];
-        $pass=$_POST['user_log_passwd'];
+        $email=$_POST['email'];
+        $pass=$_POST['password'];
 
         $activate=( common::loadModel(MODEL_PATH_LOGIN,"login_model", "LoginActivate",$email));
         if($activate == 'false'){
@@ -70,6 +69,7 @@ class controller_login{
             
        }else{ // echo json_encode($activate);
         echo json_encode( common::loadModel(MODEL_PATH_LOGIN,"login_model", "login",$email,$pass));
+        // echo json_encode($activate);   
        }
         // echo json_encode("Hola login controller_login");
     }

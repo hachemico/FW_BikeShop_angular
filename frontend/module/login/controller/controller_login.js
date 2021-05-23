@@ -1,42 +1,61 @@
 console.log("Carga controller_login.js");
 
-bikeShop.controller('controller_login', function($scope,services) {
+bikeShop.controller('controller_login', function($scope,services,toastr) {
     
     console.log("Carga controller_login function");
-    $scope.user_log = ("<p>Hola</p>");
-    //  $scope.user_log = function() {
-    //     // console.log("detecta el clikc");
-    //     // <p>Hola</p>
-    //     // <h4><i class="fa fa-user"></i> Menu Usuario</h4>
-	// 	// 			<button class="btn btn-white btn-sm" id="register-button">Register</button> &nbsp; <button class="btn btn-color btn-sm" id="login-button">Log In</button>
-				  
-    //  };
-    // $scope.regUsername = /^[A-Za-z0-9._-]{5,15}$/;
-    // $scope.regEmail = /^[A-Za-z0-9._-]{5,20}@[a-z]{3,6}.[a-z]{2,4}$/;
-    // $scope.regPassword = /^[A-Za-z0-9._-]{5,20}$/;
+   
+    $scope.login = function(){
+        console.log("scope_login");
 
-    // $scope.register = function() {
-    //     let user = {'username': $scope.username, 
-    //                 'email': $scope.email, 
-    //                 'password': CryptoJS.MD5($scope.password).toString(), 
-    //                 're_password': CryptoJS.MD5($scope.password).toString()};
+        $scope.regEmail = /^[A-Za-z0-9._-]{5,20}@[a-z]{3,7}.[a-z]{2,4}$/;
+        $scope.regPassword = /^[A-Za-z0-9._-]{5,20}$/;
+        let ok = 'false';
+        // console.log(form_register.user_user.$valid);
 
-    //     services.post('login', 'register', user)
-    //     .then(function(response) {
-
-    //         console.log("Hay respuesta >>"+ response)
+        if(!$scope.user_log_email){
+                    $scope.e_log_email = "Introduzca un email valido";
+                    ok='false';
+        }else if(!$scope.user_log_passwd){
+                 
+                    $scope.e_log_email = "";
+                    $scope.e_log_passwd = "Introduzca una contraseña valida";
+                    ok='false';
+        }else{
+            $scope.e_log_email = "";
+            $scope.e_log_passwd = "";
+            ok='true';
+        }//end_if_valide
            
-    //         // if (response == "Done") {
-    //         //     toastr.success('Thank you. You will receive and email confirmation.' ,'You have registered succesfully');
-    //         //     $location.path('/login');
-    //         // }else {
-    //         //     toastr.error('This account already exists.' ,'Error');
-    //         // }// end_else
-            
-    //     }, function(error) {
-    //         console.log(error);
-    //     }); // end_services
-    // }; // end_register
+        // console.log(ok);
+        if(ok == 'true' && $scope.user_log_email && $scope.user_log_passwd){
+      
+            let user = {'email': $scope.user_log_email, 
+                    'password': $scope.user_log_passwd};
 
+                    // console.log(user);
+                    services.post('login', 'login', user)
+                    .then(function(response) {
+                        // console.log("Hay respuesta >>"+ response);
+                        let dataParse=JSON.parse(response);
+                
+                        if(dataParse == '0'){
+                            toastr.error('La contraseña es incorrecta' ,'ERROR');
 
+                        }else if(dataParse == 'NOactivate'){
+                            toastr.error('Usuario inválido. Consulte su correo para activar su sesión.' ,'ERROR VALIDACIÓN');
+
+                        }else if(dataParse == 'NOexist'){
+                            toastr.error('Usuario no registrado.' ,'ERROR');
+
+                        }else{ 
+                            toastr.success('Bienvenido a BikeShop' ,' www.BIKESHOP.com');
+                            localStorage.setItem('token',response); // guardamos el token generado, en localstorage.
+                            location.href = "#/home";
+                            }//end_if/else 
+                        
+                    }, function(error) {
+                        console.log(error);
+                }); // end_services
+        }//end_if
+    };
 });
