@@ -43,6 +43,8 @@ class login_model {
         return $this->bll->userMenu_BLL($arrArgument);
         //  echo json_encode("Hola login_model");
     }
+
+//RECOVER FUNCTIONS >>>
     public function userRecovery($arrArgument){
         return $this->bll->userRecovery_BLL($arrArgument);
         //  echo json_encode("Hola login_model");

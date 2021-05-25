@@ -40,14 +40,14 @@ class login_dao {
     public function select_activateUser($db,$arrArgument) {
         // $sql = "SELECT * FROM user WHERE token_email='$arrArgument'";
         // $stmt = $db->ejecutar($sql);
-
-        // if(!$stmt){
-        //     return 'error';
-        // }else{
-            $sql ="UPDATE user SET activate='true' WHERE token_email='$arrArgument'";
-            $stmt2 = $db->ejecutar($sql);
-            return 'ok';
-        // }   
+        $sql ="UPDATE user SET activate='true' WHERE token_email='$arrArgument'";
+        $stmt = $db->ejecutar($sql);
+        // return '1';
+        if(!$stmt){
+            return 0;
+        }else{
+           return 1;
+        }   
     }
 
 //LOGIN FUNTIONS >>>>
@@ -109,7 +109,7 @@ class login_dao {
     }
 
     public function select_insertRecoverToken($db,$arrArgument) {
-        // $sql = "SELECT name, type, email, avatar FROM user WHERE email='$arrArgument'";
+       
         $sql ="UPDATE user SET token_email ='$arrArgument[1]' WHERE id='LOCAL=$arrArgument[0]'";
         $stmt = $db->ejecutar($sql);
         if ($stmt == true) {
@@ -122,7 +122,18 @@ class login_dao {
     public function select_compareToken($db,$arrArgument) {
         $sql = "SELECT * FROM user WHERE token_email='$arrArgument'";
         $stmt = $db->ejecutar($sql);
-        return $db->listar($stmt);
+        // if ($stmt == true) {
+        //     return $db->listar($stmt);
+        //  } else {
+        //     return 0 ;
+        //  }
+
+         if ($stmt->num_rows === 0) {
+            return 0 ;
+         } else {
+            return $db->listar($stmt) ;
+         }
+        
     //  echo json_encode($db->listar($stmt));  
     }
     public function select_updatePass($db,$arrArgument,$arrArgument2) {

@@ -1,0 +1,37 @@
+<!-- start main content -->
+<main class="container">
+
+	<section>
+
+		<div class="signinpanel">
+
+			<div class="row">
+
+				<div class="col-md-5 col-md-offset-1">
+
+					<form id="form_confirmRecover" name="form_confirmRecover" method="post">
+						<h4 class="nomargin">RECUPERAR CONTRASEÑA</h4>
+						<p class="mt5 mb20">Introduzca nueva contraseña</p>
+
+						<input type="password" class="form-control" id="user_confRec_passwd" name="user_confRec_passwd"  ng-pattern = "regPassword" ng-model ="user_confRec_passwd" placeholder="Nueva Contraseña"/>
+						<span style="color: red ;" id="e_confRec_passwd">{{e_confRec_passwd}}</span>
+						
+						<input type="password" class="form-control" id="user_confRec_passwd2" name="user_confRec_passwd2"  ng-pattern = "regPassword" ng-model ="user_confRec_passwd2" placeholder="Confirmar Contraseña" />
+						<span style="color: red ;" id="e_confRec_passwd2">{{e_confRec_passwd2}}</span>
+				
+					</br>
+						<span style="color: red ;" id="show_confRec_dialog" >{{show_confRec_dialog}}</span>
+					</br>
+						<input  type="button" name="confRec_input" id="confRec_input" ng-click="updateRecover()" class="btn btn-success btn-block" value="Acceder"></input>
+
+					</form>
+			
+				</div><!-- col-sm-5 -->
+				
+			</div><!-- row -->
+
+		</div><!-- signin -->
+
+	</section>
+</main>
+<!-- end  main content -->

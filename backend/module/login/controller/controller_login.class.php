@@ -11,13 +11,13 @@ class controller_login{
 	// 	common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_login.html");
 	// }
     
-    function listRecover(){
-		common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_recover.html");
-	}
+    // function listRecover(){
+	// 	common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_recover.html");
+	// }
 
-    function listConfirmRecover(){
-		common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_confirmRecover.html");
-	}
+    // function listConfirmRecover(){
+	// 	common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_confirmRecover.html");
+	// }
 
 //REGISTER
     function valideUser(){
@@ -49,8 +49,7 @@ class controller_login{
 
 //LOGIN ACTIVATE MAIL //Se encuentra a la espera del click en el email.
     function active_user(){
-        $token= ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "activateUser",$_GET['param']));
-        self::listLogin(); 
+        echo json_encode( common::loadModel(MODEL_PATH_LOGIN,"login_model", "activateUser",$_POST['token']));
     }
 
 
@@ -90,7 +89,7 @@ class controller_login{
 
 //LOGIN RECOVER PASS ENVIO
     function recoverPass(){
-        $recovEmail=$_POST['user_email'];
+        $recovEmail=$_POST['email'];
         $rdo= common::loadModel(MODEL_PATH_LOGIN,"login_model", "userRecovery",$recovEmail);
         // echo json_encode($rdo);
         if($rdo == '0'){ //no existe el usuario.
@@ -124,22 +123,30 @@ class controller_login{
     }
 
 //LOGIN RECOVER PASS RECEPCION TOKEN
-    function recoverMail(){
-        $User= ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "compareToken",$_GET['param']));
-        $token = middleware_auth::encode_token($User[0]['id']);
-        echo ("<script> localStorage.setItem('tokenRecover', '$token');	</script>");
-        self :: listConfirmRecover(); 
+    function compareToken(){ //busca usuario con el token_email recibido (update pass)
+        $user= ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "compareToken",$_POST['token']));
+        ///ARREGLAR SI NO HAY NINGUN USUARIO CON TOKEN:::
+        if($user == 0){
+            echo json_encode(0);
+        }else{
+        $utoken = middleware_auth::encode_token($user[0]['id']);
+        echo($utoken);
+        }
+    //   echo json_encode($user);
     }
 
     function updateRecover(){
       
-        $newpass =$_POST['pass'];
-        $payload = middleware_auth::decode_token($_POST['token']);
+        $newpass =$_POST['password'];
+        $auxtok=$_POST['token'];
+        $auxtok2=$auxtok=explode(' ',$auxtok);
+        $utoken=$auxtok2[1];
+        $payload = middleware_auth::decode_token($utoken);
         $aux=explode(',',$payload);
 		$aux2=explode(':',$aux[2]);
 		$aux3=explode('}',$aux2[1]);
         $aux4=explode("'",$aux3[0]);
-        // $aux5=explode("=",$aux4[1]);
+    //     // $aux5=explode("=",$aux4[1]);
         $id=$aux4[1];
 
        $rdo=( common::loadModel(MODEL_PATH_LOGIN,"login_model", "updatePass",$id,$newpass));
@@ -148,7 +155,8 @@ class controller_login{
        }else if($rdo == '1'){
         echo json_encode('OK');
        }//end_if/else
-        // echo json_encode($rdo);
+        // echo json_encode ($id);
+
     }
     
   // SOCIAL LOGIN 

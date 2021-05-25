@@ -58,4 +58,96 @@ bikeShop.controller('controller_login', function($scope,services,toastr) {
                 }); // end_services
         }//end_if
     };
+
+    $scope.recoverPass = function (){
+    
+        $scope.regEmail = /^[A-Za-z0-9._-]{5,20}@[a-z]{3,7}.[a-z]{2,4}$/;
+        if(!$scope.recover_email){
+            $scope.e_rec_email = "Introduzca un email valido";
+            ok='false';
+        }else{
+            ok='true';
+            $scope.e_rec_email ="";
+        }
+     
+        if(ok == 'true' && $scope.recover_email){
+      
+            let user = {'email': $scope.recover_email};
+         
+            services.post('login', 'recoverPass', user)
+                    .then(function(response) {
+                
+                 
+                        let dataParse=JSON.parse(response);
+
+                        if(dataParse === 'errorNotExist'){
+                            toastr.error('El usuario no existe. "Registrese" para Continuar.' ,'ERROR');
+                            console.log(response);
+                        }else if(dataParse === 'errorInsertToken'){   
+                            toastr.error('Se ha producido un error. Intentelo más tarde' ,'ERROR');
+                            console.log(response);
+                        }else{
+                            console.log(response);
+                            toastr.success('Consulte su correo para completar el proceso.' ,' Email Enviado correctamente');
+                            location.href="#/home"; //Saltamos al home para lanzar la vista.
+                            
+                        }//end_if/else.
+            }, function(error) {
+                console.log(error);
+            }); // end_services
+        }//end_if
+
+    };
+
+    $scope.updateRecover= function (){ // recoge valores introducidos y actualiza el pass del usuario.
+       
+
+            $scope.regPassword = /^[A-Za-z0-9._-]{5,20}$/;
+                if(!$scope.user_confRec_passwd){
+                    $scope.e_confRec_passwd = "Introduzca contraseña válida";
+                    ok='false';
+                }else if(!$scope.user_confRec_passwd2){
+                        $scope.e_confRec_passwd2 = "Introduzca una contraseña válida";
+                        $scope.e_confRec_passwd = "";
+                        ok='false';
+                }else if($scope.user_confRec_passwd2 != $scope.user_confRec_passwd){
+                        $scope.e_confRec_passwd = "";
+                        $scope.e_confRec_passwd2 = "Las contraseñas no coinciden";
+                        ok='false';
+                }else{
+                    ok='true';
+                    $scope.e_confRec_passwd ="";
+                    $scope.e_confRec_passwd2 = "";
+                    $scope.show_confRec_dialog = "";
+                }
+                
+                if(ok == 'true' && $scope.user_confRec_passwd){
+                    let token=localStorage.tokenRecover;
+                    // console.log(token);
+                    let user = {'password': $scope.user_confRec_passwd,'token':token};
+                    // console.log(user);
+                    services.post('login', 'updateRecover', user)
+                            .then(function(response) {
+                                // console.log(response);
+                                let dataParse=JSON.parse(response);
+        
+                                if(dataParse === 'OK'){
+                                    toastr.success('Contraseña reestablecida' ,'PROCESO COMPLETADO');
+                                    localStorage.removeItem('tokenRecover');
+                                    location.href="#/login"; //Saltamos al home para lanzar la vista.
+                                }else if(dataParse === 'errorUpdatePass'){   
+                                    toastr.error('Se ha producido un error. Intentelo más tarde' ,'ERROR');
+        
+                                }
+                                   
+                                    
+                               
+                    }, function(error) {
+                        console.log(error);
+                    }); // end_services
+                }//end_if
+        
+            };
+
+
 });

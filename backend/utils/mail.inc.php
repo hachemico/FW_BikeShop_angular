@@ -13,7 +13,8 @@ class mail {
         switch ($arr['type']) {
             case 'alta':
                 $subject = 'Tu Alta en BikeShop';
-                $ruta = "<a href='".SITE_PATH."index.php?module=login&function=active_user&param="  .$arr['token'] . "'>aqu&iacute;</a>";
+                // $ruta = "<a href='".SITE_PATH."index.php?module=login&function=active_user&param="  .$arr['token'] . "'>aqu&iacute;</a>";
+                $ruta = "<a href='http://localhost/FW_BikeShop_angular/#/userActivate/"  .$arr['token'] . "'>aqu&iacute;</a>";
                 // $ruta = "<a href='" . amigable("?module=home&function=active_user&param=" . $arr['token'], true) . "'>aqu&iacute;</a>";
                 $body = 'Gracias por unirte a nuestra aplicaci&oacute;n<br> Para finalizar el registro, pulsa ' . $ruta;
                 $from = 'support@bikeshop.com';
@@ -21,8 +22,8 @@ class mail {
     
             case 'recover':
                 $subject = 'Tu Nuevo Password en BikeShop<br>';
-                // $ruta = '<a href="' . amigable("?module=login&function=changepass&aux=" . $arr['token'], true) . '">aqu&iacute;</a>';
-                $ruta = "<a href='".SITE_PATH."index.php?module=login&function=recoverMail&param="  .$arr['token'] . "'>aqu&iacute;</a>";
+                $ruta = "<a href='http://localhost/FW_BikeShop_angular/#/login/recoverPass/"  .$arr['token'] . "'>aqu&iacute;</a>";
+                // $ruta = "<a href='".SITE_PATH."index.php?module=login&function=recoverMail&param="  .$arr['token'] . "'>aqu&iacute;</a>";
                 $body = 'Para recordar tu password pulsa ' . $ruta;
                 $from = 'support@bikeshop.com';
                 break;

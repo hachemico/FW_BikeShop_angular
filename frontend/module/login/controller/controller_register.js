@@ -64,7 +64,7 @@ bikeShop.controller('controller_register', function($scope,services,toastr) {
                                     console.log("Hay respuesta2 >>"+ response2);
 
                                     toastr.success('Gracias por registrarse. Recibirá un correo de confirmación' ,'Registrado correctamente');
-                                   
+                                    location.href = "#/home";
                                     
                                 }, function(error) {
                                     console.log(error);
