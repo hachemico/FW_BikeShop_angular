@@ -38,8 +38,9 @@ class login_bll {
         return $this->dao->select_user($this->db,$arrArgument,$arrArgument2);
         
     }
-    public function userMenu_BLL($arrArgument){
-        return $this->dao->select_userMenu($this->db,$arrArgument);
+//MENU FUNCTIONS
+    public function obtainDataUserMenu_BLL($arrArgument){
+        return $this->dao->select_obtainDataUserMEnu($this->db,$arrArgument);
        
     }
 //RECOVER PASS FUNCTIONS
@@ -59,13 +60,22 @@ class login_bll {
         return $this->dao->select_updatePass($this->db,$arrArgument,$arrArgument2);
        
     }
-    //SOCIAL LOGIN
+//SOCIAL LOGIN GOOGLE
     public function socialUser_BLL($arrArgument){
         return $this->dao->select_socialUser($this->db,$arrArgument);
-        // echo json_encode("Hola BLL");
+        
     }
     public function insertSocialGoogle_BLL($arrArgument){
         return $this->dao->select_socialGoogle($this->db,$arrArgument);
+       
+    }
+    //SOCIAL LOGIN GITHUB
+    public function socialUserGithub_BLL($arrArgument){
+        return $this->dao->select_socialUserGithub($this->db,$arrArgument);
+       
+    }
+    public function insertSocialGithub_BLL($arrArgument){
+        return $this->dao->select_socialGithub($this->db,$arrArgument);
         // echo json_encode("Hola BLL");
     }
 }//end_home_bll class

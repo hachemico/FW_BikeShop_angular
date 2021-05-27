@@ -1,6 +1,6 @@
 console.log("Carga controller_login.js");
 
-bikeShop.controller('controller_login', function($scope,services,toastr) {
+bikeShop.controller('controller_login', function($scope,services,toastr,services_logOut,services_logInSocial,services_Google,services_GitHub,services_logIn) {
     
     console.log("Carga controller_login function");
    
@@ -49,6 +49,7 @@ bikeShop.controller('controller_login', function($scope,services,toastr) {
 
                         }else{ 
                             toastr.success('Bienvenido a BikeShop' ,' www.BIKESHOP.com');
+                            services_logIn.printMenu();
                             localStorage.setItem('token',response); // guardamos el token generado, en localstorage.
                             location.href = "#/home";
                             }//end_if/else 
@@ -58,6 +59,25 @@ bikeShop.controller('controller_login', function($scope,services,toastr) {
                 }); // end_services
         }//end_if
     };
+
+
+    $scope.socialGoogle = function() {
+        // console.log("entra google");
+        services_logInSocial.initialize();
+        services_Google.logIn();
+    };// end_logInGoogle
+
+    $scope.socialGitHub = function() {
+        // console.log("entra github");
+        services_logInSocial.initialize();
+        services_GitHub.logIn();
+    };// end_logInGitHub
+
+    $scope.socialLogout = function() {
+    console.log("entra logOut");
+        services_logOut.social_logOut();
+    };// end_logInGitHub
+
 
     $scope.recoverPass = function (){
     
@@ -138,10 +158,7 @@ bikeShop.controller('controller_login', function($scope,services,toastr) {
                                 }else if(dataParse === 'errorUpdatePass'){   
                                     toastr.error('Se ha producido un error. Intentelo más tarde' ,'ERROR');
         
-                                }
-                                   
-                                    
-                               
+                                }     
                     }, function(error) {
                         console.log(error);
                     }); // end_services

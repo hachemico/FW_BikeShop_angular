@@ -38,11 +38,10 @@ class login_dao {
     }
 //LOGIN ACTIVATEMAIL
     public function select_activateUser($db,$arrArgument) {
-        // $sql = "SELECT * FROM user WHERE token_email='$arrArgument'";
-        // $stmt = $db->ejecutar($sql);
+
         $sql ="UPDATE user SET activate='true' WHERE token_email='$arrArgument'";
         $stmt = $db->ejecutar($sql);
-        // return '1';
+       
         if(!$stmt){
             return 0;
         }else{
@@ -90,10 +89,11 @@ class login_dao {
     }
 
 //MENU FUNTIONS >>>
-    public function select_userMenu($db,$arrArgument) {
+    public function select_obtainDataUserMenu($db,$arrArgument) {
         $sql = "SELECT id, name, type, email, avatar FROM user WHERE id='$arrArgument'";
         $stmt = $db->ejecutar($sql);
         return $db->listar($stmt);
+        // return $sql;
     }
 
 // RECOVER PASS ENVIO FUNCTIONS
@@ -122,11 +122,6 @@ class login_dao {
     public function select_compareToken($db,$arrArgument) {
         $sql = "SELECT * FROM user WHERE token_email='$arrArgument'";
         $stmt = $db->ejecutar($sql);
-        // if ($stmt == true) {
-        //     return $db->listar($stmt);
-        //  } else {
-        //     return 0 ;
-        //  }
 
          if ($stmt->num_rows === 0) {
             return 0 ;
@@ -146,22 +141,8 @@ class login_dao {
             return 0 ;
          }
     }
-    //SOCIAL LOGIN
-    // public function select_socialUser($db,$arrArgument) {
-    //     $uid=$arrArgument['uid'];
     
-    //     $sql = "SELECT * FROM user WHERE id LIKE 'GOOGLE=$uid'";
-    //     // $sql = "SELECT * FROM user WHERE id LIKE '%$uid'";
-    //     $stmt = $db->ejecutar($sql);
-    //     if ($stmt->num_rows === 0) {
-    //         return 0 ;
-    //      } else {
-             
-    //         return $db->listar($stmt);
-    //      }
-    // //  echo json_encode($sql);
-    // }
-//SOCIAL LOGIN FUNTIONS
+//SOCIAL LOGINGOOGLE
 
     public function select_socialUser($db,$arrArgument) {
         $uid=$arrArgument['uid'];
@@ -180,7 +161,6 @@ class login_dao {
             $token =middleware_auth::encode_token($dinfo[0]['id']);
             return $token;
         }	
- 
     }
 
     public function select_socialGoogle($db,$arrArgument) {
@@ -199,7 +179,47 @@ class login_dao {
             return 0 ;
          }
         
-    //   echo json_encode($sql);
     }
     
+//SOCIAL GITHUB
+    public function select_socialUserGithub($db,$arrArgument) {
+        $uid=$arrArgument['uid'];
+    
+        $sql = "SELECT * FROM user WHERE id LIKE 'GITHUB=$uid'";
+        $stmt = $db->ejecutar($sql);
+       
+        $dinfo = array();
+        foreach ($stmt as $row) {
+         array_push($dinfo, $row);
+        }
+
+        if(!$dinfo){
+            return 0;
+        }else{
+            $token =middleware_auth::encode_token($dinfo[0]['id']);
+            return $token;
+        }	
+ 
+    }
+
+    public function select_socialGithub($db,$arrArgument) {
+        
+        $id=$arrArgument['uid'];
+        $nom=$arrArgument['displayName'];
+        $name="'$nom'";
+        $email=$arrArgument['email'];
+        $avatar=$arrArgument['photoURL'];
+        $type="client"; //valor por defecto
+        $sql2 ="INSERT INTO user(id, name, email,  passwd, type, avatar, activate, token_email) VALUES ('GITHUB=$id',$name,'$email','','$type', '$avatar','true','')";
+        $stmt = $db->ejecutar($sql2);
+
+        if ($stmt == true) {
+            return 1 ;
+         } else {
+            return 0 ;
+         }
+        
+      return $sql2;
+    }
+
 }

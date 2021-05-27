@@ -122,3 +122,18 @@ bikeShop.config(['$routeProvider', '$locationProvider',
                     }// end_resolve
                 });
     }]);
+
+    // https://cursoangularjs.es/doku.php?id=unidades:04_masdirectivas:11_rootscope
+
+    bikeShop.run(function($rootScope,services_logIn) {
+       
+        $rootScope.logOut=function(){
+            services_logIn.logOutUser();
+        }
+
+        if(!localStorage.token){
+            $rootScope.menuHeader = true;
+        }else{
+            services_logIn.printMenu();
+        }
+      });

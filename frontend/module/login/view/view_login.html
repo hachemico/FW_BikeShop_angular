@@ -18,7 +18,7 @@
 						<input type="password" class="form-control" id="user_log_passwd" name="user_log_passwd" ng-pattern = "regPassword" ng-model ="user_log_passwd" placeholder="Contraseña" />
 						<span style="color: red ;" id="e_log_passwd">{{e_log_passwd}}</span>
 						
-							<div id="show_log_dialog">{{show_log_dialog}}</div>
+						<div id="show_log_dialog">{{show_log_dialog}}</div>
 				
 					<br>
 						<input  type="button" name="login_input" id="login_input" ng-click="login()" class="btn btn-success btn-block" value="Acceder"></input>
@@ -30,8 +30,8 @@
 							
 						<span><p>Acceder mediante:</p></span>
 						<button id="buttonGoogle" class="btn btn-black btn-block btn-sm" ng-click="socialGoogle()"><i class="fa fa-google"></i></i> <span>Google</span></button>
-						<button id="buttonGithub" class="btn btn-black btn-block btn-sm" ng-click="socialGithub()"><i class="fa fa-github"></i></i> <span>Github</span></button>
-						<button id="logoutButton" class="btn btn-black btn-block btn-sm" ng-click="logOut()"><i ></i></i> <span>Logout</span></button>
+						<button id="buttonGithub" class="btn btn-black btn-block btn-sm" ng-click="socialGitHub()"><i class="fa fa-github"></i></i> <span>Github</span></button>
+						<!-- <button id="logoutButton" class="btn btn-black btn-block btn-sm" ng-click="socialLogout()"><i ></i></i> <span>Logout</span></button> -->
 					</div>
 				</br>
 					 <!-- <button id="redirRegister" class="register_button_from_login" href="#/register">Registrarse</button> -->

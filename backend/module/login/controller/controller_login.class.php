@@ -3,23 +3,6 @@ class controller_login{
 
  // REGISTER FUNCTIONS 
    
-    // function listRegister(){
-	// 	common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_register.html");
-    // }
-
-    // function listLogin(){
-	// 	common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_login.html");
-	// }
-    
-    // function listRecover(){
-	// 	common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_recover.html");
-	// }
-
-    // function listConfirmRecover(){
-	// 	common::loadView("top_page_login.php", VIEW_PATH_LOGIN . "form_confirmRecover.html");
-	// }
-
-//REGISTER
     function valideUser(){
 		  echo ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "valideUser",$_POST['user_email']));
     }
@@ -44,7 +27,6 @@ class controller_login{
             'inputEmail'=> $aux_email,
         ];
         echo mail::enviar_email($arrArgument);
-        // echo json_encode($aux_token);
     }
 
 //LOGIN ACTIVATE MAIL //Se encuentra a la espera del click en el email.
@@ -66,14 +48,14 @@ class controller_login{
         }else if($activate == 'NOexist'){
             echo json_encode('NOexist');
             
-       }else{ // echo json_encode($activate);
+       }else{ 
         echo json_encode( common::loadModel(MODEL_PATH_LOGIN,"login_model", "login",$email,$pass));
-        // echo json_encode($activate);   
+          
        }
-        // echo json_encode("Hola login controller_login");
+        
     }
-// LOGIN CARGAR MENU USUARIO
-    function menu(){
+// LOGIN DECODE TOKEN obtener idUsuario
+    function decodeToken(){
         $aux_token=json_decode($_POST['token']);
         $payload = middleware_auth::decode_token($aux_token);
         
@@ -81,22 +63,21 @@ class controller_login{
 		$aux2=explode(':',$aux[2]);
 		$aux3=explode('}',$aux2[1]);
         $aux4=explode("'",$aux3[0]);
-        // $aux5=explode("=",$aux4[1]);
         $email=$aux4[1];
         echo json_encode($email);
-        echo json_encode ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "userMenu",$email));
+       
+    
     }
 
 //LOGIN RECOVER PASS ENVIO
     function recoverPass(){
         $recovEmail=$_POST['email'];
         $rdo= common::loadModel(MODEL_PATH_LOGIN,"login_model", "userRecovery",$recovEmail);
-        // echo json_encode($rdo);
+    
         if($rdo == '0'){ //no existe el usuario.
             echo json_encode('errorNotExist');
         }else if ($rdo == '1'){ // existe el usuario
-            // echo json_encode('OK');
-    
+            
             $recovToken=generate_Token_secure(20);
             $infoRecover=array();
 
@@ -117,7 +98,6 @@ class controller_login{
                     'inputEmail'=> $recovEmail,
                 ];
                 $rdoMail = mail::enviar_email($arrArgument);
-                // echo json_encode('OK');
             }//end else rdo2.
         }//end_else rdo.
     }
@@ -125,28 +105,28 @@ class controller_login{
 //LOGIN RECOVER PASS RECEPCION TOKEN
     function compareToken(){ //busca usuario con el token_email recibido (update pass)
         $user= ( common::loadModel(MODEL_PATH_LOGIN,"login_model", "compareToken",$_POST['token']));
-        ///ARREGLAR SI NO HAY NINGUN USUARIO CON TOKEN:::
+  
         if($user == 0){
             echo json_encode(0);
         }else{
-        $utoken = middleware_auth::encode_token($user[0]['id']);
-        echo($utoken);
+            $utoken = middleware_auth::encode_token($user[0]['id']);
+            echo($utoken);
         }
-    //   echo json_encode($user);
+
     }
 
     function updateRecover(){
       
         $newpass =$_POST['password'];
         $auxtok=$_POST['token'];
-        $auxtok2=$auxtok=explode(' ',$auxtok);
+        $auxtok2=explode(' ',$auxtok);
         $utoken=$auxtok2[1];
         $payload = middleware_auth::decode_token($utoken);
         $aux=explode(',',$payload);
 		$aux2=explode(':',$aux[2]);
 		$aux3=explode('}',$aux2[1]);
         $aux4=explode("'",$aux3[0]);
-    //     // $aux5=explode("=",$aux4[1]);
+
         $id=$aux4[1];
 
        $rdo=( common::loadModel(MODEL_PATH_LOGIN,"login_model", "updatePass",$id,$newpass));
@@ -154,8 +134,7 @@ class controller_login{
         echo json_encode('errorUpdatePass');
        }else if($rdo == '1'){
         echo json_encode('OK');
-       }//end_if/else
-        // echo json_encode ($id);
+       }//end_if/else  
 
     }
     
@@ -170,25 +149,60 @@ class controller_login{
         if($rdo2=='0'){
                 echo json_encode('ERROR_INSERT');
         }else{
-            // $token= middleware_auth::encode_token();
+
             $userData= common::loadModel(MODEL_PATH_LOGIN,"login_model", "socialUser",$socialUser);
-                // $token = middleware_auth::encode_token($socialUser['uid']);
-                if($userData == '0'){
-                    echo json_encode('ERROR_USER');
-                }else{
-                    $token =middleware_auth::encode_token($rdo[0]['id']);
-                    echo json_encode($token);
-                }//end_if/else $userdata
+              
+            if($userData == '0'){
+                echo json_encode('ERROR_USER');
+            }else{
+                $token =middleware_auth::encode_token($rdo[0]['id']);
+                echo json_encode($token);
+            }//end_if/else $userdata
         }//end if/else $rdo2
 
-    }else{ // usuario existe generamos token.
-        //DEVOLVEMOS LOS DATOS PARA CARGAR EL MENU
-        // $token = middleware_auth::encode_token($rdo[0]['id']);
-        // echo json_encode("USUARIO YA REGISTRADO!! >> GO"+$rdo[0]['id']);
-        echo json_encode($rdo);
-   
-  
+    }else{ // usuario existe.
+        
+        echo json_encode($rdo);//DEVOLVEMOS TOKEN PARA CARGAR EL MENU
+    }//end_if/else $rdo
+
+  }//end socilaLoginGoogle
+
+  function socialLoginGithub(){
+    $socialUser = $_POST['user'];
+    $rdo= common::loadModel(MODEL_PATH_LOGIN,"login_model", "socialUserGithub",$socialUser);
+    if($rdo=='0'){//realizamos un INSERT con los datos de Github GITHUB="uid"
+        
+        $rdo2= common::loadModel(MODEL_PATH_LOGIN,"login_model", "insertSocialGithub",$socialUser);
+       
+        if($rdo2=='0'){
+            echo json_encode('ERROR_INSERT');
+        }else{
+            $userData= common::loadModel(MODEL_PATH_LOGIN,"login_model", "socialUserGithub",$socialUser);
+                
+            if($userData == '0'){
+                echo json_encode('ERROR_USER');
+            }else{
+                $token =middleware_auth::encode_token($rdo[0]['id']);
+                echo json_encode($token);
+            }//end_if/else $userdata
+
+        }//end if/else $rdo2
+
+    }else{ // usuario existe.
+        echo json_encode($rdo);//DEVOLVEMOS TOKEN PARA CARGAR EL MENU  
+        
     }//end_if/else $rdo
   }//end socilaLoginGoogle
+
+//FUNCTIONS MENU
+
+    function obtainDataUserMenu(){
+        $User = $_POST['user'];
+        $aux=explode('"',$User);
+
+        echo json_encode(common::loadModel(MODEL_PATH_LOGIN,"login_model", "obtainDataUserMEnu",$aux[1]));
+        // echo json_encode($aux[1]);
+    }
+
 
 }//end controller_login class

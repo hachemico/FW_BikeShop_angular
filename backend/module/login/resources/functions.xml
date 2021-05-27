@@ -46,8 +46,8 @@
         <uri>login</uri>
     </function>
     <function>
-        <name>menu</name>
-        <uri>menu</uri>
+        <name>decodeToken</name>
+        <uri>decodeToken</uri>
     </function>
      <function>
         <name>insertRecoverToken</name>
@@ -85,6 +85,14 @@
     <function>
         <name>insertSocialGoogle</name>
         <uri>insertSocialGoogle</uri>
+    </function>
+    <function>
+        <name>socialLoginGithub</name>
+        <uri>socialLoginGithub</uri>
+    </function>
+    <function>
+        <name>obtainDataUserMenu</name>
+        <uri>obtainDataUserMenu</uri>
     </function>
 <!-- END SOCIAL LOGIN -->
 </functions>
