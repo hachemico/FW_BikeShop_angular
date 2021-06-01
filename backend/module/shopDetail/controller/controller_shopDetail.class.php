@@ -6,7 +6,7 @@ class controller_shopDetail{
     //     // echo json_encode("Dentro del shop detail");
     // }
     function detail(){
-		echo json_encode( common::loadModel(MODEL_PATH_SHOPDETAIL,"shopDetail_model", "detail",$_POST['value_id']));
+		echo json_encode( common::loadModel(MODEL_PATH_SHOPDETAIL,"shopDetail_model", "detail",$_POST['value_id'],$_POST['user']));
         // echo( common::loadModel(MODEL_PATH_SHOPDETAIL,"shopDetail_model", "detail", $_POST['id']));
         //  echo json_encode("Dentro del shopDetail_controller");
         //  echo json_encode($a);

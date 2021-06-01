@@ -16,8 +16,8 @@ class shopDetail_bll {
         return self::$_instance;
     }// end_getInstance
 
-    public function detail_BLL($arrArgument) {
-        return $this->dao->select_detail($this->db,$arrArgument); 
+    public function detail_BLL($arrArgument,$arrArgument2) {
+        return $this->dao->select_detail($this->db,$arrArgument,$arrArgument2); 
         // echo json_encode("Debug  shopDetail_BLL <<<");
     } // end carousel_home
 

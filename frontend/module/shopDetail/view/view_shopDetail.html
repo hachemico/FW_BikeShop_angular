@@ -84,11 +84,16 @@
                                     <span class="posted_in">Categories: <a href="#" rel="tag">Clothing</a>, <a href="#">Hoodies</a>.</span> -->
     
                                 </div>
-
-                                <div id="fav_button_details" class="fav_button_details">
-                                    <a  style="font-size:20px" id="fav2_button_details" class="btn fav2_button_details"><i class="fa fa-heart"></i></a>
+                               {{detail_fav}}
+                               {{detail_idbike}}
+                                <div ng-if="detail_favs === detail_idbike" id="fav_button_details">
+                                    <i  style="font-size:20px" id="like-{{detail_idbike}}"  ng-click="favDetails(detail_idbike)"  class="fa fa-heart" style="color:red"></i>
                                 </div>
-    
+
+                                <div ng-if="detail_favs != detail_idbike" id="fav_button_details">
+                                    <i  style="font-size:20px" id="like-{{detail_idbike}}" ng-click="favDetails(detail_idbike)"  class="fa fa-heart"  style="color:black"></i>
+                                </div>
+
                                 <div class="share-social-icons">
     
                                     <a href="#" target="_blank" title="Share on Facebook">
