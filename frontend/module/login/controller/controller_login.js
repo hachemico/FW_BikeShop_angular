@@ -1,6 +1,6 @@
-console.log("Carga controller_login.js");
+// console.log("Carga controller_login.js");
 
-bikeShop.controller('controller_login', function($scope,services,toastr,services_logOut,services_logInSocial,services_Google,services_GitHub,services_logIn) {
+bikeShop.controller('controller_login', function($scope,services,toastr,services_logInSocial,services_Google,services_GitHub,services_logIn) {
     
     console.log("Carga controller_login function");
    
@@ -52,6 +52,7 @@ bikeShop.controller('controller_login', function($scope,services,toastr,services
                             services_logIn.printMenu();
                             localStorage.setItem('token',response); // guardamos el token generado, en localstorage.
                             location.href = "#/home";
+                            location.reload();
                             }//end_if/else 
                         
                     }, function(error) {
@@ -73,10 +74,10 @@ bikeShop.controller('controller_login', function($scope,services,toastr,services
         services_GitHub.logIn();
     };// end_logInGitHub
 
-    $scope.socialLogout = function() {
-    console.log("entra logOut");
-        services_logOut.social_logOut();
-    };// end_logInGitHub
+    // $scope.socialLogout = function() {
+    // console.log("entra logOut");
+    //     services_logOut.social_logOut();
+    // };// end_logInGitHub
 
 
     $scope.recoverPass = function (){

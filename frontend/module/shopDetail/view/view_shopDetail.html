@@ -9,11 +9,11 @@
     
                 <div class="main col-xs-12" role="main">
     
-                    <div class=" product">
+                    <div ng-repeat="data in showDetails" class=" product">
     
                         <div class="row">
                             <div id="detail_shop"> 
-                                {{detail_shop}}
+                                
 
                                 <div class="col-md-5 col-sm-6 summary-before ">
   
@@ -23,7 +23,7 @@
                                       <ul class="slides">
                                           <li data-thumb="frontend/view/img/temp-images/hoodie_7_front-140x140.jpg">
                                               <a href="frontend/view/img/temp-images/hoodie_7_front.jpg" data-imagelightbox="gallery" class="hoodie_7_front">
-                                                  <img src="http://localhost/FW_BikeShop_angular/frontend/{{img_detail}}" class="attachment-shop_single" alt="image">
+                                                  <img src="http://localhost/FW_BikeShop_angular/frontend/{{data.img}}" class="attachment-shop_single" alt="image">
                                               </a>
                                           </li>
                                           <!-- <li data-thumb="view/img/temp-images/hoodie_7_back-140x140.jpg">'+
@@ -40,7 +40,7 @@
     
                             <div class="col-sm-6 col-md-7 product-review entry-summary">
                                 <div id="product_title">
-                                    <h1 class="product_title" >{{product_title}}</h1>
+                                    <h1 class="product_title" >{{data.brand}}</h1>
                                 </div>
                                 <div class="woocommerce-product-rating">
                                     <div class="star-rating" title="Rated 4.00 out of 5">
@@ -55,16 +55,16 @@
     
                                 <div id="detail_price">
                                     <p class="price"><del><span class="amount"></span></del>
-                                    <ins><span class="amount">{{detail_price}}€</span></ins></p>
+                                    <ins><span class="amount">{{data.price}}€</span></ins></p>
 
                                 </div>
                                    
                                     
                                
-                                <div id="detail_comment"> <p>{{detail_comment}}</p>
-                                    <span class="sku_wrapper">TALLA: <span class="sku">{{detail_size}}</span>   </span>
+                                <div id="detail_comment"> <p>{{data.price}}</p>
+                                    <span class="sku_wrapper">TALLA: <span class="sku">{{data.size}}</span>   </span>
                                     <a></a></br>
-                                    <span class="posted_in">Categoria: <a href="#" rel="tag">{{detail_category}}</a></span>
+                                    <span class="posted_in">Categoria: <a href="#" rel="tag">{{data.category}}</a></span>
                                 
                                 
                                 </div>
@@ -84,14 +84,13 @@
                                     <span class="posted_in">Categories: <a href="#" rel="tag">Clothing</a>, <a href="#">Hoodies</a>.</span> -->
     
                                 </div>
-                               {{detail_fav}}
-                               {{detail_idbike}}
-                                <div ng-if="detail_favs === detail_idbike" id="fav_button_details">
-                                    <i  style="font-size:20px" id="like-{{detail_idbike}}"  ng-click="favDetails(detail_idbike)"  class="fa fa-heart" style="color:red"></i>
+                            
+                                <div ng-if="data.favs == data.idbike">
+                                    <i  id="like-{{data.idbike}}"  ng-click="favDetails(data.idbike)"  class="fa fa-heart" style="color:red"></i>
                                 </div>
 
-                                <div ng-if="detail_favs != detail_idbike" id="fav_button_details">
-                                    <i  style="font-size:20px" id="like-{{detail_idbike}}" ng-click="favDetails(detail_idbike)"  class="fa fa-heart"  style="color:black"></i>
+                                <div ng-if="data.favs != data.idbike" class="inner">
+                                    <i id="like-{{data.idbike}}" ng-click="favDetails(data.idbike)"  class="fa fa-heart"  style="color:black"></i>
                                 </div>
 
                                 <div class="share-social-icons">
