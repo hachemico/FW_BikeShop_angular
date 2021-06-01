@@ -1,6 +1,8 @@
 console.log("carga controller_home.js");
 
 bikeShop.controller('controller_home', function($scope, $window,showCategories, showSlider) {
+    localStorage.removeItem('filterBikes');
+    localStorage.removeItem('catShop');
 
    
 

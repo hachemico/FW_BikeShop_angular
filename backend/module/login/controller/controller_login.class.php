@@ -66,7 +66,33 @@ class controller_login{
         $email=$aux4[1];
         echo json_encode($email);
        
-    
+    }
+    function decodeToken2(){
+        $aux_token=json_decode($_POST['token']);
+        $payload = middleware_auth::decode_token($aux_token);
+        //  $cadena =trim($payload);
+        $aux=explode(',',$payload);
+		$aux2=explode("'", $aux[2]);
+        $cadena =$aux2[3];
+        
+        // $email=$aux4[1];
+        echo ($cadena);
+       
+    }
+
+    function decodeTimeToken(){
+        $aux_token=json_decode($_POST['token']);
+        $payload = middleware_auth::decode_token($aux_token);
+        $iat=time();
+        $aux=explode(',',$payload);
+        $aux2=explode(':',$aux[1]);
+        $aux3=explode("'",$aux2[1]);
+        $aux4=explode('"',$aux3[1]);
+        if($iat<$aux4){
+            echo json_encode("CURRENT_TOKEN");
+        }else{
+            echo json_encode("INVALID_TOKEN");
+        }
     }
 
 //LOGIN RECOVER PASS ENVIO

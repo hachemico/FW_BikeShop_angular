@@ -1,4 +1,4 @@
-console.log("Carga controller_register.js");
+// console.log("Carga controller_register.js");
 
 bikeShop.controller('controller_register', function($scope,services,toastr) {
 

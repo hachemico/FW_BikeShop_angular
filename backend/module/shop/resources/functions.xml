@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <functions>
-    <!-- <function>
-        <name>list</name>
-        <uri>list</uri>
-    </function> -->
+    
     <function>
         <name>getShop</name>
         <uri>getShop</uri>
@@ -45,12 +42,14 @@
         <name>pagination</name>
         <uri>pagination</uri>
     </function>
-    <!-- <function>
-        <name>favourites</name>
-        <uri>favourites</uri>
-    </function> -->
-    <!-- <function>
-        <name>insertFavourites</name>
-        <uri>insertFavourites</uri>
-    </function> -->
+
+    <function>
+        <name>valueBike</name>
+        <uri>valueBike</uri>
+    </function>
+
+    <function>
+        <name>controlFav</name>
+        <uri>controlFav</uri>
+    </function>
 </functions>

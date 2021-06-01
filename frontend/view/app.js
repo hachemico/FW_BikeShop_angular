@@ -1,4 +1,4 @@
-console.log("carga app.js");
+// console.log("carga app.js");
 
 var bikeShop = angular.module('bikeShop', ['ngRoute', 'ui.bootstrap','ngSanitize','toastr'] );
 //////
@@ -29,11 +29,46 @@ bikeShop.config(['$routeProvider', '$locationProvider',
                         templateUrl: "frontend/module/shop/view/view_shop.html", 
                         controller: "controller_shop",
                         resolve: {
-    
+                            
                             // featuredCars: function (services) {
-                            showShop: function (services) {
-                                return  services.get('shop','getShop');
-                            }
+                            // showShop: function (services) {
+                            //     let user="";
+                            //     if(localStorage.token){
+                            //          // console.log(localStorage.token);
+                            //          let uemail=services.post('login','decodeToken2',{'token':localStorage.token});
+                            //          // let email=uemail.toString().split(' ');
+                            //          uemail.then(function(data) { //resolver los datos que llegan desde el servidor
+                            //             console.log(data);
+                                       
+                                        
+                
+                            //             // user=data;
+                            //             let aux= services.post('shop','getShop',{'user':data});
+                            //             // aux.then(function(data) { //resolver los datos que llegan desde el servidor
+                            //                 // console.log(aux);
+                            //                 // showShop=data;
+                            //                 // setPage (showShop,1);
+                            //                 return aux;
+                
+                
+                            //             // });//end. then_aux
+                            //         });//end.then_uemail
+                                  
+                            //     }else{
+                            //         user="visitor";
+                            //         // return services.post('shop','getShop',{'user':user});
+                            //         let aux= services.post('shop','getShop',{'user':user});
+                            //             // aux.then(function(data) { //resolver los datos que llegan desde el servidor
+                            //                 // console.log(aux);
+                            //                 // showShop=data;
+                            //         //         setPage (showShop,1);
+                            //                 return aux;
+                
+                
+                
+                            //             // });//end. then_aux
+                            //     }
+                            // }
                             // // featuredCars: async function (services) {
                             // //     return await services.get('home','carousel');
                             // // },
@@ -44,9 +79,8 @@ bikeShop.config(['$routeProvider', '$locationProvider',
                     }).when("/shopDetail", {
                     
                         templateUrl: "frontend/module/shopDetail/view/view_shopDetail.html", 
-                        controller: "controller_shopDetail",
-                        resolve: {
-                        }// end_resolve
+                        controller: "controller_shopDetail"
+                      
                     }).when("/login", {
                     
                         templateUrl: "frontend/module/login/view/view_login.html", 

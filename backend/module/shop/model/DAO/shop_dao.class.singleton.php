@@ -13,17 +13,22 @@ class shop_dao {
         return self::$_instance;
     }// end_getInstance
    
-    public function  select_getShop($db) {
-        // $sql = "SELECT * FROM bike ORDER BY more_visited DESC LIMIT 6";   
-        $sql = "SELECT * FROM bike ORDER BY more_visited DESC";   
+    public function  select_getShop($db,$arrArgument) {
+        $aux=trim($arrArgument);
+        $sql = "SELECT * FROM bike LEFT JOIN favourites ON bike.idbike=favourites.favs AND favourites.uid LIKE '$aux' ORDER BY more_visited DESC";
+        // $sql = "SELECT * FROM bike ORDER BY more_visited DESC";   
          $stmt = $db->ejecutar($sql);
          return $db->listar($stmt);
+        // return $sql;
     }
-    public function select_categories($db,$arrArgument) {
-        $sql = "SELECT * FROM bike WHERE category='$arrArgument'";
+    public function select_categories($db,$arrArgument,$arrArgument2) {
+        $aux=trim($arrArgument2);
+        // $sql = "SELECT * FROM bike WHERE category='$arrArgument'";
+        $sql = "SELECT * FROM bike LEFT JOIN favourites ON bike.idbike=favourites.favs AND favourites.uid LIKE '$aux' WHERE category= '$arrArgument' ORDER BY more_visited DESC";
         // $sql = "SELECT * FROM categoria ORDER BY more_visited DESC LIMIT 4 ";
         $stmt = $db->ejecutar($sql);
         return $db->listar($stmt);
+        // return $sql;
     }
 
     public function select_carousel($db,$arrArgument) {
@@ -62,8 +67,11 @@ class shop_dao {
         return $db->listar($stmt);
         // echo json_encode("Dentro de shop_dao");
     }
-    public function select_filter($db,$arrArgument) {
-        $sql = "SELECT * FROM bike WHERE $arrArgument ";
+    public function select_filter($db,$arrArgument,$arrArgument2) {
+        $aux=trim($arrArgument2);
+        // $sql = "SELECT * FROM bike WHERE $arrArgument ";
+        $sql = "SELECT * FROM bike LEFT JOIN favourites ON bike.idbike=favourites.favs AND favourites.uid LIKE '$aux' WHERE $arrArgument ORDER BY more_visited DESC";
+
         $stmt = $db->ejecutar($sql);
         return $db->listar($stmt);
         // return ($sql);
@@ -75,10 +83,43 @@ class shop_dao {
         // echo json_encode($sql);
         //    echo json_encode("Hola DAO");
     }
+            //PRUEBA PUEDE TENGA QUE ELIMINAR EL arrARGUMENT2 por no usarlo.
+    public function select_searchFav($db,$arrArgument,$arrArgument2) {
+        $id=explode('"',$arrArgument);
+        $sql = "SELECT favs FROM favourites WHERE uid LIKE '$id[1]'";
+        $stmt = $db->ejecutar($sql);
+        return $db->listar($stmt);
+        // echo json_encode("hola dao");
+        // 
+    }
 
-    // public function update_active_user($db,$arrArgument) {
-    //     $sql = "UPDATE users SET activate = 1 WHERE token = '$arrArgument'";
-    //     return $db->ejecutar($sql);
-    // }
+
+
+    public function select_saveFav($db,$arrArgument,$arrArgument2) {
+        $id=explode('"',$arrArgument);
+        $sql = "INSERT INTO favourites (uid, favs) VALUES ('$id[1]','$arrArgument2')";
+        return $db->ejecutar($sql);
+        // $stmt = $db->ejecutar($sql);
+        // echo json_encode($stmt);
+    }
+
+    public function select_deleteFav($db,$arrArgument,$arrArgument2) {
+        $id=explode('"',$arrArgument);
+        $sql = "DELETE FROM favourites WHERE uid LIKE '$id[1]' AND favs LIKE '$arrArgument2'";
+        return $db->ejecutar($sql);
+        // $stmt = $db->ejecutar($sql);
+      
+    }
+    public function select_valueBike($db,$arrArgument,$arrArgument2) {
+        $id=explode('"',$arrArgument);
+        $sql = "SELECT * FROM bike INNER JOIN favourites ON bike.idbike=favourites.favs AND favourites.uid LIKE '$id[1]' AND bike.idbike LIKE '$arrArgument2'";
+        // $sql = "DELETE FROM favourites WHERE uid LIKE '$id[1]' AND favs LIKE '$arrArgument2'";
+        
+        //HAY QUE COMPLETAR EL SQL PARA BUSCAR EL IDBIKE I SUS PROPIEDADES.
+        
+        $stmt = $db->ejecutar($sql);
+        return $db->listar($stmt);
+        // echo json_encode("Hola");
+    }
 
 }

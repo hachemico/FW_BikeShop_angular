@@ -11,7 +11,8 @@ class middleware_auth{
             $header = '{"typ":"JWT", "alg":"HS256"}';
             $secret = 'lapalmerasedoblaperoaguantaelhuracan';
             $iat = time();
-            $exp = time()+(60*60);
+            $exp = time()+(60);
+            // $exp = time()+(60*60);
             /////////////////////////// hachemico ////////////////////////////////////////
             //iat: Tiempo que inició el token
             //exp: Tiempo que expirará el token (+1 hora)

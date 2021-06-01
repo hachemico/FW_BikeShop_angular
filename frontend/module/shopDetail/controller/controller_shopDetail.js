@@ -1,4 +1,4 @@
-console.log("carga controller_shopDetail.js");
+// console.log("carga controller_shopDetail.js");
 
 bikeShop.controller('controller_shopDetail', function($scope,services) {
 
@@ -39,7 +39,7 @@ $scope.detail = ('<p>hola</p>');
     });
     $scope.backShop = function() {
       
-        localStorage.removeItem('idbike');
+        // slocalStorage.removeItem('idbike');
         location.href = "#/shop/";
     };// end_showDetails
   

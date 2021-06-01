@@ -1,8 +1,42 @@
-console.log("carga controller_shop.js");
+// console.log("carga controller_shop.js");
 
-bikeShop.controller('controller_shop', function($scope, services, showShop) {
+bikeShop.controller('controller_shop',function($scope, services, services_shop) {
 //   console.log("valor showShop"+ showShop);
 // console.log("Valor databrand>"+ localStorage);
+let showShop="";
+let user="";
+
+//LIST SHOP
+                if(localStorage.token && !localStorage.catShop && !localStorage.filterBikes && !localStorage.idbike){ 
+                        console.log("LIST SHOWSHOP token + !catshop+ !filterbike && !idbike");
+                     let uemail=services.post('login','decodeToken2',{'token':localStorage.token});
+                     
+                     uemail.then(function(data) { //resolver los datos que llegan desde el servidor
+                        // console.log(data);
+                       
+                        let aux= services.post('shop','getShop',{'user':data});
+                        aux.then(function(data) { //resolver los datos que llegan desde el servidor
+                            // console.log(data);
+                            showShop=data;
+                            setPage (showShop,1);
+
+                        });//end. then_aux
+                    });//end.then_uemail
+                  
+                }else if(!localStorage.token && !localStorage.catShop && !localStorage.filterBikes){
+                    user="visitor";
+                    console.log("LIST SHOWSHOP !token + !catshop+ !filterbike");
+                    let aux= services.post('shop','getShop',{'user':user});
+                        aux.then(function(data) { //resolver los datos que llegan desde el servidor
+                            // console.log(data);
+                            
+                            showShop=data;
+                            setPage (showShop,1);
+
+                        });//end. then_aux
+                }
+               
+//FILTERS
 
     let countXc= 0,countTrail=0,countEnduro=0,countEmtb=0,countRoad=0;
 
@@ -91,59 +125,216 @@ bikeShop.controller('controller_shop', function($scope, services, showShop) {
     //   console.log("Valor checksMAIN> "+checks_main);
         if(checks_main != ""){
             let filteredBikes = "" ;
-            filteredBikes= services.post('shop','filter',{'value_filter':checks_main});
+
+            if(localStorage.token ){ //USUARIO REGISTRADO
+                console.log(" CLICK FILTROS + token>>> ");
+                let uemail=services.post('login','decodeToken2',{'token':localStorage.token});
+                
+                uemail.then(function(data) { //resolver los datos que llegan desde el servidor
+              
+                    filteredBikes= services.post('shop','filter',{'value_filter':checks_main,'user':data});
+                
+                    filteredBikes.then(function(data) { //resolver los datos que llegan desde el servidor
+                        // console.log(data);
+                        data2=JSON.stringify(data);
+                        localStorage.removeItem('catShop');
+                        localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
+                        setPage(data,1);
+                    });//end.then uemail
+               });//end.then_uemail
+             
+           }else{ //PARA USUARIO SIN LOGIN
+            console.log(" CLICK FILTROS + sin USUARIO>>> ");
+            user="visitor";
+            filteredBikes= services.post('shop','filter',{'value_filter':checks_main,'user':user});
             
-            filteredBikes.then(function(data) { //resolver los datos que llegan desde el servidor
-                console.log(data);
-                data2=JSON.stringify(data);
-                localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
-                setPage(data,1);
-            });
+                filteredBikes.then(function(data) { //resolver los datos que llegan desde el servidor
+                    // console.log(data);
+                    data2=JSON.stringify(data);
+                    localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
+                    localStorage.removeItem('catShop');
+                    setPage(data,1);
+                });
+            }//end_else token/visitor
+
+            // filteredBikes= services.post('shop','filter',{'value_filter':checks_main,'user':data});
+            
+            // filteredBikes.then(function(data) { //resolver los datos que llegan desde el servidor
+            //     console.log(data);
+            //     data2=JSON.stringify(data);
+            //     localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
+            //     localStorage.removeItem('catShop');
+            //     setPage(data,1);
+            // });
+      
         }else{
-            setPage(showShop,1);
+            ////RECARGAR LA PAGINA PARA QUE DESAPAREZCAN LOS RADIOBUTTONS
+            // setPage(showShop,1);
+            console.log("CLICK FILTROS SIN PARAMETROS A FILTRAR");
             localStorage.removeItem('filterBikes');
         }//end_if_else
   
     } //end scope.filtrebike
 
 
-
-
+//BORRAR TODOS LOS FILTROS HOME CATEGORIES / HOME CAROUSEL / FILTERS >> SHOWSHOP LIST
 
     $scope.clearAllFilters= function(){
+        console.log("CLICK CLEAR FILTERS");
         localStorage.removeItem('filterBikes');
+        localStorage.removeItem('catShop');
         setPage(showShop,1);
+        location.reload();
     }
 
-    if(localStorage.catShop){ // Recogemos valor redirect from 'categorias'.
+//SHOWSHOP REDIRECT HOME FROM CATEGORIES
 
-        let value = localStorage.getItem('catShop');
-        let  filteredBikes= services.post('shop','homeCategories',{'value_cat':value});
-        localStorage.removeItem('catShop');
-
-        filteredBikes.then(function(data) { //resolver los datos que llegan desde el servidor
+    if(localStorage.catShop){ // Valor home redirect >>> 'categorias'.
             
-            console.log("VALOR brandShop>> "+data);
-            data2=JSON.stringify(data);
-            localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
-            setPage(data,1);
-        });
+            if(localStorage.token){ //user logged
+                console.log(" SHOWSHOP POR REDIRECT HOME CATEGORIES + TOKEN>>> ");
+                let uemail=services.post('login','decodeToken2',{'token':localStorage.token});
+                let value="";
+                let filteredBikes="";
+                uemail.then(function(data) { //resolver los datos que llegan desde services.post
+                    console.log(data);
+                    value = localStorage.getItem('catShop');
+                    filteredBikes= services.post('shop','homeCategories',{'value_cat':value,'user':data});
+                    
+                    filteredBikes.then(function(data) { //resolver los datos que llegan por services.post
+                        
+                        console.log(data);
+                        data2=JSON.stringify(data);// object to String.
+                        localStorage.removeItem('catShop');
+                        localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
+                        setPage(data,1);
+                    });
+               });//end.then_uemail
+     
+            }else{
+                console.log(" SHOWSHOP POR REDIRECT HOME CATEGORIES + SIN USUARIO>>> ");
+                    user="visitor";
+                     value = localStorage.getItem('catShop');
+                                filteredBikes= services.post('shop','homeCategories',{'value_cat':value,'user':user});
+                                
+                                filteredBikes.then(function(data) { //resolver los datos que llegan desde services.post
+                                    
+                                    console.log(data);
+                                    data2=JSON.stringify(data); // object to String.
+                                    localStorage.removeItem('catShop');
+                                    localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
+                                    setPage(data,1);
+                                });
+            } //END_LOCALSTORAGE                 
     } //END CATSHOP
 
 
 
+// SHOWSHOP FILTERS >>> FROM FILTERS / HOME CATEGORIES / HOME CAROUSEL 
 
-    if(localStorage.filterBikes){//Discriminamos si venimos desde LocalStorage o si hace un list ALL.
-        
-        let value="";
+    if(localStorage.filterBikes && !localStorage.idbike){//Discriminamos si venimos desde LocalStorage o si hace un list ALL.
+
+        let filteredBikes = "" ;
         value = localStorage.getItem('filterBikes');
-        showShop=JSON.parse(value);
-        setPage (showShop,1);
+        checks_main=JSON.parse(value);
+        console.log(checks_main);
+        setPage(checks_main,1);
 
-    }else{
-        setPage(showShop,1);
-    }// end_else
+        //     if(localStorage.token ){ //USUARIO REGISTRADO
+        //          console.log("FROM LOCALSTORAGE.FILTERBIKES + TOKEN >>");
+        //         let uemail=services.post('login','decodeToken2',{'token':localStorage.token});
+                
+        //         uemail.then(function(data) { //resolver los datos que llegan desde el servidor
+                    
+        //             value = localStorage.getItem('filterBikes');
+        //             checks_main=JSON.parse(value);
+        //             console.log(checks_main);
+        //             // filteredBikes= services.post('shop','filter',{'value_filter':checks_main,'user':data});
+                
+        //             // filteredBikes.then(function(data) { //resolver los datos que llegan desde el servidor
+        //             //     // console.log(data);
+        //             //     data2=JSON.stringify(data);
+        //             //     localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
+        //             //     // localStorage.removeItem('catShop');
+        //             //     // setPage(data,1);
+        //             // });//end.then uemail
+        //        });//end.then_uemail
+             
+        //    }else{ //PARA USUARIO SIN LOGIN
+        //     console.log("FROM LOCALSTORAGE.FILTERBIKES + SIN USUARIO >>");
+        //     user="visitor";
+        //     value = localStorage.getItem('filterBikes');
+        //     checks_main=JSON.parse(value);
+        //     filteredBikes= services.post('shop','filter',{'value_filter':checks_main,'user':user});
+            
+        //         filteredBikes.then(function(data) { //resolver los datos que llegan desde el servidor
+        //             // console.log(data);
+        //             data2=JSON.stringify(data);
+        //             localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
+        //             localStorage.removeItem('catShop');
+        //             setPage(data,1);
+        //         });
+        //     }//end_else token/visitor
+     
 
+        // let value="";
+        // value = localStorage.getItem('filterBikes');
+        // showShop=JSON.parse(value);
+        // setPage (showShop,1);
+
+    }
+    // else{
+    //     setPage(showShop,1);
+    // }// end_else
+
+
+//SHOWSHOP BACK FROM DETAILS
+    if(localStorage.idbike){
+        if(localStorage.filterBikes){
+            console.log("VOLVEMOS DEL DETAIL + LOCALSTORAGE.FILTERBIKES>> ");
+            value = localStorage.getItem('filterBikes');
+            
+            let showShop=JSON.parse(value);
+            setPage(showShop,1);
+            localStorage.removeItem('idbike');
+                //HAY QUE QUITAR EL REMOVE ITEM DEL CONTROLLER ID DETTAILS
+                // Y AÑADIR LOS REMOVES AQUI.
+        }else{
+            
+                if(localStorage.token ){ //USUARIO REGISTRADO
+                    console.log("VOLVEMOS DEL DETAIL + token POR LIST>> ");
+                    console.log("AAA");
+                    let uemail=services.post('login','decodeToken2',{'token':localStorage.token});
+                        
+                    uemail.then(function(data) { //resolver los datos que llegan desde el servidor
+                        // console.log(data);
+                    
+                        let aux= services.post('shop','getShop',{'user':data});
+                        aux.then(function(data) { //resolver los datos que llegan desde el servidor
+                            // console.log(data);
+                            showShop=data;
+                            setPage (showShop,1);
+                            localStorage.removeItem('idbike');
+
+                        });//end. then_aux
+                    });//end.then_uemail
+                
+                }else{
+                    console.log("VOLVEMOS DEL DETAIL + SIN USUARIO POR LIST>> ");
+                    console.log("BBB");
+                    user="visitor";
+                    let aux= services.post('shop','getShop',{'user':user});
+                        aux.then(function(data) { //resolver los datos que llegan desde el servidor
+                            // console.log(data);
+                            
+                            showShop=data;
+                            setPage (showShop,1);
+                            localStorage.removeItem('idbike');
+                        });//end. then_aux
+                }
+                /// no hay filtros LIST
+        }//END IF TOKEN
+    }//END IF IDBIKE
 
     $scope.showDetails = function(idbike) {
         console.log("dentro del showDetails");
@@ -155,21 +346,25 @@ bikeShop.controller('controller_shop', function($scope, services, showShop) {
     $scope.pageChanged = function() {
        
         if(localStorage.filterBikes){
+            console.log("PAGECHANGED + locastorage.filtebikes");
             let value="";
             value = localStorage.getItem('filterBikes');
             showShop=JSON.parse(value);
-
+            console.log("valorShowShop");
+            console.log(showShop);
             $scope.itemsPerPage = 6;
             $scope.totalItems = showShop.length;
             $scope.showShop = showShop.slice((($scope.currentPage - 1) * $scope.itemsPerPage), ($scope.currentPage * $scope.itemsPerPage));
-        }else{
+        }
+        else{
+            console.log("PAGECHANGED + NORMAL");
             $scope.showShop = showShop.slice((($scope.currentPage - 1) * $scope.itemsPerPage), ($scope.currentPage * $scope.itemsPerPage));
         }
     };// end_PageChanged
 
     function setPage(bikeVal ="", currentPageVal) {
-        console.log("dentro de setpage>");
-        console.log("valor bikeVal"+ bikeVal)
+        console.log("SETPAGE >>>");
+        // console.log("valor bikeVal"+ bikeVal)
         $scope.itemsPerPage = 6;
         $scope.currentPage = currentPageVal;
         $scope.totalItems = bikeVal.length;
@@ -177,6 +372,11 @@ bikeShop.controller('controller_shop', function($scope, services, showShop) {
 
         
     }// end_setPage
+
+    $scope.favClick=function(id){
+        console.log("recoge click"+id);
+        services_shop.currentUser(id);
+    };
 
     
 });

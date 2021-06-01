@@ -45,10 +45,20 @@
         <name>login</name>
         <uri>login</uri>
     </function>
+
     <function>
         <name>decodeToken</name>
         <uri>decodeToken</uri>
     </function>
+    <function>
+        <name>decodeToken2</name>
+        <uri>decodeToken2</uri>
+    </function>
+    <function>
+        <name>decodeTimeToken</name>
+        <uri>decodeTimeToken</uri>
+    </function>
+
      <function>
         <name>insertRecoverToken</name>
         <uri>insertRecoverToken</uri>
