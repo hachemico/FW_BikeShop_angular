@@ -1,0 +1,152 @@
+<main class="main-container">
+    <!-- shopping cart content -->
+    <section class="shopping-cart-area">
+        <!-- Begin cart -->
+        <div class="ld-subpage-content">
+    
+            <div class="ld-cart">
+    
+                <!-- Begin cart section -->
+                <section class="ld-cart-section ptb-50">
+    
+                    <div class="container">
+    
+                        <div class="row">
+    
+                            <div class="col-md-12">
+    
+                                <!-- Begin table -->
+                                <table  ng-repeat="data in showCart" class="table cart-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-title">Nombre</th>
+                                        <th class="table-title">Referencia</th>
+                                        <th class="table-title">Precio Unitario</th>
+                                        <th class="table-title">Cantidad</th>
+                                        <th class="table-title">SubTotal</th>
+                                        <th>
+    
+                                            <span class="close-button disabled"></span></th>
+                                    </tr>
+                                    </thead>
+    
+    
+                                    <tbody>
+    
+                                    <tr >
+                                        <td class="product-name-col">
+                                            <figure>
+                                                <a href="#"><img class="img-responsive" src="frontend/{{data.img}}"></a>
+                                            </figure>
+                                            <h1 class="product-name" style="text-transform: uppercase"><a href="#"><strong>{{data.brand}} {{data.model}}</strong></a></h1>
+    
+                                            <ul>
+                                                <li><strong>Category:</strong> {{data.category}}</li>
+                                                <li><strong>Size: </strong>{{data.size}}</li>
+                                                <li ng-if="data.stock == 0"><strong>Articulos Disponibles: </strong><span style="color:red">"Sin Stock"</span>  </li>
+                                                <li ng-if="data.stock > 0"><strong>Articulos Disponibles: </strong><span style="color:green">{{data.stock}} en Stock</span>  </li>
+                                            </ul>
+                                        </td>
+                                        <td class="product-code"><br><br>{{data.idbike}}</td>
+                                        <td class="product-price-col">
+                                            <br>
+                                            <span class="product-price-special"><br>{{data.price}}€</span>
+                                        </td>
+                                        <td>
+                                            <div class="custom-quantity-input">
+                                                <br>
+                                                <button type="button" ng-disabled="(data.qty >= data.stock)" ng-click="addBike(data.idbike)" class="fa fa-plus" aria-hidden="true" style ="color:green"></button>
+                                                
+                                                <input type="text" name="quantity"  value="{{data.qty}}" readonly="readonly" >
+                                                
+                                                <button type="button" ng-disabled="(data.qty == 1)" ng-click="removeBike(data.idbike)" class="fa fa-minus" aria-hidden="true" style ="color:red" ></button>
+                                                
+                                                
+                                                <!-- <div>
+                                                    <button id="sub{{data.idbike}}"><i ng-click="removeBike(data.idbike)" class="fa fa-minus" aria-hidden="true" style ="color:red" ></i></i></button>
+                                                </div> -->
+                                                
+                                                
+                                                <!-- <i>{{data.qty}}</i> -->
+                                            </div>
+                                        </td>
+                                        <td class="product-total-col">
+                                            <br>
+                                            <span class="product-price-special"><br>{{data.price*data.qty}}€</span>
+                                        </td>
+                                        <td>
+                                            <br><br>
+                                            <a ng-click="deleteLine(data.idbike)" class="close-button"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                    <!-- End tr -->
+    
+    
+                                  
+                                    </tbody>
+                                </table>
+                                <!-- End table -->
+    
+                                <div class="mt-30"></div>
+    
+                                <div class="row">
+                                    <div class="col-md-12">
+    
+                                        <table class="table total-table">
+    
+                                            <tbody>
+                                            <tr>
+                                                <td class="total-table-title">Subtotal:</td>
+                                                <td>{{subtotalCart}} €</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="total-table-title">Gastos Envio:</td>
+                                                <td>{{envioCart}} €</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="total-table-title">Impuestos (10%):</td>
+                                                <td>{{taxesCart}} €</td>
+                                            </tr>
+                                            </tbody>
+    
+                                            <tfoot>
+                                            <tr>
+                                                <td>Total:</td>
+                                                <td>{{totalCart}} €</td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                        <!-- End table -->
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6 text-left">
+                                                <a href="#/shop" class="btn btn-custom-6 btn-lger min-width-lg">Continuar Comprando</a>
+                                            </div>
+                                            <div class="col-md-6 text-right">
+                                                <a href="#" class="btn btn-custom-6 btn-lger min-width-sm">Realizar Pedido</a>
+                                            </div>
+                                       </div>
+                                       
+                                        
+                                     
+    
+                                    </div>
+                                    <!-- /.col-md-4 -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                        </div>
+                    </div>
+    
+                </section>
+                <!-- /.ld-cart-section -->
+    
+            </div>
+            <!-- /.ld-cart -->
+        </div>
+        <!-- /.ld-subpage-content -->
+        <!-- End Cart -->
+    </section>
+    <!-- end shopping cart content -->
+    
+    </main>

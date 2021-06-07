@@ -25,23 +25,11 @@
         <uri>login</uri>
         <uri>register</uri>
     </module>
-    <!-- <module>
+    <module>
         <name>cart</name>
         <uri>cart</uri>
     </module>
-    <module>
-        <name>our-cars</name>
-        <uri>our-cars</uri>
-    </module>
-    <module>
-        <name>our-brands</name>
-        <uri>our-brands</uri>
-    </module>
-    <module>
-        <name>user-order</name>
-        <uri>user-order</uri>
-    </module>
-    <module>
+    <!-- <module>
         <name>profile</name>
         <uri>profile</uri>
     </module> -->

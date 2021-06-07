@@ -1,5 +1,5 @@
-bikeShop.factory('services_shop', ['services','toastr',  function( services,toastr) {
-    let service = {currentUser:currentUser, update_localStorage:update_localStorage};
+bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( services,toastr,$rootScope) {
+    let service = {currentUser:currentUser, update_localStorage:update_localStorage, cartClick:cartClick};
     return service;
 
     function currentUser(id){
@@ -96,6 +96,46 @@ bikeShop.factory('services_shop', ['services','toastr',  function( services,toas
                 localStorage.filterBikes=JSON.stringify(checks_main);
             }
     };
+
+    function cartClick(id){
+        console.log("dentrooo");
+        console.log(id);
+
+        if(localStorage.token){
+
+             services.post('login', 'decodeToken2', {"token":localStorage.token})
+            .then(function(response) {
+                console.log(response);                 
+                                
+                services.post('cart','insertLine', {"uid": response,"idBike":id})
+                .then(function(response) {
+                    console.log(response);    
+                    // let aux = response;
+                    // let parse = JSON.parse(aux);
+                    if((typeof response) === 'string'){
+                        toastr.info('Lo sentimos pero no puede añadir más unidades.' ,'Total Productos');
+                    }else{
+                        toastr.success('1 Producto añadido.' ,'Carrito');
+                        $total=response[0]['SUM(qty)'];
+                        console.log($total);
+                        $rootScope.totalProductsHeader= $total;
+                        localStorage.setItem('listTotal',$total);
+                    }
+                    
+                }, function(error) {
+                 console.log(error);
+                });// end_services
+
+
+            }, function(error) {
+                        console.log(error);
+            });// end_services
+            // console.log("AAAs");
+            
+        }
+
+    };
+
 
 
 }]);

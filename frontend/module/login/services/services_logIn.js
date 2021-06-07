@@ -34,6 +34,7 @@ bikeShop.factory('services_logIn', ['$rootScope', 'services',  function($rootSco
         // console.log("Entra en el logoutUser");
         localStorage.removeItem('token');
         localStorage.removeItem('filterBikes');
+        localStorage.removeItem('listTotal');
         $rootScope.showProfile = false;
         $rootScope.showProfile2 = false;
         $rootScope.showProfile3 = false;

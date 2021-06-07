@@ -156,20 +156,9 @@ let user="";
                     setPage(data,1);
                 });
             }//end_else token/visitor
-
-            // filteredBikes= services.post('shop','filter',{'value_filter':checks_main,'user':data});
-            
-            // filteredBikes.then(function(data) { //resolver los datos que llegan desde el servidor
-            //     console.log(data);
-            //     data2=JSON.stringify(data);
-            //     localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
-            //     localStorage.removeItem('catShop');
-            //     setPage(data,1);
-            // });
       
         }else{
-            ////RECARGAR LA PAGINA PARA QUE DESAPAREZCAN LOS RADIOBUTTONS
-            // setPage(showShop,1);
+            
             console.log("CLICK FILTROS SIN PARAMETROS A FILTRAR");
             localStorage.removeItem('filterBikes');
         }//end_if_else
@@ -239,54 +228,8 @@ let user="";
         checks_main=JSON.parse(value);
         console.log(checks_main);
         setPage(checks_main,1);
-
-        //     if(localStorage.token ){ //USUARIO REGISTRADO
-        //          console.log("FROM LOCALSTORAGE.FILTERBIKES + TOKEN >>");
-        //         let uemail=services.post('login','decodeToken2',{'token':localStorage.token});
-                
-        //         uemail.then(function(data) { //resolver los datos que llegan desde el servidor
-                    
-        //             value = localStorage.getItem('filterBikes');
-        //             checks_main=JSON.parse(value);
-        //             console.log(checks_main);
-        //             // filteredBikes= services.post('shop','filter',{'value_filter':checks_main,'user':data});
-                
-        //             // filteredBikes.then(function(data) { //resolver los datos que llegan desde el servidor
-        //             //     // console.log(data);
-        //             //     data2=JSON.stringify(data);
-        //             //     localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
-        //             //     // localStorage.removeItem('catShop');
-        //             //     // setPage(data,1);
-        //             // });//end.then uemail
-        //        });//end.then_uemail
-             
-        //    }else{ //PARA USUARIO SIN LOGIN
-        //     console.log("FROM LOCALSTORAGE.FILTERBIKES + SIN USUARIO >>");
-        //     user="visitor";
-        //     value = localStorage.getItem('filterBikes');
-        //     checks_main=JSON.parse(value);
-        //     filteredBikes= services.post('shop','filter',{'value_filter':checks_main,'user':user});
-            
-        //         filteredBikes.then(function(data) { //resolver los datos que llegan desde el servidor
-        //             // console.log(data);
-        //             data2=JSON.stringify(data);
-        //             localStorage.setItem('filterBikes',data2); //guardamos el array devuelto por el servidor.
-        //             localStorage.removeItem('catShop');
-        //             setPage(data,1);
-        //         });
-        //     }//end_else token/visitor
-     
-
-        // let value="";
-        // value = localStorage.getItem('filterBikes');
-        // showShop=JSON.parse(value);
-        // setPage (showShop,1);
-
     }
-    // else{
-    //     setPage(showShop,1);
-    // }// end_else
-
+    
 
 //SHOWSHOP BACK FROM DETAILS
     if(localStorage.idbike){
@@ -378,5 +321,9 @@ let user="";
         services_shop.currentUser(id);
     };
 
+    $scope.cartClick=function(id){
+        console.log("aaa");
+        services_shop.cartClick(id);
+    };
     
 });

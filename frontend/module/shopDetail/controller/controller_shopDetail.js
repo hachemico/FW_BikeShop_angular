@@ -2,10 +2,6 @@
 
 bikeShop.controller('controller_shopDetail', function($scope,services,services_shop) {
 
-    $scope.detail = ('<p>hola</p>');
-    console.log("funcion controller_shopDetail");
-
-
     let uemail=services.post('login','decodeToken2',{'token':localStorage.token});
                      
     uemail.then(function(data) { //resolver los datos que llegan desde el servidor
@@ -18,8 +14,6 @@ bikeShop.controller('controller_shopDetail', function($scope,services,services_s
                 console.log(data);
             $scope.showDetails= data;
 
-            
-        
         });       
    });//end.then_uemail
 
@@ -27,14 +21,11 @@ bikeShop.controller('controller_shopDetail', function($scope,services,services_s
     
     $scope.favDetails = function(idbike){
 
-        console.log("dentro del favdetails.");
-
         services_shop.currentUser(idbike);
     };
 
     $scope.backShop = function() {
       
-        // slocalStorage.removeItem('idbike');
         location.href = "#/shop/";
     };// end_showDetails
   

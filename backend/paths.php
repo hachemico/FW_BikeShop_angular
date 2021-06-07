@@ -59,9 +59,11 @@ define ('MODEL_PATH_LOGIN', SITE_ROOT . '/module/login/model/model/');
 
 define ('JS_PATH_LOGIN', SITE_PATH . 'module/login/model/');
 
-// //Cart
-// define('VIEW_PATH_CART', SITE_ROOT . 'module/cart/view/');
-// define ('MODEL_PATH_CART', SITE_ROOT . '/module/cart/model/model/');
+//Cart
+define('VIEW_PATH_CART', SITE_ROOT . 'module/cart/view/');
+define ('MODEL_PATH_CART', SITE_ROOT . '/module/cart/model/model/');
+define('DAO_CART', SITE_ROOT . 'module/cart/model/DAO/');
+define('BLL_CART', SITE_ROOT . 'module/cart/model/BLL/');
 
 // //Profile
 // define('VIEW_PATH_PROFILE', SITE_ROOT . 'module/profile/view/');

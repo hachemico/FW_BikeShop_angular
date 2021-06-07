@@ -25,27 +25,32 @@
                                         <img src = "frontend/{{data.img}}" ng-click = "showDetails(data.idbike)" style = "max-width: 100%; height: 100px;">
                                         <h4 style="padding-top: 10px ">{{data.brand}} {{data.model}}</h4>
 
-                                            <div><h4 >{{data.price}}€    <i ng-click="favClick(data.idbike)" id="like-{{data.idbike}}" class="heart fa fa-heart" style="color:red"></i></h4></div>
-
+                                            <div><h4 >PVP: {{data.price}}€    <i ng-click="favClick(data.idbike)" id="like-{{data.idbike}}" class="heart fa fa-heart" style="color:red"></i></h4></div>
+                                            <div ng-if="data.stock == 0"><span style="color:red">No disponible</span>  </div>
+                                            <div ng-if="data.stock > 0"><span style="color:green">Stock: {{data.stock}}</span>  </div>
                                         <br>
-                                        <div id="container-btns">
-                                            <fav-button  style = "width: 100%; height: 100%"></fav-button>
-                                            <cart-button style = "width: 100%; height: 100%"></cart-button>
-                                        </div>
+                                        
                                     </div>
                                     <div ng-if="data.favs!= data.idbike" class="inner" >
                                         <img src = "frontend/{{data.img}}" ng-click = "showDetails(data.idbike)" style = "max-width: 100%; height: 100px;">
                                         <h4 style="padding-top: 10px ">{{data.brand}} {{data.model}}</h4>
 
-                                        <div><h4 >{{data.price}}€    <i ng-click="favClick(data.idbike)" id="like-{{data.idbike}}" class="heart fa fa-heart" style="color:black"></i></h4></div>
-
+                                        <div><h4 >PVP: {{data.price}}€    <i ng-click="favClick(data.idbike)" id="like-{{data.idbike}}" class="heart fa fa-heart" style="color:black"></i></h4></div>
+                                        <div ng-if="data.stock == 0"><span style="color:red">No disponible</span>  </div>
+                                        <div ng-if="data.stock > 0"><span style="color:green">Stock: {{data.stock}}</span>  </div>
                                         <br>
-                                        <div id="container-btns">
-                                            <fav-button  style = "width: 100%; height: 100%"></fav-button>
-                                            <cart-button style = "width: 100%; height: 100%"></cart-button>
-                                        </div>
+                                        
                                     </div>
-
+                                    <div class="variations_form cart">
+                                        <!-- <div class="quantity">
+                                            <input ng-model ="qty_cart" type="number" name="quantity" value="1" class="input-text qty text">
+                                        </div> -->
+        
+                                        <button type="button"  ng-disabled="(data.stock <= 0)" ng-click="cartClick(data.idbike)" class="cart-button">Añadir al carrito</button>     
+                                        
+                                    </div>
+                                    <br>
+                                    <hr>
                                 </div>
                             </div>
                     </div>
@@ -72,48 +77,6 @@
     <aside class="col-md-3 sidebar">
 
         <div class="widget category-widget">
-           
-           <!-- HTML PRUEBA FILTROS -->
-            <!-- <div id="main-shop" style="margin-bottom: 350px;">
-                <div class="filter-content">
-                </div>
-                <div class="container-filter" style="margin-top: 20px;">
-                    <button class="default-button" id="modal-map-btn" style="margin-left: 15%; margin-bottom: 10px">Open
-                        Map</button>
-            
-            
-                    <div ng-repeat="(key, filter) in filters">
-            
-                        <h4 class="filter-title">{{key | uppercase}}</h4>
-                        <div ng-repeat="value in filter" class="filter-col" style = "display: flex">
-                            {{value}}
-            
-            
-                            <div id = "container-filter-btns" style="margin-left: auto; margin-right: 10px; display: flex">
-                                <div id = "add-filter-btn" ng-show = "!currentFilters[value + '-' + key]" ng-click = "filterCars('{{value}}', '{{key}}')" style = "width: 20px;">
-            
-            
-                                    <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="plus-square"
-                                        class="svg-inline--fa fa-plus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            
-                                        
-                                        <path fill="#4d484e"
-                                            d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12zm96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            	<div id = "remove-filter-btn" ng-show = "currentFilters[value + '-' + key]" ng-click = "removeFilter('{{value}}', '{{key}}')" style = "width: 20px;">
-                                    <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="minus-square"
-                                        class="svg-inline--fa fa-minus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                        <path fill="#fc7820"
-                                            d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12H108zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
 
 <!-- HTML PRUEBA FILTROS -->
 
@@ -169,20 +132,6 @@
         <div class="widget">
 
             <div class="filter-price">
-
-                <!-- <div id="price-range"></div> -->
-
-                <!-- <div id="filter-range-details" class="row">
-                    <div class="col-xs-6">
-                            <div class="filter-price-label">DESDE:</div>
-                                <input type="text" id="price-range-low" class="form-control">
-                    </div>
-
-                    <div class="col-xs-6">
-                        <div class="filter-price-label">HASTA:</div>
-                            <input type="text" id="price-range-high" class="form-control">
-                    </div>
-                </div> -->
 
                 <div class="filter-price-action">
                     <a id="filters-button" ng-click="filterBike()" class="btn btn-custom-6 min-width-xss">APLICAR FILTROS</a>

@@ -18,7 +18,6 @@ class shopDetail_bll {
 
     public function detail_BLL($arrArgument,$arrArgument2) {
         return $this->dao->select_detail($this->db,$arrArgument,$arrArgument2); 
-        // echo json_encode("Debug  shopDetail_BLL <<<");
     } // end carousel_home
 
 }//end_shop_bll

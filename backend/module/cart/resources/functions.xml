@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>insertLine</name>
+        <uri>insertLine</uri>
+    </function>
+    <function>
+        <name>totalLine</name>
+        <uri>totalLine</uri>
+    </function>
+    <function>
+        <name>ControlCart</name>
+        <uri>ControlCart</uri>
+    </function>
+    <function>
+        <name>searchCart</name>
+        <uri>searchCart</uri>
+    </function>
+    <function>
+        <name>incrementCart</name>
+        <uri>incrementCart</uri>
+    </function>
+    <function>
+        <name>decrementCart</name>
+        <uri>decrementCart</uri>
+    </function>
+    <function>
+        <name>deleteLineCart</name>
+        <uri>deleteLineCart</uri>
+    </function>
+</functions>

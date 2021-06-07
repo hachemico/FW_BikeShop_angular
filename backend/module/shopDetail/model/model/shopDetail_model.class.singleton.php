@@ -16,7 +16,5 @@ class shopDetail_model {
 
     public function detail($arrArgument,$arrArgument2){
         return $this->bll->detail_BLL($arrArgument,$arrArgument2);
-        // echo json_encode("Hola");
-        // echo json_encode("Dentro del detail_model");
     }
 }//enc shopDetail_model_class

@@ -30,51 +30,7 @@ bikeShop.config(['$routeProvider', '$locationProvider',
                         controller: "controller_shop",
                         resolve: {
                             
-                            // featuredCars: function (services) {
-                            // showShop: function (services) {
-                            //     let user="";
-                            //     if(localStorage.token){
-                            //          // console.log(localStorage.token);
-                            //          let uemail=services.post('login','decodeToken2',{'token':localStorage.token});
-                            //          // let email=uemail.toString().split(' ');
-                            //          uemail.then(function(data) { //resolver los datos que llegan desde el servidor
-                            //             console.log(data);
-                                       
-                                        
-                
-                            //             // user=data;
-                            //             let aux= services.post('shop','getShop',{'user':data});
-                            //             // aux.then(function(data) { //resolver los datos que llegan desde el servidor
-                            //                 // console.log(aux);
-                            //                 // showShop=data;
-                            //                 // setPage (showShop,1);
-                            //                 return aux;
-                
-                
-                            //             // });//end. then_aux
-                            //         });//end.then_uemail
-                                  
-                            //     }else{
-                            //         user="visitor";
-                            //         // return services.post('shop','getShop',{'user':user});
-                            //         let aux= services.post('shop','getShop',{'user':user});
-                            //             // aux.then(function(data) { //resolver los datos que llegan desde el servidor
-                            //                 // console.log(aux);
-                            //                 // showShop=data;
-                            //         //         setPage (showShop,1);
-                            //                 return aux;
-                
-                
-                
-                            //             // });//end. then_aux
-                            //     }
-                            // }
-                            // // featuredCars: async function (services) {
-                            // //     return await services.get('home','carousel');
-                            // // },
-                            // showSlider: function (services) {
-                            //     return services.get('shop','carousel');
-                            // }
+                            
                         }// end_resolve
                     }).when("/shopDetail", {
                     
@@ -136,6 +92,11 @@ bikeShop.config(['$routeProvider', '$locationProvider',
                                 });// end_services
                             }// end_passUpdate
                         }// end_resolve  
+                }).when("/cart", { //solo lanza una vista para recoger el email del usuario
+                        templateUrl: "frontend/module/cart/view/view_cart.html", 
+                        controller: "controller_cart"
+
+                        
                 }).otherwise("/", {
                     templateUrl: "frontend/module/home/view/view_home.html", 
                     controller: "controller_home",
@@ -170,4 +131,22 @@ bikeShop.config(['$routeProvider', '$locationProvider',
         }else{
             services_logIn.printMenu();
         }
+
+        if(localStorage.token){
+            // añadir el localStorage para descargar el localstorage del totalProducts.
+            $total=localStorage.getItem('listTotal');
+            console.log($total);
+           
+            if($total!= 0){
+                console.log("entra roootScope.");
+                $rootScope.totalProductsHeader = $total;
+            
+            }else{
+                $rootScope.totalProductsHeader = 0;
+            }  
+        }else{
+            
+            $rootScope.totalProductsHeader = 0;
+        }
+
       });
