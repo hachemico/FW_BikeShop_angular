@@ -20,4 +20,7 @@ class shopDetail_bll {
         return $this->dao->select_detail($this->db,$arrArgument,$arrArgument2); 
     } // end carousel_home
 
+    public function detailNolog_BLL($arrArgument) {
+        return $this->dao->select_detailNolog($this->db,$arrArgument); 
+    } // end carousel_home
 }//end_shop_bll

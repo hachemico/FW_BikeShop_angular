@@ -47,5 +47,15 @@ public function deleteLineCart_model($arrArgument,$arrArgument2){
     return $this->bll->deleteLineCart_BLL($arrArgument,$arrArgument2);
     // echo json_encode("Hola");
 }
+//CHECKOUT
+
+public function insertCheckout_model($arrArgument){
+    return $this->bll->insertCheckout_BLL($arrArgument);
+    // echo json_encode("Hola");
+}
+public function deleteFromCart_model($arrArgument){
+    return $this->bll->deleteFromCart_BLL($arrArgument);
+    // echo json_encode("Hola");
+}
 
 }// end Class

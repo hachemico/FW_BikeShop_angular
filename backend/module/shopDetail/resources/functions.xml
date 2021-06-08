@@ -8,5 +8,9 @@
         <name>detail</name>
         <uri>detail</uri>
     </function>
+    <function>
+        <name>detailNolog</name>
+        <uri>detailNolog</uri>
+    </function>
     
 </functions>

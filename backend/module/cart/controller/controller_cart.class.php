@@ -64,5 +64,21 @@ class controller_cart{
 
 		echo json_encode( common::loadModel(MODEL_PATH_CART,"cart_model", "totalLine_model",$_POST['uid']));
 	}
+
+//CHECKOUT
+function controlCheckout(){
+
+	$rdo= common::loadModel(MODEL_PATH_CART,"cart_model", "insertCheckout_model",$_POST['uid']);
+	
+	$rdo2= common::loadModel(MODEL_PATH_CART,"cart_model", "deleteFromCart_model",$_POST['uid']);
+	
+
+
+
+
+}
+
+
+
 }//end_controller_cart_class          
 ?>

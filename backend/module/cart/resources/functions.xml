@@ -28,4 +28,8 @@
         <name>deleteLineCart</name>
         <uri>deleteLineCart</uri>
     </function>
+    <function>
+        <name>controlCheckout</name>
+        <uri>controlCheckout</uri>
+    </function>
 </functions>

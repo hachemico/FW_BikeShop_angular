@@ -132,6 +132,9 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
             });// end_services
             // console.log("AAAs");
             
+        }else{
+
+            //// AÑADIR CONTROL USER NO/LOGGED LOCALSTORAGE.
         }
 
     };

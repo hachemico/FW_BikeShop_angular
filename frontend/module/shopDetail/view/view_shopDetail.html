@@ -61,21 +61,22 @@
                                    
                                     
                                
-                                <div id="detail_comment"> <p>{{data.price}}</p>
+                                <div id="detail_comment"> <p>{{data.comment}}</p>
                                     <span class="sku_wrapper">TALLA: <span class="sku">{{data.size}}</span>   </span>
                                     <a></a></br>
                                     <span class="posted_in">Categoria: <a href="#" rel="tag">{{data.category}}</a></span>
-                                
-                                
                                 </div>
-                                        
-                                <form class="variations_form cart" method="post">
+                                <br>
+                                <div ng-if="data.stock == 0"><span style="color:red">No disponible</span>  </div>
+                                <div ng-if="data.stock > 0"><span style="color:green">Stock: {{data.stock}}</span>  </div>
+                                <br>
+                                <div class="variations_form cart" method="post">
                                     <div class="quantity">
-                                        <input type="number" step="1" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" min="1">
+                                        <!-- <input type="number" step="1" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" min="1"> -->
                                     </div>
     
-                                    <button type="submit" class="cart-button">Añadir al carrito</button> <i class="fa fa-map-o" id="click_maps"></i>     
-                                </form>
+                                    <button type="button" ng-disabled="(data.stock <= 0)" ng-click = "cartDetails(data.idbike)" class="cart-button">Añadir al carrito</button> <i class="fa fa-map-o" id="click_maps"></i>     
+                                </div>
     
                                 <div class="product_meta" id=producto_meta>
     

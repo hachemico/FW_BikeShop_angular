@@ -120,7 +120,7 @@ bikeShop.config(['$routeProvider', '$locationProvider',
 
     // https://cursoangularjs.es/doku.php?id=unidades:04_masdirectivas:11_rootscope
 
-    bikeShop.run(function($rootScope,services_logIn) {
+    bikeShop.run(function($rootScope,services_logIn,services,services_cart) {
        
         $rootScope.logOut=function(){
             services_logIn.logOutUser();
@@ -132,21 +132,68 @@ bikeShop.config(['$routeProvider', '$locationProvider',
             services_logIn.printMenu();
         }
 
-        if(localStorage.token){
+
+
+
+        // if(localStorage.token){
             // añadir el localStorage para descargar el localstorage del totalProducts.
-            $total=localStorage.getItem('listTotal');
-            console.log($total);
-           
-            if($total!= 0){
-                console.log("entra roootScope.");
-                $rootScope.totalProductsHeader = $total;
+
+            if(localStorage.token){
+                // comprovar que el token del usuario es válido. timeExpiration.
+                services.post('login', 'decodeTimeToken', {"token":localStorage.token})
+                    .then(function(response) {
+                        console.log(response);
+                        response2=JSON.parse(response);
+                       
+                        if(response2 === "CURRENT_TOKEN"){
+            
+                           //obtener el usuario sobre el que agregar el favs
+                            services.post('login', 'decodeToken2', {"token":localStorage.token})
+                            .then(function(response3) {
+                                    console.log(response3);
+            
+                                    services_cart.listQtyHeader(response3);
+                               
+            
+                                }, function(error) {
+                                    console.log(error);
+                                });// end_services
+            
+            
+                        }else if(response2 === "INVALID_TOKEN"){
+                            console.log('Adios');
+                            toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
+                            location.href="#/login"
+                        }
+                        console.log(response);
+            
+                    }, function(error) {
+                        console.log(error);
+                    });// end_services
             
             }else{
                 $rootScope.totalProductsHeader = 0;
-            }  
-        }else{
+                
+            }
+
+
+
+
+
+
+        //     $total=localStorage.getItem('listTotal');
+        //     console.log($total);
+           
+        //     if($total!= 0){
+        //         console.log("entra roootScope.");
+        //         $rootScope.totalProductsHeader = $total;
             
-            $rootScope.totalProductsHeader = 0;
-        }
+        //     }else{
+        //         $rootScope.totalProductsHeader = 0;
+        //     }  
+        // }else{
+            
+        //     $rootScope.totalProductsHeader = 0;
+        // }
 
       });

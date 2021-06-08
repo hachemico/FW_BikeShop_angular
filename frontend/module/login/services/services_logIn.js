@@ -39,7 +39,9 @@ bikeShop.factory('services_logIn', ['$rootScope', 'services',  function($rootSco
         $rootScope.showProfile2 = false;
         $rootScope.showProfile3 = false;
         $rootScope.menuHeader = true;   
+        $rootScope.totalProductsHeader=0;
         location.reload();
+        // location.href="#/home";
     };
 
 

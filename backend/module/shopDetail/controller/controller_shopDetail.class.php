@@ -11,4 +11,8 @@ class controller_shopDetail{
         //  echo json_encode("Dentro del shopDetail_controller");
         //  echo json_encode($a);
 	} //end_carousel_function
+  function detailNolog(){
+		echo json_encode( common::loadModel(MODEL_PATH_SHOPDETAIL,"shopDetail_model", "detailNolog",$_POST['value_id']));
+       
+	} //end_carousel_function
 }

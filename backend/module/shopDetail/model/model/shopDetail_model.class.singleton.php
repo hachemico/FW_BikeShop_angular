@@ -17,4 +17,7 @@ class shopDetail_model {
     public function detail($arrArgument,$arrArgument2){
         return $this->bll->detail_BLL($arrArgument,$arrArgument2);
     }
+    public function detailNolog($arrArgument){
+        return $this->bll->detailNolog_BLL($arrArgument);
+    }
 }//enc shopDetail_model_class

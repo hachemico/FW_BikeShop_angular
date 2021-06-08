@@ -89,5 +89,24 @@ public function  select_deleteLineCart($db,$arrArgument,$arrArgument2) {
     // return $sql;
 }
 
+//CHECKOUT
+
+public function  select_insertCheckout($db,$arrArgument) {
+    $aux=trim($arrArgument);
+    $sql = "INSERT INTO checkout( uid, idbike, qty) SELECT cart.uid, cart.idbike, cart.qty FROM cart WHERE cart.uid LIKE '$aux'";
+    $stmt = $db->ejecutar($sql);
+    // return $db->listar($stmt);
+    return $stmt;
+    // return $sql;
+}
+
+public function  select_deleteFromCart($db,$arrArgument) {
+    $aux=trim($arrArgument);
+    $sql = "DELETE FROM cart WHERE cart.uid LIKE '$aux'";
+    $stmt = $db->ejecutar($sql);
+    // return $db->listar($stmt);
+    return $stmt;
+    // return $sql;
+}
 
 }

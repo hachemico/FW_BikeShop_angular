@@ -45,5 +45,11 @@ public function decrementCart_BLL($arrArgument,$arrArgument2) {
 public function deleteLineCart_BLL($arrArgument,$arrArgument2) {
     return $this -> dao -> select_deleteLineCart($this->db,$arrArgument,$arrArgument2);
 } 
-
+//CHECKOUT
+public function insertCheckout_BLL($arrArgument) {
+    return $this -> dao -> select_insertCheckout($this->db,$arrArgument);
+} 
+public function deleteFromCart_BLL($arrArgument) {
+    return $this -> dao -> select_deleteFromCart($this->db,$arrArgument);
+} 
   }

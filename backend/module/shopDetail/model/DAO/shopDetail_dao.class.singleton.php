@@ -20,6 +20,12 @@ class shopDetail_dao {
         return $db->listar($stmt);
         // return $sql;
     }
-
+    public function select_detailNolog($db,$arrArgument) {
+      
+        $sql = "SELECT * FROM bike WHERE idbike LIKE '$arrArgument'";
+        $stmt = $db->ejecutar($sql);
+        return $db->listar($stmt);
+        // return $sql;
+    }
 
 }
