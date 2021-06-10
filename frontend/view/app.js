@@ -49,21 +49,31 @@ bikeShop.config(['$routeProvider', '$locationProvider',
                        
                     }).when("/userActivate/:token", {
                         resolve: {
+                            
                             userActivate: function(services, $route, toastr) {
-                                // console.log("Valor recogido");
-                                // console.log($route.current.params.token);
+                                console.log("Valor recogido");
+                              
+                            setTimeout(function(){ //ESPERAR PARA QUE LLEGUEN TODOS LOS FLAGS EVITANDO QUE SE EJECUTE VARIAS VECES.
+                                    //Código a ejecutar
+                               
                                 services.put('login', 'active_user', {'token': $route.current.params.token})
                                 .then(function(response) {
                                     console.log(response);
-                                    if (response == 1) {
-                                        toastr.success('Ahora puede acceder a su cuenta.' ,'Cuenta verificada.');
-                                    }else {
-                                        toastr.error('The current token is invalid.' ,'Error');
-                                    }// end_else
-                                    location.href = "#/login";
+                                    
+                                  
+                                        if (response == 1) {
+                                            toastr.success('Ahora puede acceder a su cuenta.' ,'Cuenta verificada.');
+                                        }else {
+                                            toastr.error('The current token is invalid.' ,'Error');
+                                        }// end_else
+                                        location.href = "#/login";
+                                    
                                 }, function(error) {
                                     console.log(error);
                                 });// end_services
+
+                            },300);
+
                             }// end_activateUser
                         }// end_resolve
 
@@ -120,29 +130,33 @@ bikeShop.config(['$routeProvider', '$locationProvider',
 
     // https://cursoangularjs.es/doku.php?id=unidades:04_masdirectivas:11_rootscope
 
-    bikeShop.run(function($rootScope,services_logIn,services,services_cart) {
-       
+    bikeShop.run(function($rootScope,services_logIn,services,services_cart,services_shop) {
+        
+//CONTROL LOGOOUT     
         $rootScope.logOut=function(){
             services_logIn.logOutUser();
         }
+        
+//CONTROL SEARCH HEADER.
 
+        $rootScope.searchHeader = function(){
+             services_shop.search();
+        }
+
+//CONTROL MENU USUARIO
         if(!localStorage.token){
             $rootScope.menuHeader = true;
         }else{
             services_logIn.printMenu();
         }
 
+//CONTROL nºPRODUCTOS DEL CART en el HEADER.
 
-
-
-        // if(localStorage.token){
-            // añadir el localStorage para descargar el localstorage del totalProducts.
-
-            if(localStorage.token){
+        if(localStorage.token){
                 // comprovar que el token del usuario es válido. timeExpiration.
                 services.post('login', 'decodeTimeToken', {"token":localStorage.token})
                     .then(function(response) {
-                        console.log(response);
+                        // console.log(response);
                         response2=JSON.parse(response);
                        
                         if(response2 === "CURRENT_TOKEN"){
@@ -165,35 +179,17 @@ bikeShop.config(['$routeProvider', '$locationProvider',
                             toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
                             location.href="#/login"
                         }
-                        console.log(response);
+                        // console.log(response);
             
                     }, function(error) {
                         console.log(error);
                     });// end_services
             
             }else{
-                $rootScope.totalProductsHeader = 0;
-                
+                $rootScope.totalProductsHeader = 0;   
             }
 
 
 
-
-
-
-        //     $total=localStorage.getItem('listTotal');
-        //     console.log($total);
-           
-        //     if($total!= 0){
-        //         console.log("entra roootScope.");
-        //         $rootScope.totalProductsHeader = $total;
-            
-        //     }else{
-        //         $rootScope.totalProductsHeader = 0;
-        //     }  
-        // }else{
-            
-        //     $rootScope.totalProductsHeader = 0;
-        // }
 
       });
