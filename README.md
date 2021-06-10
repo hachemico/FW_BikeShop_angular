@@ -1,6 +1,4 @@
-# FW_BikeShop_angular
-
-<H2>FW_PHP_OO_MVC_Jquery | RIDE BIKE</H2>
+<H2>FW_BIKESHOP_PHPFramework_AngularJS | RIDE BIKE</H2>
 
 <H3>HUGO MICÓ SANZ</H4>
 <H4> INDEX </H4>
