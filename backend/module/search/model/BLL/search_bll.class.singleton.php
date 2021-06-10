@@ -16,8 +16,8 @@ class search_bll {
         return self::$_instance;
     }// end_getInstance
 
-    public function autocomplete_BLL($arrArgument) {
-        return $this -> dao -> select_autocomplete($this->db,$arrArgument);
+    public function autocomplete_BLL($arrArgument,$arrArgument2) {
+        return $this -> dao -> select_autocomplete($this->db,$arrArgument,$arrArgument2);
         // echo json_encode("Dentro de searh_BLL");
     } // end carousel_home_BLL
 

@@ -14,8 +14,8 @@ class search_model {
         return self::$_instance;
     }
 
-    public function autocomplete($arrArgument){
-        return $this->bll->autocomplete_BLL($arrArgument);
+    public function autocomplete($arrArgument,$arrArgument2){
+        return $this->bll->autocomplete_BLL($arrArgument,$arrArgument2);
         // echo json_encode("Dentro de searh_Model");
     }
 
