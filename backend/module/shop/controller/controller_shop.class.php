@@ -65,16 +65,16 @@ class controller_shop{
 		}
 		if($unlike == true){ //Eliminamos idbike from favourites
 			// echo(common::loadModel(MODEL_PATH_SHOP,"shop_model", "deleteFavModel",$id,$bike));
-			$rdo=common::loadModel(MODEL_PATH_SHOP,"shop_model", "deleteFavModel",$id,$bike);
-			if($rdo== true){
+			$rdo2=common::loadModel(MODEL_PATH_SHOP,"shop_model", "deleteFavModel",$id,$bike);
+			if($rdo2 == true){
 			echo json_encode("unlike");	
 			}
 		}else{ // Añadimos idbike to favourites
 			// echo(common::loadModel(MODEL_PATH_SHOP,"shop_model", "saveFavModel",$id,$bike));
-			$rdo2=common::loadModel(MODEL_PATH_SHOP,"shop_model", "saveFavModel",$id,$bike);
-			if($rdo== true){
+			$rdo3=common::loadModel(MODEL_PATH_SHOP,"shop_model", "saveFavModel",$id,$bike);
+			if($rdo3 == true){
 				echo json_encode("like");	
-				}
+			}
 		}
 			// $rdo3=(common::loadModel(MODEL_PATH_SHOP,"shop_model", "valueBikeModel",$id,$bike));
 
