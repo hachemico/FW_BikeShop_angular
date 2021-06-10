@@ -18,19 +18,7 @@ bikeShop.factory('services_logInSocial', ['services',function() {
    
 }]);// end_services_logInSocial
 
-// bikeShop.factory('services_logOut', ['services_logInSocial', function() {
-//   let service = {social_logOut: social_logOut};
-//   return service;
-
-// function social_logOut(){
-
-//       console.log("DEBUG on logout click >>>");
-//       firebase.auth().signOut();
-// }
-
-// }]);// end_services_Google
-
-bikeShop.factory('services_Google',['services','toastr', function(services,toastr,services_logIn) {
+bikeShop.factory('services_Google',['services','toastr','services_logIn','services_cart', function(services,toastr,services_logIn, services_cart) {
   let service = {logIn: logIn};
   return service;
   function logIn() {
@@ -43,7 +31,7 @@ bikeShop.factory('services_Google',['services','toastr', function(services,toast
     .then((result) => {
        
         var socialUser = {"user":result.user.providerData[0]};
-        // console.log("Email >> " + result.user.providerData[0]['email']);
+        // console.log("Social Google>> " + result.user.providerData[0]);
        
         services.post('login', 'socialLoginGoogle',socialUser)
         .then(function(response2) {
@@ -57,7 +45,9 @@ bikeShop.factory('services_Google',['services','toastr', function(services,toast
                   localStorage.setItem('token',response2); // guardamos el token generado en localstorage.
                   services_logIn.printMenu();
                   toastr.success('Bienvenido a BikeShop' ,'BikeShop');
-                  location.href ="#/home";
+                  services_cart.listQtyHeader('GOOGLE='+result.user.providerData[0]['uid']+'');
+
+                  location.href ="#/home/";
                 }//end_if/else 
             
         }, function(error2) {
@@ -69,7 +59,7 @@ bikeShop.factory('services_Google',['services','toastr', function(services,toast
  }// end_logIn
 }]);// end_services_Google
 
-bikeShop.factory('services_GitHub', ['services','toastr','services_logIn', function(services,toastr,services_logIn) {
+bikeShop.factory('services_GitHub', ['services','toastr','services_logIn','services_cart', function(services,toastr,services_logIn,services_cart) {
   let service = {logIn: logIn};
   return service;
   function logIn() {
@@ -96,7 +86,8 @@ bikeShop.factory('services_GitHub', ['services','toastr','services_logIn', funct
                   localStorage.setItem('token',response); // guardamos el token generado en localstorage.
                   services_logIn.printMenu();
                   toastr.success('Bienvenido a BikeShop' ,'BikeShop');
-                  location.href ="#/home";
+                  services_cart.listQtyHeader('GITHUB='+result.user.providerData[0]['uid']+'');
+                  location.href ="#/home/";
                 }//end_if/else 
             
         }, function(error2) {

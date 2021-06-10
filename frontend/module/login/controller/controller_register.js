@@ -15,29 +15,42 @@ bikeShop.controller('controller_register', function($scope,services,toastr) {
         if(!$scope.user_user){
             $scope.e_user = "Introduzca un usuario valido";
             ok='false';
-        }else if(!$scope.user_email){
-                    $scope.e_user = "";
-                    $scope.e_email = "Introduzca un email valido";
-                    ok='false';
-        }else if(!$scope.user_passwd){
-                    $scope.e_user = "";
-                    $scope.e_email = "";
-                    $scope.e_passwd = "Introduzca una contraseña valida";
-                    ok='false';
-        }else if(!$scope.user_passwd2){
-                    $scope.e_user = "";
-                    $scope.e_email = "";
-                    $scope.e_passwd = "";
-                    $scope.e_passwd2 = "Introduzca una contraseña valida";
-                    ok='false';
-        }else if($scope.user_passwd2 != $scope.user_passwd){
+        } else{
+            $scope.e_user = "";
+        }
+         if(!$scope.user_email){
+             $scope.e_email = "Introduzca un email valido";
+            ok='false';
+        }else{
+            $scope.e_email = "";
+        }
+        if(!$scope.user_passwd){
+            $scope.e_passwd = "Introduzca una contraseña valida";
+            ok='false';
+        }else{
+            $scope.e_passwd = "";
+        }
+         if(!$scope.user_passwd2){
+                $scope.e_passwd2 = "Introduzca una contraseña valida";
+                ok='false';
+        } else{
+
+            $scope.e_passwd2 = "";
+        }
+        if($scope.user_passwd2 != $scope.user_passwd){
                     $scope.e_user = "";
                     $scope.e_email = "";
                     $scope.e_passwd = "";
                     $scope.show_reg_dialog = "Las contraseñas no coinciden";
             ok='false';
-        }else{
+        }
+        if($scope.user_user && $scope.user_passwd && $scope.user_email && $scope.user_passwd2 && $scope.user_passwd2 == $scope.user_passwd){
             ok='true';
+            $scope.e_user = "";
+            $scope.e_email = "";
+            $scope.e_passwd = "";
+            $scope.e_passwd2 = "";
+            $scope.show_reg_dialog = "";
         }
            
         console.log(ok);

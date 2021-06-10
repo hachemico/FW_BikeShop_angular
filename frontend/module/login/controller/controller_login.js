@@ -1,8 +1,6 @@
 // console.log("Carga controller_login.js");
 
 bikeShop.controller('controller_login', function($scope,services,toastr,services_logInSocial,services_Google,services_GitHub,services_logIn) {
-    
-    console.log("Carga controller_login function");
    
     $scope.login = function(){
         console.log("scope_login");
@@ -15,12 +13,17 @@ bikeShop.controller('controller_login', function($scope,services,toastr,services
         if(!$scope.user_log_email){
                     $scope.e_log_email = "Introduzca un email valido";
                     ok='false';
-        }else if(!$scope.user_log_passwd){
-                 
-                    $scope.e_log_email = "";
+        }else{
+            $scope.e_log_email = "";
+        }
+         if(!$scope.user_log_passwd){
                     $scope.e_log_passwd = "Introduzca una contraseña valida";
                     ok='false';
         }else{
+            $scope.e_log_passwd = "";
+        }
+        
+        if($scope.user_log_email && $scope.user_log_passwd){
             $scope.e_log_email = "";
             $scope.e_log_passwd = "";
             ok='true';
@@ -63,22 +66,14 @@ bikeShop.controller('controller_login', function($scope,services,toastr,services
 
 
     $scope.socialGoogle = function() {
-        // console.log("entra google");
         services_logInSocial.initialize();
         services_Google.logIn();
     };// end_logInGoogle
 
     $scope.socialGitHub = function() {
-        // console.log("entra github");
         services_logInSocial.initialize();
         services_GitHub.logIn();
     };// end_logInGitHub
-
-    // $scope.socialLogout = function() {
-    // console.log("entra logOut");
-    //     services_logOut.social_logOut();
-    // };// end_logInGitHub
-
 
     $scope.recoverPass = function (){
     
@@ -144,12 +139,12 @@ bikeShop.controller('controller_login', function($scope,services,toastr,services
                 
                 if(ok == 'true' && $scope.user_confRec_passwd){
                     let token=localStorage.tokenRecover;
-                    // console.log(token);
+                
                     let user = {'password': $scope.user_confRec_passwd,'token':token};
-                    // console.log(user);
+               
                     services.post('login', 'updateRecover', user)
                             .then(function(response) {
-                                // console.log(response);
+                              
                                 let dataParse=JSON.parse(response);
         
                                 if(dataParse === 'OK'){
@@ -158,7 +153,6 @@ bikeShop.controller('controller_login', function($scope,services,toastr,services
                                     location.href="#/login"; //Saltamos al home para lanzar la vista.
                                 }else if(dataParse === 'errorUpdatePass'){   
                                     toastr.error('Se ha producido un error. Intentelo más tarde' ,'ERROR');
-        
                                 }     
                     }, function(error) {
                         console.log(error);
@@ -166,6 +160,4 @@ bikeShop.controller('controller_login', function($scope,services,toastr,services
                 }//end_if
         
             };
-
-
 });
