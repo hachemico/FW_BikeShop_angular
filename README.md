@@ -1,4 +1,4 @@
-<H2>FW_BIKESHOP_PHPFramework_AngularJS | RIDE BIKE</H2>
+<H1>FW_BIKESHOP_PHPFramework_AngularJS | RIDE BIKE</H1>
 
 <H3>HUGO MICÓ SANZ</H4>
 <H4> INDEX </H4>
@@ -21,16 +21,22 @@ The scheme used is based on Backend PHP with Framework PHP and AngularJS Fronten
 <hr weight=600>
 <p>
 <ul>
-    Backend:
-    <li> PHP frameworck </li>
-    <li>MySql</li>
-    Frontend:
-    <li>Angular</li>
-    <li>Javascript</li>
-    <li>Boostrap</li>
-    <li>Css</li>
-   Api:
-    <li>Firebase</li>
+    <H4>Backend:</H4>
+    <ul>
+        <li> PHP frameworck </li>
+        <li>MySql</li>
+    </ul>
+    <H4>Frontend:</H4>
+    <ul>
+        <li>Angular</li>
+        <li>Javascript</li>
+        <li>Boostrap</li>
+        <li>Css</li>
+   </ul>
+   <H4>Api:</H4>
+    <ul>
+        <li>Firebase</li>
+   </ul>     
 </ul>
 
 <H4>Pages & Features</H4>
