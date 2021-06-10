@@ -15,7 +15,7 @@
 <H4> About this project </H4>
 <hr weight=600>
 <p> This web project is developed to learn about the diferents technologies used at "web aplications develop course (1DAW)" in IES L'ESTACIO - ONTINYENT . 
-The scheme used is based on MVC and OO_programing.
+The scheme used is based on Backend PHP with Framework PHP and AngularJS Frontend.
 </p>
 
 
@@ -23,13 +23,16 @@ The scheme used is based on MVC and OO_programing.
 <hr weight=600>
 <p>
 <ul>
-    <li> PHP </li>
-    <li>JQuery</li>
-    <li>JS</li>
-    <li>Boostrap</li>
+    Backend:
+    <li> PHP frameworck </li>
     <li>MySql</li>
-    <li>Google Api</li>
-    <li>Google Maps</li>
+    Frontend:
+    <li>Angular</li>
+    <li>Javascript</li>
+    <li>Boostrap</li>
+    <li>Css</li>
+   Api:
+    <li>Firebase</li>
 </ul>
 
 <H4>Pages & Features</H4>
