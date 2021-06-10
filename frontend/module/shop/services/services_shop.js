@@ -1,5 +1,5 @@
 bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( services,toastr,$rootScope) {
-    let service = {currentUser:currentUser, update_localStorage:update_localStorage, cartClick:cartClick};
+    let service = {currentUser:currentUser, update_localStorage:update_localStorage, cartClick:cartClick, search:search};
     return service;
 
     function currentUser(id){
@@ -21,7 +21,7 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
                                 //Insertar el favs en la tabla idUser+idBike+like/unlike
                                 services.post('shop', 'controlFav', {"uid":response3,"idbike":id})
                                 .then(function(response4) {
-                                        
+
                                         let value=JSON.parse(response4);
                                         console.log(response4);
                                         if(value === "like"){
@@ -77,7 +77,7 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
 
                 for(row in checks_main){
                     if(checks_main[row].idbike == idbike){
-                        checks_main[row].favs= idbike;  //cambiamos el valor "favs" de null >> idbike
+                        checks_main[row].favs= idbike;  //cambiamos el valor "favs" de null >> idbike(favorito)
                     }
                 }
                 localStorage.filterBikes=JSON.stringify(checks_main);
@@ -90,7 +90,7 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
 
                 for(row in checks_main){ 
                     if(checks_main[row].idbike == idbike){
-                        checks_main[row].favs= null;    //cambiamos el valor "favs" de idbike >> null
+                        checks_main[row].favs= null;    //cambiamos el valor "favs" de idbike >> null (no favorito)
                     }
                 }
                 localStorage.filterBikes=JSON.stringify(checks_main);
@@ -135,10 +135,86 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
         }else{
 
             //// AÑADIR CONTROL USER NO/LOGGED LOCALSTORAGE.
+
+            console.log("no hay usuario");
+            toastr.error('Para realizar esta acción, tiene que activar su sesión.' ,'USUARIO');
+            location.href="#/login"
         }
 
     };
 
+    function search(){
+        console.log("entra en search servicesShop");
+       
+        if(localStorage.token){
+            // comprovar que el token del usuario es válido. timeExpiration.
+            services.post('login', 'decodeTimeToken', {"token":localStorage.token})
+                .then(function(response) {
+                    console.log(response);
+                    response2=JSON.parse(response);
+                   
+                    if(response2 === "CURRENT_TOKEN"){
+        
+                       //obtener el usuario sobre el que agregar el favs
+                        services.post('login', 'decodeToken2', {"token":localStorage.token})
+                        .then(function(response3) {
+                                console.log(response3);
 
+                                    let valueSearch= document.getElementById('keywords').value;
+                                    services.post('search', 'autocomplete', {"auto":valueSearch,"uid":response3})
+                                    .then(function(response4) {
+                                            console.log(response4);
+                                
+                                            let strResponse= JSON.stringify(response4);
+                                            console.log(strResponse);
+                                          
+                                            localStorage.setItem('filterSearch',strResponse);
+                                            localStorage.removeItem('filterBikes');
+                                            location.href="#/shop/"
+                                            
+                                    }, function(error) {
+                                         console.log(error);
+                                    });// end_services
+                        
+                        }, function(error) {
+                                console.log(error);
+                        });// end_services
+
+                        // document.getElementById('keywords').value = "";
+        
+                    }else if(response2 === "INVALID_TOKEN"){
+                        console.log('Adios');
+                        toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
+                        location.href="#/login"
+                    }
+                    console.log(response);
+        
+                }, function(error) {
+                    console.log(error);
+                });// end_services
+        
+        }else{
+            let user="visitor";
+            let valueSearch= document.getElementById('keywords').value;
+            services.post('search', 'autocomplete', {"auto":valueSearch,"uid":user})
+            .then(function(response4) {
+                    console.log(response4);
+        
+                    let strResponse= JSON.stringify(response4);
+                    console.log(strResponse);
+                  
+                    localStorage.setItem('filterSearch',strResponse);
+                    localStorage.removeItem('filterBikes');
+                    location.href="#/shop/"
+                    
+            }, function(error) {
+                 console.log(error);
+            });// end_services
+      
+        }//endIf_else
+
+
+
+    }
 
 }]);

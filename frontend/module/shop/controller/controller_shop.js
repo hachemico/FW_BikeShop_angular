@@ -7,8 +7,8 @@ let showShop="";
 let user="";
 
 //LIST SHOP
-                if(localStorage.token && !localStorage.catShop && !localStorage.filterBikes && !localStorage.idbike){ 
-                        console.log("LIST SHOWSHOP token + !catshop+ !filterbike && !idbike");
+                if(localStorage.token && !localStorage.catShop && !localStorage.filterBikes && !localStorage.idbike &&!localStorage.filterSearch){ 
+                        console.log("LIST SHOWSHOP token + !catshop+ !filterbike && !idbike && !filterSearch");
                      let uemail=services.post('login','decodeToken2',{'token':localStorage.token});
                      
                      uemail.then(function(data) { //resolver los datos que llegan desde el servidor
@@ -23,7 +23,7 @@ let user="";
                         });//end. then_aux
                     });//end.then_uemail
                   
-                }else if(!localStorage.token && !localStorage.catShop && !localStorage.filterBikes){
+                }else if(!localStorage.token && !localStorage.catShop && !localStorage.filterBikes && !localStorage.filterSearch){
                     user="visitor";
                     console.log("LIST SHOWSHOP !token + !catshop+ !filterbike");
                     let aux= services.post('shop','getShop',{'user':user});
@@ -118,6 +118,61 @@ let user="";
             checks_cat[row]= " OR "+ query_cat[row];
             }
         }//end_for  
+//// MEJORA FILTROS
+
+// if(ctrl_cat==true){ //Filtro combinado Categoria + Size
+               
+//     for(row in controllers_cat){
+//         ctrl_sec=false;
+//         for(row1 in controllers_size){
+          
+//           if(controllers_cat[row] == false && controllers_size[row1]==false && ctrl_sec == false){
+//               // NO SE VARIA EL ESTADO
+//           }else if(controllers_cat[row] == false && controllers_size[row1]==false && ctrl_sec == true){
+//               // NO SE VARIA EL ESTADO 
+//           }else if(controllers_cat[row] == false && controllers_size[row1]==true && ctrl_sec == false){
+//               // NO SE VARIA EL ESTADO
+//           }else if(controllers_cat[row] == false && controllers_size[row1]==true && ctrl_sec == true){
+//               // NO SE VARIA EL ESTADO
+//           }else if(controllers_cat[row] == true && controllers_size[row1]==false && ctrl_sec == false){
+//              // NO SE VARIA EL ESTADO 
+//           }else if(controllers_cat[row] == true && controllers_size[row1]==false && ctrl_sec == true){
+//             // NO SE VARIA EL ESTADO 
+//           }else if(controllers_cat[row] == true && controllers_size[row1]==true && ctrl_sec == false){
+
+//             checks_size[i]=(checks_size[row]+checks_cat[row]+" AND "+ query_size[row1]);
+//             ctrl_sec=true;
+//             ctrl_size=true;
+
+//           }else if(controllers_cat[row] == true && controllers_size[row1]==true && ctrl_sec == true){
+//             checks_size[i]=(checks_size[row]+" OR "+query_cat[row]+" AND "+query_size[row1]);
+
+//           }//end_if_else
+//         }//end_for_size[j]
+//     }//end_for_cat[i]
+
+// }else if(ctrl_cat==false){ // Filtra solo por Size.
+//     for(row in controllers_size){
+
+//       if(controllers_size[row]==false && ctrl_sec == false){
+//           // NO SE VARIA EL ESTADO
+//       }else if(controllers_size[row]==true && ctrl_sec == false){
+//         checks_size[row]=query_size[row];
+//         ctrl_sec=true;
+//         ctrl_size=true;
+//       }else if(controllers_size[row]==false && ctrl_sec == true){
+//           // NO SE VARIA EL ESTADO
+//       }else{
+//         checks_size[row]= " OR "+ query_size[row];
+//       }//end_if
+//     }//end_for_size[j]
+// }  //end_if
+
+
+
+
+//// FIN MEJORA FILTROS
+
 
       for( row in controllers_cat){ // montamos la query >>>
             checks_main = checks_main+checks_cat[row];
@@ -161,6 +216,7 @@ let user="";
             
             console.log("CLICK FILTROS SIN PARAMETROS A FILTRAR");
             localStorage.removeItem('filterBikes');
+            location.href="#/shop/";
         }//end_if_else
   
     } //end scope.filtrebike
@@ -172,8 +228,8 @@ let user="";
         console.log("CLICK CLEAR FILTERS");
         localStorage.removeItem('filterBikes');
         localStorage.removeItem('catShop');
-        setPage(showShop,1);
-        location.reload();
+        // setPage(showShop,1);
+        location.href="#/shop/";
     }
 
 //SHOWSHOP REDIRECT HOME FROM CATEGORIES
@@ -217,7 +273,24 @@ let user="";
             } //END_LOCALSTORAGE                 
     } //END CATSHOP
 
+// SHOWSHOP POR SEARCH
 
+    if(localStorage.filterSearch && !localStorage.filterBikes){
+        console.log("SHOWSHOP + FILTERSEARCH");
+        // location.reload();
+        value = localStorage.getItem('filterSearch');
+        console.log(value);
+        checks_main=JSON.parse(value);
+        console.log(checks_main);
+        
+        setPage(checks_main,1);
+
+        localStorage.removeItem('filterSearch');
+        let valueString=JSON.stringify(checks_main);
+        localStorage.setItem('filterBikes',valueString);
+        
+        
+    }
 
 // SHOWSHOP FILTERS >>> FROM FILTERS / HOME CATEGORIES / HOME CAROUSEL 
 
@@ -240,8 +313,7 @@ let user="";
             let showShop=JSON.parse(value);
             setPage(showShop,1);
             localStorage.removeItem('idbike');
-                //HAY QUE QUITAR EL REMOVE ITEM DEL CONTROLLER ID DETTAILS
-                // Y AÑADIR LOS REMOVES AQUI.
+             
         }else{
             
                 if(localStorage.token ){ //USUARIO REGISTRADO
@@ -307,7 +379,7 @@ let user="";
 
     function setPage(bikeVal ="", currentPageVal) {
         console.log("SETPAGE >>>");
-        // console.log("valor bikeVal"+ bikeVal)
+      
         $scope.itemsPerPage = 6;
         $scope.currentPage = currentPageVal;
         $scope.totalItems = bikeVal.length;
@@ -317,12 +389,10 @@ let user="";
     }// end_setPage
 
     $scope.favClick=function(id){
-        console.log("recoge click"+id);
         services_shop.currentUser(id);
     };
 
     $scope.cartClick=function(id){
-        console.log("aaa");
         services_shop.cartClick(id);
     };
     

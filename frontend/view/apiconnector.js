@@ -9,8 +9,8 @@ bikeShop.factory("services", ['$http','$q', function ($http, $q) {
                   method: 'GET',
                   url: serviceBase + module + '&function=' + functi
               }).success(function(data, status, headers, config) {
-                console.log("obj.get");
-                console.log(data);
+               //  console.log("obj.get");
+               //  console.log(data);
                  defered.resolve(data);
               }).error(function(data, status, headers, config) {
                  defered.reject(data);
@@ -25,8 +25,8 @@ bikeShop.factory("services", ['$http','$q', function ($http, $q) {
                   method: 'GET',
                   url: serviceBase + module + '&function=' + functi + '&param=' + dada
               }).success(function(data, status, headers, config) {
-                 console.log("obj.get2");
-                 console.log(data);
+               //   console.log("obj.get2");
+               //   console.log(data);
                  defered.resolve(data);
               }).error(function(data, status, headers, config) {
                  defered.reject(data);

@@ -1,10 +1,6 @@
-console.log("carga controller_home.js");
-
 bikeShop.controller('controller_home', function($scope, $window,showCategories, showSlider) {
     localStorage.removeItem('filterBikes');
     localStorage.removeItem('catShop');
-
-   
 
     let brands = 3;
     let total = showCategories.length;
@@ -33,8 +29,6 @@ bikeShop.controller('controller_home', function($scope, $window,showCategories, 
         }// end_if
     });
 
-
-
     $scope.redirectShopBrand = function(brand) {
         // let aux= JSON.stringify(brand);
         console.log("Dentro del redirect_brand");
@@ -42,22 +36,5 @@ bikeShop.controller('controller_home', function($scope, $window,showCategories, 
         // localStorage.brandShop = brsand;
         location.href = "#/shop";
     };// end_redirectShopBrand
-    
-    $scope.redirectShopCat = function(categoria) {
-        // let aux= JSON.stringify(categoria);
-        localStorage.catShop = categoria;
-        location.href = "#/shop";
-    };// end_redirectShopBrand
-
 
 });// end_controller
-
-
-
-bikeShop.controller('controller_menu', function($scope, services_logIn) {
-    // services_logIn.printMenu();
-
-    // $scope.logOut = function() {
-    //     services_logIn.logOut();
-    // };// endlogOut
-});

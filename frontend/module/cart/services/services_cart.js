@@ -27,7 +27,7 @@ function listQtyHeader(userId){
 
     services.post('cart','totalLine', {"uid": userId})
     .then(function(response) {
-        console.log(response);                 
+                   
         if(response[0]['SUM(qty)'] != null){
 
         $rootScope.totalProductsHeader= response[0]['SUM(qty)'];

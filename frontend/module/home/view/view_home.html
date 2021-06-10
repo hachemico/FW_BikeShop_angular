@@ -16,7 +16,7 @@
 						<!-- Change values of data-items, data-auto-play, data-pagination & data-single-item based on your needs -->
 						<div uib-carousel active = "active" interval = "myInterval" no-wrap = "noWrapSlides"  class = "separe-menu">
 							<a uib-slide ng-repeat = "slide in showSlider" index = "$index" class = "single-slide" style = "overflow: hidden; height: 500px; max-height: 500px;">
-								<img ng-src = "frontend/{{slide.ruta}}" class="product-img"  style = "display: block; width: 100%; height: auto; position: absolute; top: 0; bottom: 0; margin: auto">
+								<img ng-src = "frontend/{{slide.ruta}}"  ng-click = "redirectShopBrand(slide.categoria)" class="product-img"  style = "display: block; width: 100%; height: auto; position: absolute; top: 0; bottom: 0; margin: auto">
 								<div class = "carousel-caption product-bio" >
 									<h1>{{slide.categoria}}</h1>
 								</div>
