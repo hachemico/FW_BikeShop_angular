@@ -1,6 +1,5 @@
 <H1>FW_BIKESHOP_PHPFramework_AngularJS | RIDE BIKE</H1>
 
-<H3>HUGO MICÓ SANZ</H4>
 <H4> INDEX </H4>
 <hr weight=600>
 <ul>
@@ -60,7 +59,6 @@ En este caso, la aplicación se ha desarrollado para una tienda de bicicletas.
             </ul>
         </td>
     </tr>
-
     <tr>
         <td>Shop</td>
         <td>
@@ -69,26 +67,32 @@ En este caso, la aplicación se ha desarrollado para una tienda de bicicletas.
                 <li>Filtros >> Nos ayuda a visualiza productos a traves del filtrado de los productos. Nos muestra aquellas preferencias aplicadas.</li>
                 <li>Favoritos >> Añade y quita los productos favoritos del cliente. Guarda sus preferencias en DB.</li>
                 <li>Carrito</li>
+                <li>Details >> Nos muestra un resumen del producto con sus caracteríticas</li>
             </ul>
         </td>
-    </tr>
+    </tr> 
     <tr>
         <td>Modulos a nivel Aplicacion</td>
         <td>
             <ul>
-            
                 <li>Search >> Nos permite realizar una busqueda de producto.</li>
                 <li>Login >> Uno de los modulos más importantes de la aplicación.
                     <ul>
                         <li> Registro: Control formato REGexp de lo que se introduce en el formulario. Se muestran mensajes si no se cumple con las especificaciones.
-                           Control de usuarios, no se permite el registro si el usuario asociado a su correo electrónico, existe. La contraseña se recoge de modo seguro                                    Serializando el formulario. La contraseña se encripta antes de ser guardada junto con los datos del usuario mediante PASSWOWRD_HASH MD5. Se genera                                un Avatar para cada usuario.
+                           Control de usuarios, no se permite el registro si el usuario asociado a su correo electrónico, existe. La contraseña se recoge de modo seguro                                    Serializando el formulario. La contraseña se encripta antes de ser guardada junto con los datos del usuario, mediante PASSWOWRD_HASH MD5. Se genera                                un Avatar para cada usuario. Se envia un correo electrónico de comfirmación para habilitar al usuario.
                         </li>
-                        <li> Login: Control formato REGexp de lo que se introduce en el formulario. Se muestran mensajes si no se cumple con las especificaciones.</li>
+                        <li> Login: Control formato REGexp de lo que se introduce en el formulario. Se muestran mensajes si no se cumple con las especificaciones. Se genera un                                 JWT-Token para cifrar el usuario. Cada vez que queremos realizar una acción. Se comprueba la validez del JWT-token, si no cumple especificaciones                                  se procede a desconectar el usuario.
+                        </li>
+                        <li> Social Login: Se ha desarrollado con la tecnología de Firebase para las plataformas GITHUB y GOOGLE. 
+                        </li>
+                        <li> Recuperar Contraseña: Control formato REGexp. Se comprueba que el usuari(correo electrónico) esté registrado, se genera un TokenSeguro y se envía                                  email. Una vez de vuelta a la aplicacion comprovamos la validez del TokenEmail y procedemos a actualizar contraseña. 
+                        </li>
                     </ul>
                 </li>
+                <li>Carrito >> Nos permite realizar compras. Aparecen listados los productos por referencias, aparece la cantidad de productos añadidos al carrito, precio                                      unitario y precio total de las unidades añadidas. Se limita el numero de unidades dependiendo del stock de la tienda. Realiza el calculo de                                     totales de producto y bases. Cada vez que se modifica algun articulo (referencias o cantidad) 
+               </li>
             </ul>
         </td>
     </tr>
-   
 </table>
 
