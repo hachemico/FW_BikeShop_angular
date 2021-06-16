@@ -54,8 +54,8 @@ En este caso, la aplicación se ha desarrollado para una tienda de bicicletas.
         <td>Home</td>
         <td>
             <ul>
-                <li>Carrousel: list categories >> List images from DB.</li>
-                <li>Categories + Load Categories() >> list categories & list more categories from DB.</li>
+                <li>Carrousel: >> Mostramos imagenes desde DB.</li>
+                <li>Categorias + Load Categories() >> Muestra las categorias, y carga categorias con un scroll.</li>
             </ul>
         </td>
     </tr>
@@ -89,7 +89,11 @@ En este caso, la aplicación se ha desarrollado para una tienda de bicicletas.
                         </li>
                     </ul>
                 </li>
-                <li>Carrito >> Nos permite realizar compras. Aparecen listados los productos por referencias, aparece la cantidad de productos añadidos al carrito, precio                                      unitario y precio total de las unidades añadidas. Se limita el numero de unidades dependiendo del stock de la tienda. Realiza el calculo de                                     totales de producto y bases. Cada vez que se modifica algun articulo (referencias o cantidad) 
+                <li>Carrito >> 
+                    <ul>
+                        <li>Usuario logged: Nos permite realizar compras. Aparecen listados los productos por referencias, aparece la cantidad de productos añadidos al carrito,                          preciounitario y precio total de las unidades añadidas. Se limita el numero de unidades dependiendo del stock de la tienda. Realiza el calculo de                                totales de producto y bases. Cada vez que se modifica algun articulo (referencias o cantidad), trabajamos principalmente con el servidor tratando los                            datos directamente desde la DB. </li>
+                        <li> Usuario NO logged: Nos permite realizar los mismos procesos que el usuario loggued, con la diferencia que el tratamiento de los datos se realiza                               todo desde el frontend, mediante el uso delocalStorage. Para completar el proceso de compra "Chechout", nos requiere realizar Login. Posteriormente se                          vuelcan los datos LocalStorage al servidor con los datos del usuario. Añade las lineas de pedido a las anteriormente guardadas por el usuario en el                             carrito.</li>
+                    </ul>
                </li>
             </ul>
         </td>
