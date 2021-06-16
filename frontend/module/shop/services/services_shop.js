@@ -99,8 +99,8 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
     };
 
     function cartClick(id){
-        console.log("dentrooo");
-        console.log(id);
+        // console.log("dentrooo");
+        // console.log(id);
 
         if(localStorage.token){
 
@@ -151,6 +151,7 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
                 }
                 if(existe == false){
                     val.push({'id':id,'qty':1});
+                    toastr.success('1 Producto añadido.' ,'Carrito');
                 }
 
                 let total_prod=0;

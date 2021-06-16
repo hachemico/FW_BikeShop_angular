@@ -71,7 +71,7 @@ services.post('login', 'decodeTimeToken', {"token":localStorage.token})
                             let sql = "";
                             let user = response3.replace(/ /g, "")
                             for(row in val){
-                            sql = sql+"INSERT INTO cart (uid,idbike,qty) VALUES ('"+user+"','"+val[row]['id']+"','"+val[row]['qty']+"');";
+                                sql = sql +"INSERT INTO cart (uid,idbike,qty) VALUES ('"+user+"','"+val[row]['id']+"','"+val[row]['qty']+"');";
                             }
                             console.log(sql);
                             
