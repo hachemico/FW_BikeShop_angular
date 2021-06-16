@@ -33,14 +33,6 @@ class mail {
                 $ruta = '<a href=' . 'http://localhost/1_Fw_PHP_OO_MVC_jQuery_AngularJS/Framework/9_adoptions_dogs/'. '>aqu&iacute;</a>';
                 $body = 'Para visitar nuestra web, pulsa ' . $ruta;
                 break;
-    
-            // case 'admin':
-            //     $subject = $arr['inputSubject'];
-            //     $body = 'inputName: ' . $arr['inputName']. '<br>' .
-            //     'inputEmail: ' . $arr['inputEmail']. '<br>' .
-            //     'inputSubject: ' . $arr['inputSubject']. '<br>' .
-            //     'inputMessage: ' . $arr['inputMessage'];
-            //     break;
         }
         
         $html .= "<html>";
@@ -51,7 +43,6 @@ class mail {
            $html .= "<br><br>";
            $html .= "Mensaje:";
            $html .= "<br><br>";
-        //    $html .= $arr['inputMessage'];
            $html .= "<br><br>";
 	       $html .= $body;
 	       $html .= "<br><br>";
@@ -67,16 +58,10 @@ class mail {
 
             $toSend=array();
             array_push($toSend,$from,$address,$subject,$html);
-        // try{
-            // $result = sendMailgun($toSend); 
-            $result = self :: sendMailgun($toSend);    
-        // } catch (Exception $e) {
-		// 	$return = 0;
-		// }
-        // return 'Hola';
-        echo json_encode($result);
-        // return $result;
       
+            $result = self :: sendMailgun($toSend);    
+        
+            echo json_encode($result);
     }
     
     function sendMailgun($arrArgument) {
@@ -105,9 +90,7 @@ class mail {
         curl_setopt($ch, CURLOPT_POSTFIELDS,$message);
         $result = curl_exec($ch);
         curl_close($ch);
-        //
         return $result;
-        // return $arrArgument[1];
     }// end_sendMailGun
 
     

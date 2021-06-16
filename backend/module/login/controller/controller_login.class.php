@@ -86,13 +86,17 @@ class controller_login{
         $iat=time();
         $aux=explode(',',$payload);
         $aux2=explode(':',$aux[1]);
-        $aux3=explode("'",$aux2[1]);
-        $aux4=explode('"',$aux3[1]);
-        if($iat<$aux4){
+        $num= floatval($aux2[1]);
+        // $aux3=explode('"',$aux2[1]);
+        // $aux4=explode('"',$aux3[1]);
+        // echo json_encode($iat);
+        // echo json_encode($aux2[1]);
+        if($iat<$aux2[1]){
             echo json_encode("CURRENT_TOKEN");
         }else{
             echo json_encode("INVALID_TOKEN");
         }
+        // echo json_encode($num);
     }
 
 //LOGIN RECOVER PASS ENVIO

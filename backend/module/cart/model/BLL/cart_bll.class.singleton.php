@@ -52,4 +52,14 @@ public function insertCheckout_BLL($arrArgument) {
 public function deleteFromCart_BLL($arrArgument) {
     return $this -> dao -> select_deleteFromCart($this->db,$arrArgument);
 } 
-  }
+//FUNCTIONS NOLOG
+public function searchLineNolog_BLL($arrArgument) {
+    return $this -> dao -> select_searchLineNolog($this->db,$arrArgument);
+}
+public function insertLineNolog_BLL($arrArgument) {
+    return $this -> dao -> select_insertLineNolog($this->db,$arrArgument);
+} 
+public function searchCartNolog_BLL($arrArgument) {
+    return $this -> dao -> select_searchCartNolog($this->db,$arrArgument);
+}
+}

@@ -11,7 +11,6 @@ class controller_cart{
 				echo ("StockMax");
 
 			}else{
-				// echo json_encode($rdo);
 				$rdo2= common::loadModel(MODEL_PATH_CART,"cart_model", "updateLine_model",$_POST['uid'],$_POST['idBike']); //aumenta qty
 				echo json_encode( common::loadModel(MODEL_PATH_CART,"cart_model", "totalLine_model",$_POST['uid']));
 			}
@@ -20,9 +19,7 @@ class controller_cart{
 		// 	// echo json_encode("yupi!");
 			$rdo3= common::loadModel(MODEL_PATH_CART,"cart_model", "insertLine_model",$_POST['uid'],$_POST['idBike']); // introduce producto/cart
 			echo json_encode( common::loadModel(MODEL_PATH_CART,"cart_model", "totalLine_model",$_POST['uid']));
-		}
-
-			
+		}	
 	}
 
 	function searchCart(){
@@ -39,7 +36,7 @@ class controller_cart{
 		}
 	}
 	function decrementCart(){
-		// echo json_encode(common::loadModel(MODEL_PATH_CART,"cart_model", "decrementCart_model",$_POST['uid'],$_POST['idBike']));
+
 		$id=$_POST['uid'];
 		$bike=$_POST['idBike'];
 
@@ -57,7 +54,6 @@ class controller_cart{
 		if($rdo){
 			echo json_encode(common::loadModel(MODEL_PATH_CART,"cart_model", "searchCart_model",$_POST['uid']));
 		}
-		// echo("hola");
 	}
 
 	function totalLine(){
@@ -69,16 +65,22 @@ class controller_cart{
 function controlCheckout(){
 
 	$rdo= common::loadModel(MODEL_PATH_CART,"cart_model", "insertCheckout_model",$_POST['uid']);
-	
 	$rdo2= common::loadModel(MODEL_PATH_CART,"cart_model", "deleteFromCart_model",$_POST['uid']);
-	
+}
+//FUNCTIONS NOLOG
+function searchLineNolog(){
 
+	$bike=$_POST['idBike'];
+	$rdo = common::loadModel(MODEL_PATH_CART,"cart_model", "searchLineNolog_model",$bike); //buscamos existencia producto	
+	echo json_encode($rdo);
+}
+function searchCartNolog(){
 
-
+	echo json_encode(common::loadModel(MODEL_PATH_CART,"cart_model", "searchCartNolog_model",$_POST['query'])); //buscamos existencia producto	
 
 }
-
-
-
+function CheckoutNolog(){
+	echo json_encode(common::loadModel(MODEL_PATH_CART,"cart_model", "insertLineNolog_model",$_POST['query']));
+}
 }//end_controller_cart_class          
 ?>

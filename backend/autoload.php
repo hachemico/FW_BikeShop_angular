@@ -5,8 +5,8 @@ require ('paths.php');
 include(UTILS . "common.inc.php");
 include(UTILS . "mail.inc.php");
 include(UTILS . "utils.inc.php");
-include(MODULES_PATH . "classes/JWT.php");
-include(MODULES_PATH . "utils/middleware_auth.php");
+include(MODEL_PATH . "JWT.php");
+include(UTILS . "middleware_auth.php");
 //////
 spl_autoload_register(null, false);
 spl_autoload_extensions('.php,.inc.php,.class.php,.class.singleton.php');

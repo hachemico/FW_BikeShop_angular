@@ -1,6 +1,6 @@
 // console.log("Carga controller_login.js");
 
-bikeShop.controller('controller_login', function($scope,services,toastr,services_logInSocial,services_Google,services_GitHub,services_logIn) {
+bikeShop.controller('controller_login', function($scope,services,toastr,services_logInSocial,services_Google,services_GitHub,services_logIn,services_cart) {
    
     $scope.login = function(){
         console.log("scope_login");
@@ -38,7 +38,7 @@ bikeShop.controller('controller_login', function($scope,services,toastr,services
                     // console.log(user);
                     services.post('login', 'login', user)
                     .then(function(response) {
-                        // console.log("Hay respuesta >>"+ response);
+                        console.log("Hay respuesta >>"+ response);
                         let dataParse=JSON.parse(response);
                 
                         if(dataParse == '0'){
@@ -51,13 +51,21 @@ bikeShop.controller('controller_login', function($scope,services,toastr,services
                             toastr.error('Usuario no registrado.' ,'ERROR');
 
                         }else{ 
+
+                        if(localStorage.cartNoLog && localStorage.checkout){
+                           
+                            services_logIn.printMenu();
+                            localStorage.setItem('token',response); // guardamos el token generado, en localstorage.
+                            services_cart.checkoutNolog();
+                        }else{
+
                             toastr.success('Bienvenido a BikeShop' ,' www.BIKESHOP.com');
                             services_logIn.printMenu();
                             localStorage.setItem('token',response); // guardamos el token generado, en localstorage.
-                            location.href = "#/home";
-                            location.reload();
+                            location.href = "#/home/";
+                            // location.reload();
                             }//end_if/else 
-                        
+                        }
                     }, function(error) {
                         console.log(error);
                 }); // end_services

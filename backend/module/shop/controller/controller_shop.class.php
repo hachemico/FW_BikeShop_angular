@@ -2,26 +2,17 @@
 
 class controller_shop{
 
-    // function list(){
-	// 	 common::loadView('top_page_shop.php', VIEW_PATH_SHOP . 'shop.html');
-	// }
-
 	function getShop(){
 		echo json_encode( common::loadModel(MODEL_PATH_SHOP,"shop_model", "getShop",$_POST['user']));
-		// echo( common::loadModel(MODEL_PATH_SHOP,"shop_model", "getShop"));
-        //  echo json_encode($_POST['user']);
 	} //end_getshop_function
 
 
 	function homeCategories(){
 		echo json_encode( common::loadModel(MODEL_PATH_SHOP,"shop_model", "homeCategories",$_POST['value_cat'],$_POST['user']));
-		// echo ( common::loadModel(MODEL_PATH_SHOP,"shop_model", "homeCategories",$_POST['value_cat']));
-		//  echo json_encode("Dentro del shop_controller");
 	}//end_Homeategoria_function
 
 	function homeCarousel(){
 		echo json_encode( common::loadModel(MODEL_PATH_SHOP,"shop_model", "homeCarousel",$_POST['value_car']));
-		
 	}//end_homeCarousel function
 
 	function countCat(){
@@ -46,9 +37,7 @@ class controller_shop{
 
 	function search(){
 		echo json_encode( common::loadModel(MODEL_PATH_SHOP,"shop_model", "search",$_POST['value_search']));
-		// echo ( common::loadModel(MODEL_PATH_SHOP,"shop_model", "search",$_POST['value_search']));
-        //  echo json_encode("Dentro del search_controller");
-        //   echo json_encode($_POST['value_search']);
+		
 	} //end_getshop_function
 
 	function controlFav(){
@@ -64,33 +53,22 @@ class controller_shop{
 			}
 		}
 		if($unlike == true){ //Eliminamos idbike from favourites
-			// echo(common::loadModel(MODEL_PATH_SHOP,"shop_model", "deleteFavModel",$id,$bike));
+	
 			$rdo2=common::loadModel(MODEL_PATH_SHOP,"shop_model", "deleteFavModel",$id,$bike);
 			if($rdo2 == true){
 			echo json_encode("unlike");	
 			}
 		}else{ // Añadimos idbike to favourites
-			// echo(common::loadModel(MODEL_PATH_SHOP,"shop_model", "saveFavModel",$id,$bike));
+			
 			$rdo3=common::loadModel(MODEL_PATH_SHOP,"shop_model", "saveFavModel",$id,$bike);
 			if($rdo3 == true){
 				echo json_encode("like");	
 			}
 		}
-			// $rdo3=(common::loadModel(MODEL_PATH_SHOP,"shop_model", "valueBikeModel",$id,$bike));
-
-		// echo json_encode($rdo3);
-		// if($unlike==true){
-			// echo(common::loadModel(MODEL_PATH_SHOP,"shop_model", "saveFavModel",$id,$bike));
-		// }
-		// echo ( common::loadModel(MODEL_PATH_SHOP,"shop_model", "saveFavModel",$_POST['uid'],$_POST['idbike']));
-		// echo ( common::loadModel(MODEL_PATH_SHOP,"shop_model", "search",$_POST['value_search']));
-        //  echo json_encode("Dentro del search_controller");
-        //    echo json_encode($rdo);
-		//    echo json_encode($unlike);
 	} //end
 
 	function valueBike(){
-		// echo json_encode($_POST['idbike']);
+
 		echo json_encode( common::loadModel(MODEL_PATH_SHOP,"shop_model","valueBikeModel",$_POST['uid'],$_POST['idbike']));
 	}//end_filter function
 

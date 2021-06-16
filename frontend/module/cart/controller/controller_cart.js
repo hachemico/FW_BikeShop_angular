@@ -39,8 +39,9 @@ bikeShop.controller('controller_cart',function($scope,services,$rootScope,servic
 
                     }else if(response2 === "INVALID_TOKEN"){
                         console.log('Adios');
-                        toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
-                        location.href="#/login"
+                            toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
+                            localStorage.removeItem('token');
+                            location.href="#/login"
                     }
 
                 }, function(error) {
@@ -48,11 +49,49 @@ bikeShop.controller('controller_cart',function($scope,services,$rootScope,servic
                 });// end_services
 
         }else{
-            console.log("no hay usuario");
-            toastr.error('Para realizar esta acción, tiene que activar su sesión.' ,'USUARIO');
-            location.href="#/login"
-        }
+            
+            let valorNoLog=localStorage.getItem('cartNoLog');
+            let val=JSON.parse(valorNoLog);
+            let query="";
+            console.log(val);
+            for(row in val){
+                if(row == 0){
+                 query = query +val[row]['id'];
+                }else{
+                    query = query +" OR idbike ="+''+val[row]['id']+'';
+                }
+            }
+            console.log(query);
 
+            services.post('cart', 'searchCartNolog', {'query':query})
+            .then(function(response) {
+               
+                if(response == 0){ //no hay productos que mostrar
+
+                    $rootScope.noDataCart = true;
+                    $rootScope.noDataCartTotal = false;
+                
+                }else{  // hay productos
+                  
+                    response.forEach(value =>{
+
+                        for(row1 in val){
+                                
+                            if(val[row1]['id'] == value['idbike'] ){
+                            value.qty = val[row1]['qty']             
+                            }
+                        }
+                    })
+          
+                $scope.showCart=response;
+                $rootScope.noDataCart = false;
+                $rootScope.noDataCartTotal = true;
+                services_cart.calculateCart(response);
+                }
+            }, function(error) {
+                    console.log(error);
+            });// end_services
+        }
 
 
 $scope.addBike=function(id){ //añadir productos desde el cart.
@@ -81,7 +120,6 @@ if(localStorage.token){
                         });// end_services
 
                         services_cart.listQtyHeader(response3); //Qty productos en cart
-                   
 
                     }, function(error) {
                         console.log(error);
@@ -90,6 +128,7 @@ if(localStorage.token){
             }else if(response2 === "INVALID_TOKEN"){
                 console.log('Adios');
                 toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
+                localStorage.removeItem('token');
                 location.href="#/login"
             }    
 
@@ -98,11 +137,58 @@ if(localStorage.token){
         });// end_services
 
 }else{
+    
+    let valorNoLog=localStorage.getItem('cartNoLog');
+    let val=JSON.parse(valorNoLog);
+    let query="";
+            console.log(val);
+            for(row in val){
+                if(row == 0){
+                 query = query + val[row]['id'];
+                }else{
+                    query = query +" OR idbike ="+''+val[row]['id']+'';
+                }
+            }
 
-    //COMPLETAR PARA USUARIO NO LOGIN
-    // console.log("no hay usuario");
-    // toastr.error('Para realizar esta acción, tiene que activar su sesión.' ,'USUARIO');
-    // location.href="#/login"
+            services.post('cart', 'searchCartNolog', {'query':query})
+            .then(function(response) {
+                 
+                response.forEach(value =>{
+
+                    for(row1 in val){
+                            
+                        if(val[row1]['id'] == value['idbike'] ){
+                        value.qty = val[row1]['qty'] +1;          
+                        }
+                    }
+                })
+                let total_showHeader=0;
+                for(row2 in val){
+                            
+                    if(val[row2]['id'] == id ){
+                        val[row2]['qty'] = val[row2]['qty'] +1;         
+                       
+                    }
+                    total_showHeader=total_showHeader+val[row2]['qty']; //nº productos en el cart.
+                }
+
+                console.log(response);
+                $scope.showCart=response;
+                $rootScope.noDataCart = false;
+                $rootScope.noDataCartTotal = true;
+                
+                $rootScope.totalProductsHeader= total_showHeader;
+
+                localStorage.setItem('listTotal',total_showHeader);
+                services_cart.calculateCart(response);
+
+                let str_val= JSON.stringify(val);
+                localStorage.setItem('cartNoLog',str_val);
+
+            }, function(error) {
+                    console.log(error);
+            });// end_services
+
 }
 
 
@@ -113,18 +199,17 @@ $scope.removeBike=function(idbike){//quitar producto desde el cart.
         // comprovar que el token del usuario es válido. timeExpiration.
         services.post('login', 'decodeTimeToken', {"token":localStorage.token})
             .then(function(response) {
-                // console.log(response);
+             
                 response2=JSON.parse(response);
                
                 if(response2 === "CURRENT_TOKEN"){
     
                     services.post('login', 'decodeToken2', {"token":localStorage.token})
                     .then(function(response3) {
-                            // console.log(response3);
-    
+                         
                             services.post('cart', 'decrementCart', {'uid':response3,'idBike':idbike})
                             .then(function(response4) {
-                                    // console.log(response4);
+                                   
                                     $scope.showCart=response4;
                                     services_cart.calculateCart(response4); //calcular subtotales cart
     
@@ -149,10 +234,56 @@ $scope.removeBike=function(idbike){//quitar producto desde el cart.
                 console.log(error);
             });// end_services
     }else{
-        //COMPLETAR PAR USUARIO NO LOGIN
-        // console.log("no hay usuario");
-        // toastr.error('Para realizar esta acción, tiene que activar su sesión.' ,'USUARIO');
-        // location.href="#/login"
+
+    let valorNoLog=localStorage.getItem('cartNoLog');
+    let val=JSON.parse(valorNoLog);
+    let query="";
+            console.log(val);
+            for(row in val){
+                if(row == 0){
+                 query = query +val[row]['id'];
+                }else{
+                    query = query +" OR idbike ="+''+val[row]['id']+'';
+                }
+            }
+            console.log(query);
+
+            services.post('cart', 'searchCartNolog', {'query':query})
+            .then(function(response) {
+                 
+                response.forEach(value =>{ //actualizamos qty en el array.
+
+                    for(row1 in val){   
+                        if(val[row1]['id'] == value['idbike'] ){
+                        value.qty = val[row1]['qty'] -1;             
+                        }
+                    }
+                })
+                let total_showHeader=0;
+                for(row2 in val){
+                            
+                    if(val[row2]['id'] == idbike ){
+                        val[row2]['qty'] = val[row2]['qty'] -1;         
+                    }
+                    total_showHeader=total_showHeader+val[row2]['qty']; //nº productos en el cart.
+                }
+
+                console.log(response);
+                $scope.showCart=response;
+                $rootScope.noDataCart = false;
+                $rootScope.noDataCartTotal = true;
+                
+                $rootScope.totalProductsHeader= total_showHeader; //show total productos cart
+
+                localStorage.setItem('listTotal',total_showHeader);
+                services_cart.calculateCart(response);
+
+                let str_val= JSON.stringify(val);
+                localStorage.setItem('cartNoLog',str_val); //actualizamos datos.
+
+            }, function(error) {
+                    console.log(error);
+            });// end_services
     }
 };
 
@@ -163,14 +294,13 @@ $scope.deleteLine= function(idbike){
         // comprovar que el token del usuario es válido. timeExpiration.
         services.post('login', 'decodeTimeToken', {"token":localStorage.token})
             .then(function(response) {
-                // console.log(response);
+                
                 response2=JSON.parse(response);
                
                 if(response2 === "CURRENT_TOKEN"){
     
                     services.post('login', 'decodeToken2', {"token":localStorage.token})
                     .then(function(response3) {
-                            // console.log(response3);
     
                             services.post('cart', 'deleteLineCart', {'uid':response3,'idBike':idbike})
                             .then(function(response4) {
@@ -189,7 +319,6 @@ $scope.deleteLine= function(idbike){
                             console.log(error);
                         });// end_services
     
-    
                 }else if(response2 === "INVALID_TOKEN"){
                     console.log('Adios');
                     toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
@@ -202,9 +331,48 @@ $scope.deleteLine= function(idbike){
             });// end_services
     
     }else{
-        // console.log("no hay usuario");
-        // toastr.error('Para realizar esta acción, tiene que activar su sesión.' ,'USUARIO');
-        // location.href="#/login"
+    
+       
+        let valorNoLog=localStorage.getItem('cartNoLog');
+        let val=JSON.parse(valorNoLog);
+        let query="";
+                console.log(val);
+                for(row in val){
+                    if(row == 0){
+                     query = query +val[row]['id'];
+                    }else{
+                        query = query +" OR idbike ="+''+val[row]['id']+'';
+                    }
+                }
+    
+                services.post('cart', 'searchCartNolog', {'query':query})
+                .then(function(response) {
+                    
+                     let indice = response.findIndex(value => value.idbike === idbike);
+                    response.splice(indice, 1); //eliminamos del array
+
+                    let indice2 = val.findIndex(value2 => value2.id === idbike);
+                    val.splice(indice2, 1) //eliminamos del array
+                   
+                    let str_val= JSON.stringify(val);
+                    localStorage.setItem('cartNoLog',str_val); //actualizamos datos.
+
+                    let total_showHeader=0;
+                    for(row2 in val){
+                        total_showHeader=total_showHeader+val[row2]['qty']; //nº productos en el cart.
+                    }
+                    $rootScope.totalProductsHeader= total_showHeader; //show total productos cart
+    
+                    localStorage.setItem('listTotal',total_showHeader);
+                    services_cart.calculateCart(response);
+                    $scope.showCart=response;
+                    $rootScope.noDataCart = false;
+                    $rootScope.noDataCartTotal = true;
+                    location.href="#/cart/";
+    
+                }, function(error) {
+                        console.log(error);
+                });// end_services
     }
 
 
@@ -221,8 +389,7 @@ $scope.checkout= function(){
                 response2=JSON.parse(response);
                
                 if(response2 === "CURRENT_TOKEN"){
-    
-                   //obtener el usuario sobre el que agregar el favs
+
                     services.post('login', 'decodeToken2', {"token":localStorage.token})
                     .then(function(response3) {
                             console.log(response3);
@@ -239,18 +406,15 @@ $scope.checkout= function(){
                                     console.log(error);
                             });// end_services
 
-            
                     }, function(error) {
                             console.log(error);
                     });// end_services
-    
     
                 }else if(response2 === "INVALID_TOKEN"){
                     console.log('Adios');
                     toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
                     location.href="#/login"
                 }
-                console.log(response);
     
             }, function(error) {
                 console.log(error);
@@ -258,11 +422,10 @@ $scope.checkout= function(){
     
     }else{
         // console.log("no hay usuario");
-        // toastr.error('Para realizar esta acción, tiene que activar su sesión.' ,'USUARIO');
-        // location.href="#/login"
+        toastr.info('Para realizar esta acción, tiene que activar su sesión.' ,'USUARIO');
+        location.href="#/login"
+        localStorage.setItem('checkout',"active");
     }
-
-
 }
 
 });

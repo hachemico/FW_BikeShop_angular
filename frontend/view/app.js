@@ -130,7 +130,7 @@ bikeShop.config(['$routeProvider', '$locationProvider',
 
     // https://cursoangularjs.es/doku.php?id=unidades:04_masdirectivas:11_rootscope
 
-    bikeShop.run(function($rootScope,services_logIn,services,services_cart,services_shop) {
+    bikeShop.run(function($rootScope,services_logIn,services,services_cart,services_shop,toastr) {
         
 //CONTROL LOGOOUT     
         $rootScope.logOut=function(){
@@ -157,26 +157,24 @@ bikeShop.config(['$routeProvider', '$locationProvider',
                 services.post('login', 'decodeTimeToken', {"token":localStorage.token})
                     .then(function(response) {
                         // console.log(response);
+        
                         response2=JSON.parse(response);
                        
                         if(response2 === "CURRENT_TOKEN"){
             
-                           //obtener el usuario sobre el que agregar el favs
                             services.post('login', 'decodeToken2', {"token":localStorage.token})
                             .then(function(response3) {
-                                    console.log(response3);
-            
+                                
                                     services_cart.listQtyHeader(response3);
                                
-            
                                 }, function(error) {
                                     console.log(error);
                                 });// end_services
             
-            
                         }else if(response2 === "INVALID_TOKEN"){
                             console.log('Adios');
                             toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
+                            localStorage.removeItem('token');
                             location.href="#/login"
                         }
                         // console.log(response);
@@ -185,11 +183,24 @@ bikeShop.config(['$routeProvider', '$locationProvider',
                         console.log(error);
                     });// end_services
             
-            }else{
-                $rootScope.totalProductsHeader = 0;   
+            }else{ //
+
+                if(localStorage.cartNoLog){
+
+                    let valorNoLog=localStorage.getItem('cartNoLog');
+                    let val=JSON.parse(valorNoLog);
+                    let total_prod=0;
+                    for(row in val){ //total productos cart
+                        total_prod= total_prod+val[row]['qty'];
+                    }
+                    console.log(total_prod);
+                    $rootScope.totalProductsHeader= total_prod;
+                    localStorage.setItem('listTotal',total_prod);
+
+                }else{
+                     $rootScope.totalProductsHeader = 0;   
+                }
+               
             }
-
-
-
 
       });

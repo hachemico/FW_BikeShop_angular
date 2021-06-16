@@ -9,8 +9,6 @@ bikeShop.factory("services", ['$http','$q', function ($http, $q) {
                   method: 'GET',
                   url: serviceBase + module + '&function=' + functi
               }).success(function(data, status, headers, config) {
-               //  console.log("obj.get");
-               //  console.log(data);
                  defered.resolve(data);
               }).error(function(data, status, headers, config) {
                  defered.reject(data);
@@ -25,8 +23,7 @@ bikeShop.factory("services", ['$http','$q', function ($http, $q) {
                   method: 'GET',
                   url: serviceBase + module + '&function=' + functi + '&param=' + dada
               }).success(function(data, status, headers, config) {
-               //   console.log("obj.get2");
-               //   console.log(data);
+
                  defered.resolve(data);
               }).error(function(data, status, headers, config) {
                  defered.reject(data);
@@ -43,8 +40,7 @@ bikeShop.factory("services", ['$http','$q', function ($http, $q) {
                   url: serviceBase + module + '&function=' + option,
                   data: data
               }).success(function(response, status, headers, config) {
-                // console.log("valor response> "+response);
-                // console.log("valor data> "+ data);
+
                 defered.resolve(response);
               }).error(function(error, status, headers, config) {
                  defered.reject(error);
@@ -74,7 +70,7 @@ bikeShop.factory("services", ['$http','$q', function ($http, $q) {
                 method: 'DELETE',
                 url: serviceBase + module + '&function=' + functi + '&param=' + dada
             }).success(function(data, status, headers, config) {
-               //console.log(data);
+
                defered.resolve(data);
             }).error(function(data, status, headers, config) {
                defered.reject(data);

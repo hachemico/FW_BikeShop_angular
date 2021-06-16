@@ -57,5 +57,15 @@ public function deleteFromCart_model($arrArgument){
     return $this->bll->deleteFromCart_BLL($arrArgument);
     // echo json_encode("Hola");
 }
+//FUCNTIONS NOLOG
+public function searchLineNolog_model($arrArgument){
+    return $this->bll->searchLineNolog_BLL($arrArgument);
+}
 
+public function insertLineNolog_model($arrArgument){
+    return $this->bll->insertLineNolog_BLL($arrArgument);
+}
+public function searchCartNolog_model($arrArgument){
+    return $this->bll->searchCartNolog_BLL($arrArgument);
+}
 }// end Class

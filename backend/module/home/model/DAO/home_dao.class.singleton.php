@@ -28,13 +28,13 @@ class home_dao {
 
     public function select_countCategories($db) {
         $sql = "SELECT COUNT(*) AS count FROM categoria ";
-        // $sql = "SELECT breed FROM dogs GROUP BY breed ORDER BY count(*) DESC LIMIT $arrArgument,2";
+ 
         $stmt = $db->ejecutar($sql);
         return $db->listar($stmt);
     }
 
     public function select_morecat($db,$arrArgument) {
-        // $sql = "SELECT DISTINCT name,chip,breed,sex,stature,picture,date_birth FROM dogs WHERE name LIKE '%$arrArgument%' AND state = 0";
+ 
         $sql = "SELECT * FROM categoria ORDER BY more_visited DESC LIMIT 4 OFFSET $arrArgument ";
         $stmt = $db->ejecutar($sql);
         return $db->listar($stmt);

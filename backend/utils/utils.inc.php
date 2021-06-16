@@ -1,8 +1,7 @@
 <?php
 
 function amigable($url, $return = false) {
-        // echo("entra amigable");
-        // exit();
+
         $amigableson = URL_AMIGABLES;
         $link = "";
         if ($amigableson) {
@@ -21,8 +20,7 @@ function amigable($url, $return = false) {
     }
 
     function generate_Token_secure($longitud){
-        // echo json_encode("dentro del generate");
-        // exit();
+ 
         if ($longitud < 4) {
             $longitud = 4;
         }

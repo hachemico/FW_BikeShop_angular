@@ -1,19 +1,13 @@
 <?php
 class controller_home{
-    
-    // function list(){
-	// 	common::loadView("top_page_home.php", VIEW_PATH_HOME . "home.html");
-	// }
 
 	function carousel(){
 		echo json_encode( common::loadModel(MODEL_PATH_HOME,"home_model", "carousel"));
-		// echo ("Hola");
 	} //end_carousel_function
 
 
 	function categories(){
 		echo json_encode( common::loadModel(MODEL_PATH_HOME,"home_model", "categories"));
-
 	}//end_categoria_function
 
 	function countCategories(){

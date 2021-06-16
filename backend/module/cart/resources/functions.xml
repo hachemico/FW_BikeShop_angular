@@ -32,4 +32,18 @@
         <name>controlCheckout</name>
         <uri>controlCheckout</uri>
     </function>
+<!--NOLOGFUNCTIONS -->
+    <function>
+        <name>searchLineNolog</name>
+        <uri>searchLineNolog</uri>
+    </function>
+    <function>
+        <name>searchCartNolog</name>
+        <uri>searchCartNolog</uri>
+    </function>
+    <function>
+        <name>CheckoutNolog</name>
+        <uri>CheckoutNolog</uri>
+    </function>
+    
 </functions>

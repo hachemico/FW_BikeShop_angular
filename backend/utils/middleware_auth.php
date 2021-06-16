@@ -11,19 +11,14 @@ class middleware_auth{
             $header = '{"typ":"JWT", "alg":"HS256"}';
             $secret = 'lapalmerasedoblaperoaguantaelhuracan';
             $iat = time();
-            $exp = time()+(60);
-            // $exp = time()+(60*60);
+            // $exp = time()+(60);
+            $exp = time()+(60*60);
             /////////////////////////// hachemico ////////////////////////////////////////
             //iat: Tiempo que inició el token
             //exp: Tiempo que expirará el token (+1 hora)
             //name: info user
            
-            $payload = "{
-                'iat':'$iat', 
-                'exp':'$exp',
-                'id':'$user_id'
-            }";
-        
+            $payload = "{'iat':$iat,'exp':$exp,'id':'$user_id'}";
             $JWT = new JWT;
             $token = $JWT->encode($header, $payload, $secret);
             // echo 'JWT encode usuario: >>> '.$token."\n\n"; echo '<br>';

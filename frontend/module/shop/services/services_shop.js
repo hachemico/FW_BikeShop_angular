@@ -51,8 +51,9 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
 
                     }else if(response2 === "INVALID_TOKEN"){
                         console.log('Adios');
-                        toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
-                        location.href="#/login"
+                            toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
+                            localStorage.removeItem('token');
+                            location.href="#/login"
                     }
                     console.log(response);
 
@@ -116,10 +117,10 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
                         toastr.info('Lo sentimos pero no puede añadir más unidades.' ,'Total Productos');
                     }else{
                         toastr.success('1 Producto añadido.' ,'Carrito');
-                        $total=response[0]['SUM(qty)'];
-                        console.log($total);
-                        $rootScope.totalProductsHeader= $total;
-                        localStorage.setItem('listTotal',$total);
+                        let total=response[0]['SUM(qty)'];
+                        console.log(total);
+                        $rootScope.totalProductsHeader= total;
+                        localStorage.setItem('listTotal',total);
                     }
                     
                 }, function(error) {
@@ -130,17 +131,49 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
             }, function(error) {
                         console.log(error);
             });// end_services
-            // console.log("AAAs");
+
             
         }else{
 
-            //// AÑADIR CONTROL USER NO/LOGGED LOCALSTORAGE.
+           //CART NO USER LOGIN
+            if(localStorage.cartNoLog){ //existen productos en cart
+                
+                let valorNoLog=localStorage.getItem('cartNoLog');
+                let val=JSON.parse(valorNoLog);
+                let existe=false;
+                
+                for(row in val){ //añadir productos al cart
+                    if(val[row]['id'] == id){
+                        val[row]['qty'] = (val[row]['qty']+1);
+                        toastr.success('1 Producto añadido.' ,'Carrito');
+                        existe = true;
+                    }
+                }
+                if(existe == false){
+                    val.push({'id':id,'qty':1});
+                }
 
-            console.log("no hay usuario");
-            toastr.error('Para realizar esta acción, tiene que activar su sesión.' ,'USUARIO');
-            location.href="#/login"
+                let total_prod=0;
+                for(row in val){ //total productos cart
+                    total_prod= total_prod+val[row]['qty'];
+                }
+                console.log(total_prod);
+                $rootScope.totalProductsHeader= total_prod;
+                localStorage.setItem('listTotal',total_prod);
+
+                let valString=JSON.stringify(val);
+                localStorage.setItem('cartNoLog',valString)
+                console.log(val);
+               
+            }else{ // añadir productos con cart vacio
+              
+                let val = new Array();
+                val.push({'id':id,'qty':1});
+                let valString=JSON.stringify(val);
+                localStorage.setItem('cartNoLog',valString)
+                console.log(val);
+            }
         }
-
     };
 
     function search(){
@@ -184,8 +217,9 @@ bikeShop.factory('services_shop', ['services','toastr','$rootScope',  function( 
         
                     }else if(response2 === "INVALID_TOKEN"){
                         console.log('Adios');
-                        toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
-                        location.href="#/login"
+                            toastr.error('Usuario desconectado por Seguridad. Vuelva a iniciar sesion' ,'USUARIO INVALIDO');
+                            localStorage.removeItem('token');
+                            location.href="#/login"
                     }
                     console.log(response);
         

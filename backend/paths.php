@@ -1,7 +1,5 @@
 <?php
 //////
-// define ('PROJECT', '/FW_BikeShop/'); // Project Path
-// define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT'] . PROJECT); // Site Root
 
 define ('PROJECT', '/FW_BikeShop_angular/backend/'); // Project Path
 
@@ -65,13 +63,5 @@ define ('MODEL_PATH_CART', SITE_ROOT . '/module/cart/model/model/');
 define('DAO_CART', SITE_ROOT . 'module/cart/model/DAO/');
 define('BLL_CART', SITE_ROOT . 'module/cart/model/BLL/');
 
-// //Profile
-// define('VIEW_PATH_PROFILE', SITE_ROOT . 'module/profile/view/');
-// define ('MODEL_PATH_PROFILE', SITE_ROOT . '/module/profile/model/model/');
-
 //Friendly
 define('URL_AMIGABLES', TRUE);
-
-// if ($_GET['op'] == 'get') {
-//     echo json_encode(URL_FRIENDLY);
-// }
